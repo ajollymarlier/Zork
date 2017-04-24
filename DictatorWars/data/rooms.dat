@@ -1,9 +1,15 @@
-Room Name: Room 1
-Room Description:  This is room<br>1
-Exit Rooms: E-Room 2
-Room Name: Room 2
-Room Description:  This is Room 2
-Exit Rooms: W-Room 1, U-Room 3
-Room Name: Room 3
-Room Description:  You are upstairs.
-Exit Rooms: D-Room 2 
+Room Name: Ship Room
+Room Description:  This is the <br>Ship Room
+Exit Rooms: N-Upper Cliff
+Room Name: Upper Cliff
+Room Description:  This is the Upper Cliff
+Exit Rooms: W-Village, E-River Basin, S-Ship Room
+Room Name: Village
+Room Description:  You are in the village
+Exit Rooms: E-Upper Cliff
+Room Name: River Basin
+Room Description:  You are in the River Basin
+Exit Rooms: E-Cliff Plateau, W-Upper Cliff
+Room Name: Cliff Plateau
+Room Description:  You are in the plateau
+Exit Rooms: W-River Basin
