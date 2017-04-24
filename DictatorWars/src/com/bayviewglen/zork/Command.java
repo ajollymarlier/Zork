@@ -29,6 +29,7 @@ class Command
     
     
     // this is a test
+    // and another
 
     /**
      * Create a command object. First and second word must be supplied, but
