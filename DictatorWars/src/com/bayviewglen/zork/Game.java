@@ -49,9 +49,9 @@ class Game
 				String roomDescription = roomScanner.nextLine();
 				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n").trim());
 				//Read items in room currently only TODO make sure to make an item class right now just Objects 
-				String [] roomItems = roomScanner.nextLine().trim().split(":")[1].split(","); //TODO 
+				String [] roomItems = roomScanner.nextLine().trim().split(":")[1].split(",");  
 				for (String s : roomItems)
-					room.addRoomItems(s);
+					room.addRoomItems(s.trim());
 				// Read the Exits
 				String roomExits = roomScanner.nextLine();
 				// An array of strings in the format E-RoomName
@@ -175,7 +175,6 @@ class Game
         }else if (commandWord.equals("check")){
         	System.out.print("The items in the room are: ");
         	//TODO make it so it is not just object, once Item class is made cast as Item. Is object now because is a string
-        	//TODO also make is so last item does not print out a comma
         	for (int i = 0; i < currentRoom.getRoomItems().size(); i++){
         		if (i != currentRoom.getRoomItems().size()-1)
         			System.out.print(currentRoom.getRoomItems().get(i) + ", ");
@@ -183,7 +182,19 @@ class Game
         			System.out.print(currentRoom.getRoomItems().get(i));
         }
         	System.out.println();
+        	//TODO right now is case sensitive, consider adding way to make it non case sensitive
+        	//TODO also minor changes once an inventory is created to allow the item to be removed from the room and added to the inventory 
+        } else if(commandWord.equals("grab")){
+        	if (!command.hasSecondWord())
+        		System.out.println("What do you want to grab?");
+        	else if (!currentRoom.getRoomItems().contains(command.getSecondWord()))
+        		System.out.println("That item is not in the room");
+        	else {
+        		currentRoom.getRoomItems().remove(currentRoom.getRoomItems().indexOf(command.getSecondWord()));
+        		System.out.println("You obtianed: " + command.getSecondWord());
+        	}
         }
+        	
         return false;
     }
 
