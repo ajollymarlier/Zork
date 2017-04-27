@@ -48,6 +48,10 @@ class Game
 				// Read the Description
 				String roomDescription = roomScanner.nextLine();
 				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n").trim());
+				//Read items in room currently only TODO make sure to make an item class right now just Objects 
+				String [] roomItems = roomScanner.nextLine().trim().split(":")[1].split(","); //TODO 
+				for (String s : roomItems)
+					room.addRoomItems(s);
 				// Read the Exits
 				String roomExits = roomScanner.nextLine();
 				// An array of strings in the format E-RoomName
@@ -163,6 +167,22 @@ class Game
                 return true;  // signal that we want to quit
         }else if (commandWord.equals("eat")){
         	System.out.println("Do you really think you should be eating at a time like this?");
+        }else if (commandWord.equals("break")){
+        	if (!command.hasSecondWord())
+        	System.out.println("What do you want to break");
+        	else 
+        		System.out.println("The break command don't work yet");
+        }else if (commandWord.equals("check")){
+        	System.out.print("The items in the room are: ");
+        	//TODO make it so it is not just object, once Item class is made cast as Item. Is object now because is a string
+        	//TODO also make is so last item does not print out a comma
+        	for (int i = 0; i < currentRoom.getRoomItems().size(); i++){
+        		if (i != currentRoom.getRoomItems().size()-1)
+        			System.out.print(currentRoom.getRoomItems().get(i) + ", ");
+        		else 
+        			System.out.print(currentRoom.getRoomItems().get(i));
+        }
+        	System.out.println();
         }
         return false;
     }

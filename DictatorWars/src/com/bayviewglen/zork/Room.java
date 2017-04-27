@@ -15,13 +15,16 @@ package com.bayviewglen.zork;
  */
 
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Objects;
 
 class Room  
 {
 	private String roomName;
     private String description;
+    private ArrayList<String> items = new ArrayList<String>();
     private HashMap<String, Room> exits;        // stores exits of this room.
 
     /**
@@ -134,5 +137,15 @@ class Room
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+	//TODO make sure to make Items classs instead of just having them be generic Objects
+	public void addRoomItems(String item){
+		this.items.add(item);
+	}
+	public void setRoomItems(ArrayList<String> items){
+		this.items = items;
+	}
+	public ArrayList<String> getRoomItems(){
+		return items;
 	}
 }

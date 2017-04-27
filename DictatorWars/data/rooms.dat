@@ -1,15 +1,20 @@
 Room Name: Ship Room
 Room Description:  This is the <br>Ship Room
+Room Items: Chest,Stick
 Exit Rooms: N-Upper Cliff
 Room Name: Upper Cliff
 Room Description:  This is the Upper Cliff
+Room Items: Chest
 Exit Rooms: W-Village, E-River Basin, S-Ship Room
 Room Name: Village
 Room Description:  You are in the village
+Room Items: Sword
 Exit Rooms: E-Upper Cliff
 Room Name: River Basin
 Room Description:  You are in the River Basin
+Room Items: Food,Sword
 Exit Rooms: E-Cliff Plateau, W-Upper Cliff
 Room Name: Cliff Plateau
 Room Description:  You are in the plateau
+Room Items: Shoe
 Exit Rooms: W-River Basin
