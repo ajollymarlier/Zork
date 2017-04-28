@@ -4,7 +4,7 @@ public abstract class Character {
 	private int healthPoints;
 	private int speed;
 	private int strength;
-
+	// hi
 
 	public Character(int healthPoints, int speed, int strength){
 		this.healthPoints = healthPoints;
