@@ -6,8 +6,8 @@ public interface Lockable {
 	//this interface is used on things that are or can be locked
 	//for example doors, chests etc
 	
-	//checks if object is locked
-	public boolean isLocked();
+	//checks if object is locked.
+	public boolean isLocked(); 
 	
 	//lock and unlock, returns true if successful
 	public boolean unlock();
