@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Version: 1.1
  * Date:    March 2000
  * 
- *  This class is the main class of the "Zork" application. Zork is a very
+ *  This class is the main class of the "Zork" application. Zork is a very 
  *  simple, text based adventure game.  Users can walk around some scenery.
  *  That's all. It should really be extended to make it more interesting!
  * 
