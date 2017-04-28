@@ -70,7 +70,7 @@ class Parser
         else
             word2 = null;
 
-        // note: we just ignore the rest of the input line.
+        // note: we just ignore the rest of the input line. 
 
         // Now check whether this word is known. If so, create a command
         // with it. If not, create a "nil" command (for unknown command).

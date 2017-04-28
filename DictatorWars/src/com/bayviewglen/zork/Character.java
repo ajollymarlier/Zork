@@ -4,7 +4,7 @@ public abstract class Character {
 	private int healthPoints;
 	private int speed;
 	private int strength;
-	// hi
+	// hi aliqyan github is going to end me
 
 	public Character(int healthPoints, int speed, int strength){
 		this.healthPoints = healthPoints;
