@@ -1,7 +1,7 @@
 package com.bayviewglen.zork;
 /**
  * Class Command - Part of the "Zork" game.
- * 
+ * mememee
  * author:  Michael Kolling 
  * version: 1.0
  * date:    July 1999
