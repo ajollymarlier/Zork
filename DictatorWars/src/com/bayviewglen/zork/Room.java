@@ -25,6 +25,7 @@ class Room
 	private String roomName;
     private String description;
     private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private HashMap<String, Room> exits;        // stores exits of this room.
 
     /**
@@ -148,4 +149,15 @@ class Room
 	public ArrayList<String> getRoomItems(){
 		return items;
 	}
+	
+	//Add enemies to a room
+	public void addRoomEnemy(Enemy enemy){
+		enemies.add(enemy);
+	}
+	
+	public ArrayList<Enemy> getRoomEnemies(){
+		return enemies;
+	}
+	
+	
 }

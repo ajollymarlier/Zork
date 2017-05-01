@@ -4,7 +4,6 @@ public abstract class Character {
 	private int healthPoints;
 	private int speed;
 	private int strength;
-	// hi aliqyan github is going to end me
 
 	public Character(int healthPoints, int speed, int strength){
 		this.healthPoints = healthPoints;
@@ -12,7 +11,7 @@ public abstract class Character {
 		this.strength = strength;
 	}
 
-
+	
 	public int getHealthPoints() {
 		return healthPoints;
 	}
