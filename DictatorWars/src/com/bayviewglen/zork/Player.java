@@ -18,7 +18,6 @@ public class Player extends Character {
 		
 		if (weightCarried <= MAX_WEIGHT){
 			inventory.add(item);
-			//remove item
 		}else{
 			weightCarried -= item.getWeight();
 			room.addRoomItems(item);
