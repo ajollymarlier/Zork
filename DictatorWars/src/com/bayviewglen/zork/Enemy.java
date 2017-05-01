@@ -1,15 +1,21 @@
 package com.bayviewglen.zork;
 
 public abstract class Enemy extends Character{
-	// add boolean in range
 	private String name;
-	public Enemy(int healthPoints, int speed, int strength, String name) {
+	private boolean inRange;
+	
+	public Enemy(int healthPoints, int speed, int strength, String name, boolean inRange) {
 		super(healthPoints, speed, strength);
 		this.name = name;
-		// TODO Auto-generated constructor stub
+		this.inRange = inRange;
 	}
-	public String toString(){
+	
+	public String getName(){
 		return name;
+	}
+
+	public boolean getInRange() {
+		return inRange;
 	}
 	
 
