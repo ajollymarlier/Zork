@@ -3,7 +3,8 @@ package com.bayviewglen.zork;
 import java.util.ArrayList;
 
 public class Player extends Character {
-	ArrayList<Item> inventory = new ArrayList<Item>();
+	private ArrayList<Item> inventory = new ArrayList<Item>();
+	private int maxWeight = 0;
 	
 	
 	public Player(int healthPoints, int speed, int strength) {
@@ -13,6 +14,8 @@ public class Player extends Character {
 	public void pickUp(Item item){
 		inventory.add(item);
 		//take item removed from room and adds to inventory
+		maxWeight += item.weight;
+		//need to assign 
 	}
 	
 
