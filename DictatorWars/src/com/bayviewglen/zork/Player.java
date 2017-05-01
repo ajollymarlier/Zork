@@ -12,7 +12,7 @@ public class Player extends Character {
 		super(healthPoints, speed, strength);
 	}
 	
-	public void pickUp(Item item){
+	public void pickUp(Item item, Room room){
 		weightCarried += item.getWeight();
 		
 		if (weightCarried <= MAX_WEIGHT){
@@ -20,9 +20,8 @@ public class Player extends Character {
 			//remove item
 		}else{
 			weightCarried -= item.getWeight();
-		}
-		
-		
+			room.addRoomItems(item);
+		}	
 	}
 	
 
