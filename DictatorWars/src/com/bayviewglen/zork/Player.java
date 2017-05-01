@@ -21,9 +21,25 @@ public class Player extends Character {
 			//remove item
 		}else{
 			weightCarried -= item.getWeight();
-			//room.addRoomItems(item);
+			room.addRoomItems(item);
 			//will work when parameters in game class are fixed
 		}	
+	}
+	
+	//TODO this sort of works... Theoretically
+	public void drop(Item item, Room room){
+		weightCarried -= item.getWeight();
+		room.addRoomItems(findItem(item));
+	}
+
+	//TODO this too
+	private Item findItem(Item item) {
+		for(int i = 0; i < inventory.size(); i++){
+			if (inventory.get(i).equals(item)){
+				return inventory.remove(i);
+			}
+		}
+		return null;
 	}
 	
 	
