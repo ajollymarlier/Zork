@@ -6,6 +6,7 @@ public class Player extends Character {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 	private int weightCarried = 0;
 	private final int MAX_WEIGHT = (int) Math.sqrt((getStrength() * 4));
+	//test
 	//TODO This max weight will be changed to a variable based on character attributes
 	
 	
