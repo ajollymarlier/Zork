@@ -54,7 +54,7 @@ class Game {
 				String [] roomItemsString = s1.trim().split(":")[1].split(",");
 				Item [] roomItems = new Item[roomItemsString.length];
 				for (int i  =0;i< roomItems.length;i++){
-					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0] ), roomItemsString[i].trim().split("-")[1]);
+					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0]), roomItemsString[i].trim().split("-")[1]);
 				}
 				for (Item i : roomItems)
 					room.addRoomItems(i);
