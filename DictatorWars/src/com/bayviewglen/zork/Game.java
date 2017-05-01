@@ -57,6 +57,7 @@ class Game {
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
 				for (String s : enemies) {
+					//TODO this doesnt work right now because of the added boolean parameter in the enemy constructor
 					String currentEnemyType = enemies[counter].trim();
 					if(currentEnemyType.equals("Grunt"))
 						room.addRoomEnemy(new Grunt(1, 0, 0, "Grunt"));
