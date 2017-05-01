@@ -58,13 +58,14 @@ class Game {
 				int counter = 0;
 				for (String s : enemies) {
 					//TODO this doesnt work right now because of the added boolean parameter in the enemy constructor
-					String currentEnemyType = enemies[counter].trim();
+					String currentEnemyType = enemies[counter].trim().split("-")[0];
+					String inRange = enemies[counter].trim().split("-")[1];
 					if(currentEnemyType.equals("Grunt"))
-						room.addRoomEnemy(new Grunt(1, 0, 0, "Grunt"));
+						room.addRoomEnemy(new Grunt(1, 0, 0, "Grunt", inRange.equals("C")));
 					else if(currentEnemyType.equals("MiniBoss"))
-						room.addRoomEnemy(new MiniBoss(1, 0, 0, "MiniBoss"));
+						room.addRoomEnemy(new MiniBoss(1, 0, 0, "MiniBoss",inRange.equals("C")));
 					else if (currentEnemyType.equals("Boss"))
-						room.addRoomEnemy(new Boss(1, 0, 0, "Boss"));
+						room.addRoomEnemy(new Boss(1, 0, 0, "Boss", inRange.equals("C")));
 					counter++;
 				}
 				
@@ -192,10 +193,12 @@ class Game {
 			// print out the enemies in the room
 			System.out.print("The enemies in the room are: ");
 			for (int i = 0; i < currentRoom.getRoomEnemies().size(); i++) {
+				String message = "not ";
+				if(currentRoom.getRoomEnemies().get(i).getInRange()) message = "";
 				if (i != currentRoom.getRoomEnemies().size() - 1){
-					System.out.print(currentRoom.getRoomEnemies().get(i) + ", ");
+					System.out.print(currentRoom.getRoomEnemies().get(i) + " is " + message + "in range, ");
 				}else{
-					System.out.print(currentRoom.getRoomEnemies().get(i));
+					System.out.print(currentRoom.getRoomEnemies().get(i) + " is " + message + "in range.");
 				}
 			}
 			System.out.println();

@@ -10,7 +10,7 @@ public abstract class Enemy extends Character{
 		this.inRange = inRange;
 	}
 	
-	public String getName(){
+	public String toString(){
 		return name;
 	}
 
