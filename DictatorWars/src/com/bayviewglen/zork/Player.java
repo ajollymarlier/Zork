@@ -5,7 +5,8 @@ import java.util.ArrayList;
 public class Player extends Character {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
 	private int weightCarried = 0;
-	private final int MAX_WEIGHT = 50;
+	private final int MAX_WEIGHT = (int) Math.sqrt((getStrength() * 4));
+	//TODO This max weight will be changed to a variable based on character attributes
 	
 	
 	public Player(int healthPoints, int speed, int strength) {
@@ -20,9 +21,12 @@ public class Player extends Character {
 			//remove item
 		}else{
 			weightCarried -= item.getWeight();
-			room.addRoomItems(item);
+			//room.addRoomItems(item);
+			//will work when parameters in game class are fixed
 		}	
 	}
+	
+	
 	
 
 	
