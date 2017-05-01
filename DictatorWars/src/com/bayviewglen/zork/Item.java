@@ -1,6 +1,6 @@
 package com.bayviewglen.zork;
 
-public abstract class Item {
+public  class Item {
 	private int weight;
 	private String name;
 	

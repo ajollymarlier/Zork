@@ -32,6 +32,8 @@ class Game {
 	// masterRoomMap.get("GREAT_ROOM") will return the Room Object that is the
 	// Great Room (assuming you have one).
 	private HashMap<String, Room> masterRoomMap;
+	//initalizes the main character TODO change to modifiy for races and stuff, default stats
+	Player player  = new Player(100,100,100);
 
 	private void initRooms(String fileName) throws Exception {
 		masterRoomMap = new HashMap<String, Room>();
@@ -47,12 +49,15 @@ class Game {
 				// Read the Description
 				String roomDescription = roomScanner.nextLine();
 				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n").trim());
-				// Read items in room currently only TODO make sure to make an
-				// item class right now just Objects
-				String[] roomItems = roomScanner.nextLine().trim().split(":")[1].split(",");
-				for (String s : roomItems) {
-					room.addRoomItems(s.trim());
+				//Stores in string array of each than parses after
+				String s1 = roomScanner.nextLine();
+				String [] roomItemsString = s1.trim().split(":")[1].split(",");
+				Item [] roomItems = new Item[roomItemsString.length];
+				for (int i  =0;i< roomItems.length;i++){
+					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0] ), roomItemsString[i].trim().split("-")[1]);
 				}
+				for (Item i : roomItems)
+					room.addRoomItems(i);
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
@@ -180,13 +185,11 @@ class Game {
 				System.out.println("The break command don't work yet");
 		} else if (commandWord.equals("check")) {
 			System.out.print("The items in the room are: ");
-			// TODO make it so it is not just object, once Item class is made
-			// cast as Item. Is object now because is a string
 			for (int i = 0; i < currentRoom.getRoomItems().size(); i++) {
 				if (i != currentRoom.getRoomItems().size() - 1)
-					System.out.print(currentRoom.getRoomItems().get(i) + ", ");
+					System.out.print(currentRoom.getRoomItems().get(i).getName() + ", ");
 				else
-					System.out.print(currentRoom.getRoomItems().get(i));
+					System.out.print(currentRoom.getRoomItems().get(i).getName());
 			}
 			System.out.println();
 
@@ -209,10 +212,10 @@ class Game {
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
-			else if (!currentRoom.getRoomItems().contains(command.getSecondWord()))
+			else if (currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord()) ==-1)
 				System.out.println("That item is not in the room");
 			else {
-				currentRoom.getRoomItems().remove(currentRoom.getRoomItems().indexOf(command.getSecondWord()));
+				player.pickUp(currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord())), currentRoom);
 				System.out.println("You obtianed: " + command.getSecondWord());
 			}
 		}

@@ -24,7 +24,7 @@ class Room
 {
 	private String roomName;
     private String description;
-    private ArrayList<String> items = new ArrayList<String>();
+    private ArrayList<Item> items = new ArrayList<Item>();
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private HashMap<String, Room> exits;        // stores exits of this room.
 
@@ -140,15 +140,22 @@ class Room
 		this.description = description;
 	}
 	//TODO make sure to make Items classs instead of just having them be generic Objects
-	public void addRoomItems(String item){
-		this.items.add(item);
-	}
-	public void setRoomItems(ArrayList<String> items){
-		this.items = items;
-	}
-	public ArrayList<String> getRoomItems(){
-		return items;
-	}
+		public void addRoomItems(Item item){
+			this.items.add(item);
+		}
+		public void setRoomItems(ArrayList<Item> items){
+			this.items = items;
+		}
+		public ArrayList<Item> getRoomItems(){
+			return items;
+		}
+		//returns index of where name is
+		public int getRoomItemNameIndex(ArrayList<Item> items, String name){
+			for (int i = 0; i < items.size(); i++)
+				if (items.get(i).getName().equals(name))
+					return i;
+			return -1;
+		}
 	
 	//Add enemies to a room
 	public void addRoomEnemy(Enemy enemy){
