@@ -10,7 +10,7 @@ public class Melee extends Weapon{
 		if(enemy.getInRange()){
 			super.attack(enemy, player, weapon);
 		}else{
-			System.out.println(enemy.getName() + " is out of range");
+			System.out.println(enemy + " is out of range");
 		}
 	}
 	
