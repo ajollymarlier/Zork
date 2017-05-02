@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
+	private ArrayList<Ammo> ammo = new ArrayList<Ammo>();
 	private int weightCarried = 0;
+	
 	//can change max weight, just sorta default TODO
 	private final int MAX_WEIGHT = super.getStrength() * 10; 
 	//test
@@ -17,6 +19,8 @@ public class Player extends Character {
 	
 	public boolean pickUp(Item item, Room room){
 		weightCarried += item.getWeight();
+		
+		if(weightCarried <= MAX_WEIGHT && item instanceOf )
 		
 		if (weightCarried <= MAX_WEIGHT){
 			inventory.add(item);
