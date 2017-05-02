@@ -1,5 +1,9 @@
 package com.bayviewglen.zork;
 
-public class ConsumableItem {
-
+public class ConsumableItem extends Item{
+	
+	public ConsumableItem(int weight, String name){
+		super(weight, name);
+	}
+	
 }
