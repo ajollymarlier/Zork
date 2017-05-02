@@ -215,8 +215,11 @@ class Game {
 			else if (currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord()) ==-1)
 				System.out.println("That item is not in the room");
 			else {
-				player.pickUp(currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord())), currentRoom);
-				System.out.println("You obtianed: " + command.getSecondWord());
+				boolean works = player.pickUp(currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord())), currentRoom);
+				if(works)
+					System.out.println("You obtianed: " + command.getSecondWord());
+				else 
+					System.out.println("You are already carrying too much");
 			}
 		}
 

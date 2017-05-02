@@ -26,6 +26,7 @@ class Command
 {
     private String commandWord;
     private String secondWord;
+    private String thirdWord;
     
     
     // this is a test
@@ -40,6 +41,13 @@ class Command
     {
         commandWord = firstWord;
         this.secondWord = secondWord;
+    }
+    
+    public Command(String firstWord, String secondWord, String thirdWord)
+    {
+        commandWord = firstWord;
+        this.secondWord = secondWord;
+        this.thirdWord = thirdWord;
     }
 
     /**
@@ -59,6 +67,9 @@ class Command
     {
         return secondWord;
     }
+    public String getThirdWord(){
+    	return thirdWord;
+    }
 
     /**
      * Return true if this command was not understood.
@@ -74,5 +85,8 @@ class Command
     public boolean hasSecondWord()
     {
         return (secondWord != null);
+    }
+    public boolean hasThirdWord(){
+    	return (thirdWord != null);
     }
 }
