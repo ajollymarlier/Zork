@@ -9,8 +9,7 @@ public class Player extends Character {
 
 	// can change max weight, just sorta default TODO
 	private final int MAX_WEIGHT = super.getStrength() * 10;
-	
-	// TODO This max weight will be changed to a variable based on character attributes
+
 
 	public Player(int healthPoints, int speed, int strength) {
 		super(healthPoints, speed, strength);
