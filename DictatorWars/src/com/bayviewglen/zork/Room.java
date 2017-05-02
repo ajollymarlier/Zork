@@ -150,7 +150,7 @@ class Room
 			return items;
 		}
 		//returns index of where name is
-		public int getRoomItemNameIndex(ArrayList<Item> items, String name){
+		public int getRoomItemNameIndex(String name){
 			for (int i = 0; i < items.size(); i++)
 				if (items.get(i).getName().equals(name))
 					return i;
@@ -165,6 +165,18 @@ class Room
 	public ArrayList<Enemy> getRoomEnemies(){
 		return enemies;
 	}
+	public int getEnemyIndex( String name){
+		for (int i = 0; i < enemies.size(); i++){
+
+			if (enemies.get(i).getName().equals(name)){
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	
+	
 	
 	
 }

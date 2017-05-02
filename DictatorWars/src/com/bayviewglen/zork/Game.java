@@ -212,15 +212,18 @@ class Game {
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
-			else if (currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord()) ==-1)
+			else if (currentRoom.getRoomItemNameIndex(command.getSecondWord()) ==-1)
 				System.out.println("That item is not in the room");
 			else {
-				boolean works = player.pickUp(currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(currentRoom.getRoomItems(), command.getSecondWord())), currentRoom);
+				boolean works = player.pickUp(currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(command.getSecondWord())), currentRoom);
 				if(works)
 					System.out.println("You obtianed: " + command.getSecondWord());
 				else 
 					System.out.println("You are already carrying too much");
 			}
+		} else if (commandWord.equals("attack")){
+			processAttack(command);
+			
 		}
 
 		return false;
@@ -261,7 +264,62 @@ class Game {
 		else {
 			currentRoom = nextRoom;
 			System.out.println(currentRoom.longDescription());
+			//after walking into a new room enemies show up
+			showEnemies();
 		}
 	}
+	
+	//show enemies in the room, starting with the first enemy
+	private void showEnemies(){
+		for(int i = 0; i < currentRoom.getRoomEnemies().size(); i++){
+			Enemy currentEnemy = currentRoom.getRoomEnemies().get(i);
+			
+			System.out.println();
+			boolean inRange = currentEnemy.getInRange();
+			if(inRange){
+				System.out.println("A Grunt has appeared!");
+			}else{
+				System.out.println("A Grunt is at the other side of the room!");
+			}
+			System.out.println("You are now engaged in battle!");
+		}
+	}
+	
+	private void processAttack(Command command){
+		Enemy currentEnemy = currentRoom.getRoomEnemies().get(0);
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to attack?");
+		else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1)
+			System.out.println("That enemy is not in the room");
+			
+		else if (!command.hasThirdWord())
+			System.out.println("What do you want to hit them with?");
+		else if(player.getInventoryIndex(command.getThirdWord()) ==-1){
+			System.out.println("You do not have that!");
+		}else{
+			if(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Weapon ){
+				Weapon currentWeapon = (Weapon) (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+				if(currentEnemy.getInRange()){
+					//process melee atack
+					if(currentWeapon instanceof Melee){
+						player.attackMelee(currentRoom.getRoomEnemies().get(0), (Melee)currentWeapon);
+						System.out.println("You have attacked");
+					}
+				}else{
+					//process ranged attack
+					if(currentWeapon instanceof Ranged){
+						player.attackRanged(currentRoom.getRoomEnemies().get(0), (Ranged)currentWeapon);
+					}else if(currentWeapon instanceof Melee){
+						System.out.println("Enemy is out of range for a Melee Weapon");
+					}
+				}
+					//TODO add Enemies responses and loop this action
+				
+			}else{
+				System.out.println("You can not attack with that");
+			}
+		}
+	}
+
 
 }

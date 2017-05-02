@@ -6,12 +6,13 @@ public class Melee extends Weapon{
 		super(weight, name, damage);
 	}
 	
-	public void attack(Enemy enemy, Player player, Weapon weapon){
+	/*public void attack(Enemy enemy, Player player, Weapon weapon){
 		if(enemy.getInRange()){
 			super.attack(enemy, player, weapon);
 		}else{
 			System.out.println(enemy + " is out of range");
 		}
 	}
+	*/
 	
 }

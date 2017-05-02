@@ -8,7 +8,8 @@ public class Ranged extends Weapon{
 		this.ammo = ammo;
 	}
 	
-	// attacks enemy regardless of range boolean but has ammo
+	// attcks enemy regardless of range boolean but has ammo
+	/*
 	public void attack(Enemy enemy, Player player, Weapon weapon){
 		if (ammo <= 0){
 			super.attack(enemy, player, weapon);;
@@ -16,5 +17,5 @@ public class Ranged extends Weapon{
 			System.out.println(weapon.getName() + " is out of ammo");
 		}
 	}
-	
+	*/
 }

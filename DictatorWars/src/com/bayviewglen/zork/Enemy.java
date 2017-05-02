@@ -22,6 +22,10 @@ public abstract class Enemy extends Character{
 	public boolean getInRange() {
 		return inRange;
 	}
+	public String getName(){
+		return name;
+	}
+	
 	
 
 }
