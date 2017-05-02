@@ -11,7 +11,7 @@ public class Weapon extends Item{
 	}
 	
 	public void attack(Enemy enemy, Player player, Weapon weapon){
-		enemy.setHealthPoints(enemy.getHealthPoints() - weapon.getDamage());
+		enemy.setDamage(weapon.getDamage());
 	}
 
 	public int getDamage() {

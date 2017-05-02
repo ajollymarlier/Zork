@@ -25,7 +25,6 @@ public abstract class Character {
 	public boolean setDamage(int hitPoint) {
 		healthPoints -= hitPoint;
 		return healthPoints <= 0;
-
 	}
 
 	public int getSpeed() {

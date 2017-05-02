@@ -10,10 +10,15 @@ public abstract class Enemy extends Character{
 		this.inRange = inRange;
 	}
 	
+	public void attack(Player player, int strength){
+			player.setDamage(strength);
+	}
+	
+	
 	public String toString(){
 		return name;
 	}
-
+	
 	public boolean getInRange() {
 		return inRange;
 	}
