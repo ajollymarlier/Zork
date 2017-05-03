@@ -1,12 +1,11 @@
 package com.bayviewglen.zork;
 
 public class Ranged extends Weapon{
-	private int ammo;
 	
-	public Ranged(int weight, String name, int damage, int ammo){
+	public Ranged(int weight, String name, int damage){
 		super(weight, name, damage);
-		this.ammo = ammo;
 	}
+	
 	
 	// attcks enemy regardless of range boolean but has ammo
 	/*

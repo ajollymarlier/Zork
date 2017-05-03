@@ -9,14 +9,11 @@ public class Weapon extends Item{
 		this.damage = damage;
 		
 	}
-	
-	public void attack(Enemy enemy, Player player, Weapon weapon){
-		enemy.setDamage(weapon.getDamage());
-	}
 
 	public int getDamage() {
 		return damage;
 	}
+	
 
 	
 }

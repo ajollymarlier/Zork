@@ -297,10 +297,14 @@ class Game {
 		else if(player.getInventoryIndex(command.getThirdWord()) ==-1){
 			System.out.println("You do not have that!");
 		}else{
-			if(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Weapon ){
-				Weapon currentWeapon = (Weapon) (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+			
+			if(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Melee ){
+				Melee currentWeapon = (Melee) (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+				player.attack(currentEnemy, currentWeapon);
+				
+				/*
 				if(currentEnemy.getInRange()){
-					//process melee atack
+					//process melee attack
 					if(currentWeapon instanceof Melee){
 						player.attackMelee(currentRoom.getRoomEnemies().get(0), (Melee)currentWeapon);
 						System.out.println("You have attacked");
@@ -314,7 +318,11 @@ class Game {
 					}
 				}
 					//TODO add Enemies responses and loop this action
-				
+				*/
+			}else if (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Ranged ){
+				Ranged currentWeapon = (Ranged)(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+				player.attack(currentEnemy, currentWeapon);
+						
 			}else{
 				System.out.println("You can not attack with that");
 			}
