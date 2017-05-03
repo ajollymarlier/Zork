@@ -21,5 +21,6 @@ public class Ammo extends Item{
 	public Ranged getType(){
 		return type;
 	}
+	
 	 
 }

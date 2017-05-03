@@ -1,20 +1,20 @@
 package com.bayviewglen.zork;
 
-public class Ranged extends Weapon{
-	
-	public Ranged(int weight, String name, int damage){
+public class Ranged extends Weapon {
+
+	public Ranged(int weight, String name, int damage) {
 		super(weight, name, damage);
 	}
-	
-	
-	// attcks enemy regardless of range boolean but has ammo
-	/*
-	public void attack(Enemy enemy, Player player, Weapon weapon){
-		if (ammo <= 0){
-			super.attack(enemy, player, weapon);;
-		}else{
-			System.out.println(weapon.getName() + " is out of ammo");
-		}
+
+	public boolean equals(Ammo ammo) {
+		//Checks the String of the ammo type and sees if it equals the String of weapon name
+		if (ammo.getType().getName().equals(super.getName()))
+			return true;
+
+		return false;
 	}
-	*/
+
+	public String getName() {
+		return super.getName();
+	}
 }

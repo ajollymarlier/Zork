@@ -22,7 +22,6 @@ public class Player extends Character {
 
 		if (weightCarried <= MAX_WEIGHT && item instanceof Ammo) {
 			addAmmo((Ammo) item);
-			// TODO need to add type for ammo to use in attack method
 			return true;
 
 		} else if (weightCarried <= MAX_WEIGHT) {
@@ -33,7 +32,6 @@ public class Player extends Character {
 			weightCarried -= item.getWeight();
 			room.addRoomItems(item);
 			return false;
-			// will work when parameters in game class are fixed
 		}
 	}
 
@@ -54,8 +52,8 @@ public class Player extends Character {
 	// adds new ammo if not
 	private void addAmmo(Ammo item) {
 		if (ammoBag.contains(item)) {
-
 			ammoBag.get(ammoBag.indexOf(item)).setAmt(ammoBag.get(ammoBag.indexOf(item)).getAmt() + item.getAmt());
+			
 		} else {
 			ammoBag.add(item);
 		}
@@ -113,8 +111,10 @@ public class Player extends Character {
 		boolean hasAmmo = false;
 
 		// TODO the equals method might not work as intended
+		
+		// TODO Rewrote equals method to check String of Ammo type vs Weapon name
 		for (Ammo x : ammoBag) {
-			if (x.getType().equals(weapon)) {
+			if (weapon.equals(x)) {
 				x.setAmt(x.getAmt() - 1);
 				hasAmmo = true;
 			}
