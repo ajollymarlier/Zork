@@ -24,7 +24,7 @@ public class Chest extends Item implements Lockable {
 	//returns true if ends up locked
 	public boolean unlock(Key key) {
 		if (key.getType() == UNLOCK_TYPE){
-			//TODO find way to get rid of consumables once used
+			key.usedItem();
 			return true;
 		}
 		return false;

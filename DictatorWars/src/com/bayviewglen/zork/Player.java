@@ -37,6 +37,19 @@ public class Player extends Character {
 		}
 	}
 
+	// used to check inventory to see if something has been used or not and
+	// remove it TODO IMPLEMENT WITH ITEMS
+	// need to run each time item used to check if something has been used
+	public void checkInventoryUsed() {
+		for (int i = 0; i < inventory.size(); i++) {
+			if (inventory.get(i) instanceof ConsumableItem)
+				if (((ConsumableItem) inventory.get(i)).getUsed()) {
+					inventory.remove(i);
+					i--;
+				}
+		}
+	}
+
 	// adds number of ammo to existing number of ammo in list if already there
 	// adds new ammo if not
 	private void addAmmo(Ammo item) {
@@ -96,9 +109,9 @@ public class Player extends Character {
 	}
 
 	public boolean attack(Enemy enemy, Ranged weapon) {
-		//TODO find more efficient way to do this
+		// TODO find more efficient way to do this
 		boolean hasAmmo = false;
-		
+
 		// TODO the equals method might not work as intended
 		for (Ammo x : ammoBag) {
 			if (x.getType().equals(weapon)) {
@@ -110,16 +123,14 @@ public class Player extends Character {
 				ammoBag.remove(x);
 			}
 		}
-		
-		if (hasAmmo){
+
+		if (hasAmmo) {
 			return enemy.setDamage(weapon.getDamage());
-		}else{
+		} else {
 			System.out.println("You don't have ammo for that weapon");
 			return false;
 		}
-		
+
 	}
-
-
 
 }
