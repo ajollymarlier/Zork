@@ -22,31 +22,31 @@ public class Player extends Character {
 
 		if (weightCarried <= MAX_WEIGHT && item instanceof Ammo) {
 			addAmmo((Ammo) item);
-			//TODO need to add type for ammo to use in attack method
+			// TODO need to add type for ammo to use in attack method
 			return true;
-			
+
 		} else if (weightCarried <= MAX_WEIGHT) {
 			inventory.add(item);
 			return true;
-			
+
 		} else {
 			weightCarried -= item.getWeight();
 			room.addRoomItems(item);
 			return false;
 			// will work when parameters in game class are fixed
 		}
-	}	
-	
-	//adds number of ammo to existing number of ammo in list if already there
-	//adds new ammo if not
+	}
+
+	// adds number of ammo to existing number of ammo in list if already there
+	// adds new ammo if not
 	private void addAmmo(Ammo item) {
-		if(ammoBag.contains(item)){
-			
+		if (ammoBag.contains(item)) {
+
 			ammoBag.get(ammoBag.indexOf(item)).setAmt(ammoBag.get(ammoBag.indexOf(item)).getAmt() + item.getAmt());
-		}else{
+		} else {
 			ammoBag.add(item);
 		}
-		
+
 	}
 
 	// TODO this sort of works... Theoretically
@@ -85,29 +85,41 @@ public class Player extends Character {
 	}
 
 	public boolean attack(Enemy enemy, Melee weapon) {
-		if (enemy.getInRange()){
+		if (enemy.getInRange()) {
 			System.out.println("You have attacked");
 			return enemy.setDamage(weapon.getDamage());
-		}else {
+		} else {
 			System.out.println("Enemy is out of range for a Melee Weapon");
 			return false;
 		}
-		
 
 	}
 
 	public boolean attack(Enemy enemy, Ranged weapon) {
-		//TODO find specific type for ammo and reduce by one every time this attack happens
-		//TODO find way to check for ammo that has same weapon type as weapon passed in and then decrease ammo
-		return enemy.setDamage(weapon.getDamage());
+		//TODO find more efficient way to do this
+		boolean hasAmmo = false;
+		
+		// TODO the equals method might not work as intended
+		for (Ammo x : ammoBag) {
+			if (x.getType().equals(weapon)) {
+				x.setAmt(x.getAmt() - 1);
+				hasAmmo = true;
+			}
+
+			if (x.getAmt() == 0) {
+				ammoBag.remove(x);
+			}
+		}
+		
+		if (hasAmmo){
+			return enemy.setDamage(weapon.getDamage());
+		}else{
+			System.out.println("You don't have ammo for that weapon");
+			return false;
+		}
+		
 	}
 
-	/*
-	 * // returns if enemy is dead public boolean attackMelee(Enemy enemy, Melee
-	 * weapon){ return enemy.setDamage(weapon.getDamage()); }
-	 * 
-	 * // returns if enemy is dead public boolean attackRanged(Enemy enemy,
-	 * Ranged weapon){ return enemy.setDamage(weapon.getDamage()); }
-	 */
+
 
 }
