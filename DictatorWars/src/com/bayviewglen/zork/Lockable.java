@@ -10,8 +10,8 @@ public interface Lockable {
 	public boolean isLocked(); 
 	
 	//lock and unlock, returns true if successful
-	public boolean unlock(Item key);
-	public boolean lock(Item key);
+	public boolean unlock(Key key);
+	
 	 
 
 }
