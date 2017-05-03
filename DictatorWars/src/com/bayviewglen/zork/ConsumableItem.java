@@ -2,6 +2,7 @@ package com.bayviewglen.zork;
 
 public class ConsumableItem extends Item{
 	private boolean used;
+	
 	public ConsumableItem(int weight, String name){
 		super(weight, name);
 		setUsed(false);
@@ -14,6 +15,7 @@ public class ConsumableItem extends Item{
 	public boolean getUsed() {
 		return used;
 	}
+	
 	public void setUsed(boolean used) {
 		this.used = used;
 	}
