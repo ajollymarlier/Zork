@@ -289,36 +289,21 @@ class Game {
 		Enemy currentEnemy = currentRoom.getRoomEnemies().get(0);
 		if (!command.hasSecondWord())
 			System.out.println("What do you want to attack?");
+		
 		else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1)
 			System.out.println("That enemy is not in the room");
 			
 		else if (!command.hasThirdWord())
 			System.out.println("What do you want to hit them with?");
+		
 		else if(player.getInventoryIndex(command.getThirdWord()) ==-1){
 			System.out.println("You do not have that!");
-		}else{
 			
+		}else{
 			if(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Melee ){
 				Melee currentWeapon = (Melee) (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
 				player.attack(currentEnemy, currentWeapon);
 				
-				/*
-				if(currentEnemy.getInRange()){
-					//process melee attack
-					if(currentWeapon instanceof Melee){
-						player.attackMelee(currentRoom.getRoomEnemies().get(0), (Melee)currentWeapon);
-						System.out.println("You have attacked");
-					}
-				}else{
-					//process ranged attack
-					if(currentWeapon instanceof Ranged){
-						player.attackRanged(currentRoom.getRoomEnemies().get(0), (Ranged)currentWeapon);
-					}else if(currentWeapon instanceof Melee){
-						System.out.println("Enemy is out of range for a Melee Weapon");
-					}
-				}
-					//TODO add Enemies responses and loop this action
-				*/
 			}else if (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Ranged ){
 				Ranged currentWeapon = (Ranged)(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
 				player.attack(currentEnemy, currentWeapon);
