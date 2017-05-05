@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
+	//TODO get rid of ammo bag and add ammo to weapon 
 	private ArrayList<Ammo> ammoBag = new ArrayList<Ammo>();
 	private int weightCarried = 0;
 	// can change max weight, just sorta default TODO

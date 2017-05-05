@@ -7,11 +7,8 @@ public class ConsumableItem extends Item{
 		super(weight, name);
 		setUsed(false);
 	}
-	//TODO since consumable once it is used, runs method to get rid of item from inventory
-	public void usedItem(){
-		setUsed(true);
 	
-	}
+	
 	public boolean getUsed() {
 		return used;
 	}
