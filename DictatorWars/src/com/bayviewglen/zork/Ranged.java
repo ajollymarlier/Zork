@@ -1,20 +1,22 @@
 package com.bayviewglen.zork;
 
 public class Ranged extends Weapon {
+	private int ammo;
 
-	public Ranged(int weight, String name, int damage) {
+	public Ranged(int weight, String name, int damage, int ammo) {
 		super(weight, name, damage);
-	}
-
-	public boolean equals(Ammo ammo) {
-		//Checks the String of the ammo type and sees if it equals the String of weapon name
-		if (ammo.getType().getName().equals(super.getName()))
-			return true;
-
-		return false;
+		this.ammo = ammo;
 	}
 
 	public String getName() {
 		return super.getName();
+	}
+	
+	public int getAmmo(){
+		return ammo;
+	}
+	
+	public void setAmmo(int ammo){
+		this.ammo = ammo;
 	}
 }
