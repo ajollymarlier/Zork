@@ -4,33 +4,33 @@ import java.util.ArrayList;
 
 public class Player extends Character {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
-	private ArrayList<Ammo> ammoBag = new ArrayList<Ammo>();
 	private int weightCarried = 0;
-	// can change max weight, just sorta default TODO
 	private final int MAX_WEIGHT = super.getStrength() * 10;
-	// test
+	
 	// TODO This max weight will be changed to a variable based on character
 	// attributes
 
 	public Player(int healthPoints, int speed, int strength) {
 		super(healthPoints, speed, strength);
+		
+		//TODO dunno why this is here
 		inventory.add(new Melee(10, "sword", 100));
 	}
 
 	public boolean pickUp(Item item, Room room) {
-		weightCarried += item.getWeight();
 
-		if (weightCarried <= MAX_WEIGHT && item instanceof Ammo) {
+		if (item instanceof Ammo) {
 			addAmmo((Ammo) item);
 			return true;
 
-		} else if (weightCarried <= MAX_WEIGHT) {
+		} else if (weightCarried + item.getWeight() <= MAX_WEIGHT) {
 			inventory.add(item);
+			weightCarried += item.getWeight();
+			//TODO need to remove item from room
 			return true;
 
 		} else {
-			weightCarried -= item.getWeight();
-			room.addRoomItems(item);
+			System.out.print("You are carrying too much weight to pick that up");
 			return false;
 		}
 	}
@@ -48,16 +48,10 @@ public class Player extends Character {
 		}
 	}
 
-	// adds number of ammo to existing number of ammo in list if already there
-	// adds new ammo if not
-	private void addAmmo(Ammo item) {
-		if (ammoBag.contains(item)) {
-			ammoBag.get(ammoBag.indexOf(item)).setAmt(ammoBag.get(ammoBag.indexOf(item)).getAmt() + item.getAmt());
-			
-		} else {
-			ammoBag.add(item);
-		}
-
+	// adds number of ammo to int in weapon class
+	//TODO the weapon might not change the original weapon
+	private void addAmmo(Ammo ammo) {
+		ammo.getType().setAmmo(ammo.getType().getAmmo() + ammo.getAmt());
 	}
 
 	// TODO this sort of works... Theoretically
@@ -107,24 +101,9 @@ public class Player extends Character {
 	}
 
 	public boolean attack(Enemy enemy, Ranged weapon) {
-		// TODO find more efficient way to do this
-		boolean hasAmmo = false;
-
-		// TODO the equals method might not work as intended
 		
-		// TODO Rewrote equals method to check String of Ammo type vs Weapon name
-		for (Ammo x : ammoBag) {
-			if (weapon.equals(x)) {
-				x.setAmt(x.getAmt() - 1);
-				hasAmmo = true;
-			}
-
-			if (x.getAmt() == 0) {
-				ammoBag.remove(x);
-			}
-		}
-
-		if (hasAmmo) {
+		if (weapon.getAmmo() > 0) {
+			weapon.setAmmo(weapon.getAmmo() - 1);
 			return enemy.setDamage(weapon.getDamage());
 		} else {
 			System.out.println("You don't have ammo for that weapon");
