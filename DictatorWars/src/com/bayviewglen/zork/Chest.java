@@ -5,14 +5,12 @@ import java.util.ArrayList;
 public class Chest extends Item implements Lockable {
 	private static int UNLOCK_TYPE = 1;
 	private boolean locked;
-	private Item key;
 	private ArrayList<Item> inChest;
 	
 	//TODO MAKE THE KEYS WORK TO UNLOCK CHEST
-	public Chest (int weight, String name, boolean locked, Item key, ArrayList<Item> inChest){
+	public Chest (int weight, String name, boolean locked, ArrayList<Item> inChest){
 		super(weight,name);
 		this.locked = locked;
-		this.key = key;
 		this.inChest = inChest;
 	}
 	
