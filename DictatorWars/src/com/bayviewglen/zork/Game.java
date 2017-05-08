@@ -2,6 +2,8 @@ package com.bayviewglen.zork;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -22,6 +24,8 @@ import java.util.Scanner;
  */
 
 class Game {
+	//names of items that make them into weapons 
+	private String [] meleeNames = {"sword", "axe"};
 	private Parser parser;
 	private Room currentRoom;
 	// This is a MASTER object that contains all of the rooms and is easily
@@ -57,7 +61,8 @@ class Game {
 					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0]), roomItemsString[i].trim().split("-")[1]);
 				}
 				for (Item i : roomItems)
-					room.addRoomItems(i);
+					room.addRoomItems(specifiyItemType(i));
+				
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
@@ -111,6 +116,16 @@ class Game {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	//TODO MAKES GENERAL ITEMS IN ROOM TO SPECIFIC ITEM
+	//right now just has empty array list of Items inside each chest, find way make chest have certain items
+	private Item specifiyItemType(Item roomItem) {
+		ArrayList<Item> asdf = new ArrayList<Item>();
+			if (Arrays.asList(meleeNames).indexOf(roomItem.getName()) != -1)
+				return (new Melee(roomItem.getWeight(),roomItem.getName(),(int)(roomItem.getWeight()*.5 )));
+			if (roomItem.getName().equals("chest"))
+				return  (new Chest(roomItem.getWeight(), roomItem.getName(), true, asdf ));
+			return roomItem;		
 	}
 
 	/**
