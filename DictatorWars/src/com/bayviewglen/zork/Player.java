@@ -110,6 +110,6 @@ public class Player extends Character {
 	public void equip(){
 		
 	}
-	//Todo add resistance
+	//Todo add resistance 
 
 }

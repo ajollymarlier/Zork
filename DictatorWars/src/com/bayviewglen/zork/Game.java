@@ -24,7 +24,7 @@ import java.util.Scanner;
  */
 
 class Game {
-	// names of items that make them into weapons
+	// names of items that make them into weapons 
 	private String[] meleeNames = { "sword", "axe" };
 	private Parser parser;
 	private Room currentRoom;
