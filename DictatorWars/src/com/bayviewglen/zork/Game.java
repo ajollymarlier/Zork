@@ -238,7 +238,7 @@ class Game {
 			}
 			System.out.println();
 			// TODO right now is case sensitive, consider adding way to make it
-			// non case sensitive
+			// non case sensitive 
 			// TODO also minor changes once an inventory is created to allow the
 			// item to be removed from the room and added to the inventory
 		} else if (commandWord.equals("grab")) {
