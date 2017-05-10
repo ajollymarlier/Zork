@@ -26,6 +26,10 @@ public abstract class Enemy extends Character{
 		return name;
 	}
 	
+	public void setInRange(boolean inRange){
+		this.inRange = inRange;
+	}
+	
 	
 
 }

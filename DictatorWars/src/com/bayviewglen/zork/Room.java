@@ -165,6 +165,10 @@ class Room
 	public ArrayList<Enemy> getRoomEnemies(){
 		return enemies;
 	}
+	
+	public Enemy removeRoomEnemy(int index){
+		return enemies.remove(index);
+	}
 	public int getEnemyIndex( String name){
 		for (int i = 0; i < enemies.size(); i++){
 

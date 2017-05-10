@@ -24,8 +24,8 @@ import java.util.Scanner;
  */
 
 class Game {
-	//names of items that make them into weapons 
-	private String [] meleeNames = {"sword", "axe"};
+	// names of items that make them into weapons
+	private String[] meleeNames = { "sword", "axe" };
 	private Parser parser;
 	private Room currentRoom;
 	// This is a MASTER object that contains all of the rooms and is easily
@@ -36,8 +36,10 @@ class Game {
 	// masterRoomMap.get("GREAT_ROOM") will return the Room Object that is the
 	// Great Room (assuming you have one).
 	private HashMap<String, Room> masterRoomMap;
-	//initalizes the main character TODO change to modifiy for races and stuff, default stats
-	Player player  = new Player(100,100,100);
+	// initalizes the main character TODO change to modifiy for races and stuff,
+	// default stats
+	Player player = new Player(100, 100, 100);
+	boolean inBattle = false;
 
 	private void initRooms(String fileName) throws Exception {
 		masterRoomMap = new HashMap<String, Room>();
@@ -53,32 +55,34 @@ class Game {
 				// Read the Description
 				String roomDescription = roomScanner.nextLine();
 				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n").trim());
-				//Stores in string array of each than parses after
+				// Stores in string array of each than parses after
 				String s1 = roomScanner.nextLine();
-				String [] roomItemsString = s1.trim().split(":")[1].split(",");
-				Item [] roomItems = new Item[roomItemsString.length];
-				for (int i  =0;i< roomItems.length;i++){
-					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0]), roomItemsString[i].trim().split("-")[1]);
+				String[] roomItemsString = s1.trim().split(":")[1].split(",");
+				Item[] roomItems = new Item[roomItemsString.length];
+				for (int i = 0; i < roomItems.length; i++) {
+					roomItems[i] = new Item(Integer.parseInt(roomItemsString[i].trim().split("-")[0]),
+							roomItemsString[i].trim().split("-")[1]);
 				}
 				for (Item i : roomItems)
 					room.addRoomItems(specifiyItemType(i));
-				
+
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
 				for (String s : enemies) {
-					//TODO this doesnt work right now because of the added boolean parameter in the enemy constructor
+					// TODO this doesnt work right now because of the added
+					// boolean parameter in the enemy constructor
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
-					if(currentEnemyType.equals("Grunt"))
-						room.addRoomEnemy(new Grunt(1, 0, 0, "Grunt", inRange.equals("C")));
-					else if(currentEnemyType.equals("MiniBoss"))
-						room.addRoomEnemy(new MiniBoss(1, 0, 0, "MiniBoss",inRange.equals("C")));
+					if (currentEnemyType.equals("Grunt"))
+						room.addRoomEnemy(new Grunt(100, 30, 40, "Grunt", inRange.equals("C")));
+					else if (currentEnemyType.equals("MiniBoss"))
+						room.addRoomEnemy(new MiniBoss(100, 0, 0, "MiniBoss", inRange.equals("C")));
 					else if (currentEnemyType.equals("Boss"))
-						room.addRoomEnemy(new Boss(1, 0, 0, "Boss", inRange.equals("C")));
+						room.addRoomEnemy(new Boss(100, 0, 0, "Boss", inRange.equals("C")));
 					counter++;
 				}
-				
+
 				// Read the Exits
 				String roomExits = roomScanner.nextLine();
 				// An array of strings in the format E-RoomName
@@ -117,15 +121,17 @@ class Game {
 			e.printStackTrace();
 		}
 	}
-	//TODO MAKES GENERAL ITEMS IN ROOM TO SPECIFIC ITEM
-	//right now just has empty array list of Items inside each chest, find way make chest have certain items
+
+	// TODO MAKES GENERAL ITEMS IN ROOM TO SPECIFIC ITEM
+	// right now just has empty array list of Items inside each chest, find way
+	// make chest have certain items
 	private Item specifiyItemType(Item roomItem) {
 		ArrayList<Item> asdf = new ArrayList<Item>();
-			if (Arrays.asList(meleeNames).indexOf(roomItem.getName()) != -1)
-				return (new Melee(roomItem.getWeight(),roomItem.getName(),(int)(roomItem.getWeight()*.5 )));
-			if (roomItem.getName().equals("chest"))
-				return  (new Chest(roomItem.getWeight(), roomItem.getName(), true, asdf ));
-			return roomItem;		
+		if (Arrays.asList(meleeNames).indexOf(roomItem.getName()) != -1)
+			return (new Melee(roomItem.getWeight(), roomItem.getName(), (int) (roomItem.getWeight() * .5)));
+		if (roomItem.getName().equals("chest"))
+			return (new Chest(roomItem.getWeight(), roomItem.getName(), true, asdf));
+		return roomItem;
 	}
 
 	/**
@@ -182,11 +188,21 @@ class Game {
 		}
 
 		String commandWord = command.getCommandWord();
-		if (commandWord.equals("help"))
+		if (commandWord.equals("help")) {
 			printHelp();
-		else if (commandWord.equals("go"))
+		} else if (commandWord.equals("attack")) {
+			if (inBattle) {
+				if (attack(command)) {
+					return true;
+				}
+			} else {
+				System.out.println("There is no enemy, I can't believe you've done this!");
+			}
+		} else if (inBattle) {
+			System.out.println("You must attack or you will DIE! What are you doing with your life?");
+		} else if (commandWord.equals("go")) {
 			goRoom(command);
-		else if (commandWord.equals("quit")) {
+		} else if (commandWord.equals("quit")) {
 			if (command.hasSecondWord())
 				System.out.println("Quit what?");
 			else
@@ -212,10 +228,11 @@ class Game {
 			System.out.print("The enemies in the room are: ");
 			for (int i = 0; i < currentRoom.getRoomEnemies().size(); i++) {
 				String message = "not ";
-				if(currentRoom.getRoomEnemies().get(i).getInRange()) message = "";
-				if (i != currentRoom.getRoomEnemies().size() - 1){
+				if (currentRoom.getRoomEnemies().get(i).getInRange())
+					message = "";
+				if (i != currentRoom.getRoomEnemies().size() - 1) {
 					System.out.print(currentRoom.getRoomEnemies().get(i) + " is " + message + "in range, ");
-				}else{
+				} else {
 					System.out.print(currentRoom.getRoomEnemies().get(i) + " is " + message + "in range.");
 				}
 			}
@@ -227,18 +244,17 @@ class Game {
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
-			else if (currentRoom.getRoomItemNameIndex(command.getSecondWord()) ==-1)
+			else if (currentRoom.getRoomItemNameIndex(command.getSecondWord()) == -1)
 				System.out.println("That item is not in the room");
 			else {
-				boolean works = player.pickUp(currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(command.getSecondWord())), currentRoom);
-				if(works)
+				boolean works = player.pickUp(
+						currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(command.getSecondWord())),
+						currentRoom);
+				if (works)
 					System.out.println("You obtianed: " + command.getSecondWord());
-				else 
+				else
 					System.out.println("You are already carrying too much");
 			}
-		} else if (commandWord.equals("attack")){
-			processAttack(command);
-			
 		}
 
 		return false;
@@ -279,55 +295,131 @@ class Game {
 		else {
 			currentRoom = nextRoom;
 			System.out.println(currentRoom.longDescription());
-			//after walking into a new room enemies show up
+			// after walking into a new room enemies show up
 			showEnemies();
 		}
 	}
-	
-	//show enemies in the room, starting with the first enemy
-	private void showEnemies(){
-		for(int i = 0; i < currentRoom.getRoomEnemies().size(); i++){
-			Enemy currentEnemy = currentRoom.getRoomEnemies().get(i);
-			
-			System.out.println();
-			boolean inRange = currentEnemy.getInRange();
-			if(inRange){
-				System.out.println("A Grunt has appeared!");
-			}else{
-				System.out.println("A Grunt is at the other side of the room!");
-			}
-			System.out.println("You are now engaged in battle!");
+
+	// show enemies in the room, starting with the first enemy
+	private void showEnemies() {
+		if (currentRoom.getRoomEnemies().size() == 0) {
+			System.out.println("You have vanquished all the enemies here!");
+			return;
 		}
-	}
-	
-	private void processAttack(Command command){
+
 		Enemy currentEnemy = currentRoom.getRoomEnemies().get(0);
-		if (!command.hasSecondWord())
-			System.out.println("What do you want to attack?");
-		
-		else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1)
-			System.out.println("That enemy is not in the room");
-			
-		else if (!command.hasThirdWord())
-			System.out.println("What do you want to hit them with?");
-		
-		else if(player.getInventoryIndex(command.getThirdWord()) ==-1){
-			System.out.println("You do not have that!");
-			
-		}else{
-			if(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Melee ){
-				Melee currentWeapon = (Melee) (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
-				player.attack(currentEnemy, currentWeapon);
-				
-			}else if (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Ranged ){
-				Ranged currentWeapon = (Ranged)(player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
-				player.attack(currentEnemy, currentWeapon);
-						
-			}else{
-				System.out.println("You can not attack with that");
-			}
+		System.out.println();
+		boolean inRange = currentEnemy.getInRange();
+		if (inRange) {
+			System.out.println("A Grunt has appeared!");
+		} else {
+			System.out.println("A Grunt is at the other side of the room!");
 		}
+		System.out.println("You are now engaged in battle!");
+		inBattle = true;
+
 	}
 
+	private boolean attack(Command command) {
+		if (processPlayerAttack(command)) {
+			return false;
+		}
+		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
+
+		System.out.println("\nYour health points are " + player.getHealthPoints());
+		System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
+		if (currEnemy.getInRange()) {
+			boolean isDead = processEnemyAttack();
+			if (isDead) {
+				System.out.println("You have died");
+				return true;
+			}
+		} else {
+			System.out.println("The enemy is running towards you! Quick, Attack!");
+			currEnemy.setInRange(true);
+		}
+		System.out.println("\nYour health points are " + player.getHealthPoints());
+		System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
+		return false;
+
+	}
+
+	private boolean processPlayerAttack(Command command) {
+		Enemy currentEnemy = currentRoom.getRoomEnemies().get(0);
+		boolean badCommand = true;
+		while (badCommand) {
+
+			if (!command.hasSecondWord()){
+				System.out.println("What do you want to attack?");
+			}else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1){
+				System.out.println("That enemy is not in the room");
+			}else if (!command.hasThirdWord()){
+				System.out.println("What do you want to hit them with?");
+			}else if (player.getInventoryIndex(command.getThirdWord()) == -1) {
+				System.out.println("You do not have that!");
+
+			} else {
+				// if chosen weapon is a Melee
+				if (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Melee) {
+					Melee currentWeapon = (Melee) (player
+							.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+					// if enemy is in range
+					if (currentEnemy.getInRange()) {
+						badCommand = false;
+						if (player.attack(currentEnemy, currentWeapon)) {
+							processDeadEnemy();
+							return true;
+						}
+					} else  {
+						System.out.println("Enemy is out of range for a Melee Weapon");
+					}
+					
+				}
+				// if chosen weapon is a Ranged
+				else if (player
+						.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Ranged) {
+					badCommand = false;
+					Ranged currentWeapon = (Ranged) (player
+							.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+					if (player.attack(currentEnemy, currentWeapon)) {
+						processDeadEnemy();
+						return true;
+					}
+
+				} 
+				// if chosen weapon is not a weapons
+				else {
+					System.out.println("You can not attack with that");
+				}
+				
+			}
+			//if it is a bad command get a new command
+			if(badCommand){
+				command = parser.getCommand();
+			}
+		}
+		return false;
+
+	}
+
+	private boolean processEnemyAttack() {
+		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
+		int damage = 0;
+		if (currEnemy instanceof Grunt) {
+			damage = (int) (Math.random() * 10);
+		} else if (currEnemy instanceof MiniBoss) {
+			damage = (int) (Math.random() * 10 + 20);
+		} else if (currEnemy instanceof Boss) {
+			damage = (int) (Math.random() * 20 + 30);
+		}
+		System.out.println("the enemy Attacks!!!");
+		return player.setDamage(damage);
+	}
+
+	private void processDeadEnemy() {
+		System.out.println("You have killed " + currentRoom.removeRoomEnemy(0).getName());
+		inBattle = false;
+		showEnemies();
+	}
 
 }

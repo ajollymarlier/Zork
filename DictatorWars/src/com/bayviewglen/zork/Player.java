@@ -14,7 +14,9 @@ public class Player extends Character {
 		super(healthPoints, speed, strength);
 		
 		//TODO dunno why this is here
-		inventory.add(new Melee(10, "sword", 100));
+		inventory.add(new Melee(10, "sword", 30));
+		inventory.add(new Ranged(10, "bow", 40, 10));
+
 	}
 
 	public boolean pickUp(Item item, Room room) {
@@ -90,14 +92,8 @@ public class Player extends Character {
 	}
 
 	public boolean attack(Enemy enemy, Melee weapon) {
-		if (enemy.getInRange()) {
 			System.out.println("You have attacked");
 			return enemy.setDamage(weapon.getDamage());
-		} else {
-			System.out.println("Enemy is out of range for a Melee Weapon");
-			return false;
-		}
-
 	}
 
 	public boolean attack(Enemy enemy, Ranged weapon) {
@@ -111,5 +107,9 @@ public class Player extends Character {
 		}
 
 	}
+	public void equip(){
+		
+	}
+	//Todo add resistance
 
 }
