@@ -74,12 +74,12 @@ class Game {
 					// boolean parameter in the enemy constructor
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
-					if (currentEnemyType.equals("Grunt"))
-						room.addRoomEnemy(new Grunt(100, 30, 40, "Grunt", inRange.equals("C")));
-					else if (currentEnemyType.equals("MiniBoss"))
-						room.addRoomEnemy(new MiniBoss(100, 0, 0, "MiniBoss", inRange.equals("C")));
-					else if (currentEnemyType.equals("Boss"))
-						room.addRoomEnemy(new Boss(100, 0, 0, "Boss", inRange.equals("C")));
+					if (currentEnemyType.equals("GRUNT"))
+						room.addRoomEnemy(new Grunt(100, 30, 40, "GRUNT", inRange.equals("C")));
+					else if (currentEnemyType.equals("MINIBOSS"))
+						room.addRoomEnemy(new MiniBoss(100, 0, 0, "MINIBOSS", inRange.equals("C")));
+					else if (currentEnemyType.equals("BOSS"))
+						room.addRoomEnemy(new Boss(100, 0, 0, "BOSS", inRange.equals("C")));
 					counter++;
 				}
 
@@ -351,7 +351,7 @@ class Game {
 
 			if (!command.hasSecondWord()){
 				System.out.println("What do you want to attack?");
-			}else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1){
+			}else if (currentRoom.getEnemyIndex(command.getSecondWord().toUpperCase()) == -1){
 				System.out.println("That enemy is not in the room");
 			}else if (!command.hasThirdWord()){
 				System.out.println("What do you want to hit them with?");
