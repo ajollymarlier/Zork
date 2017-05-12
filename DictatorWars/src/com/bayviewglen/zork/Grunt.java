@@ -7,6 +7,11 @@ public class Grunt extends Enemy {
 		
 	}
 	
+	//Adds number from 1-5 to strength
+	public void attack(Player player){
+		player.setHealthPoints(player.getHealthPoints() - getStrength() + ((int)(Math.random() * 5) + 1)); 
+	}
+	
 	
 	
 }
