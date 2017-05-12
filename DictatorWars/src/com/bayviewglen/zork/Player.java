@@ -1,9 +1,12 @@
 package com.bayviewglen.zork;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Player extends Character {
 	private ArrayList<Item> inventory = new ArrayList<Item>();
+	private ArrayList<Key> keyInventory = new ArrayList<Key>();
+	
 	private int weightCarried = 0;
 	private final int MAX_WEIGHT = super.getStrength() * 10;
 	
@@ -16,6 +19,8 @@ public class Player extends Character {
 		//TODO dunno why this is here
 		inventory.add(new Melee(10, "sword", 30));
 		inventory.add(new Ranged(10, "bow", 40, 10));
+		keyInventory.add(new Key("test" , 3));
+		keyInventory.add(new Key("test2" , 2));
 
 	}
 
@@ -26,6 +31,16 @@ public class Player extends Character {
 			return true;
 
 		} else if (weightCarried + item.getWeight() <= MAX_WEIGHT) {
+			if (Arrays.asList(Game.keyWeapons).contains(item.getName())){
+				int keyType = -1;
+				for (int i  = 0; i < Game.keyWeapons.length; i++)
+					if (Game.keyWeapons[i].equals(item.getName())){
+						keyType = i;
+						break;
+					}
+				keyInventory.add(new Key(item.getName(), keyType));
+				
+			}
 			inventory.add(item);
 			weightCarried += item.getWeight();
 			//TODO need to remove item from room
@@ -111,5 +126,32 @@ public class Player extends Character {
 		
 	}
 	//Todo add resistance 
+	
+	public ArrayList<Key> getKeyInventory() {
+		return keyInventory;
+	}
+	
+	public int getKeyInventoryIndex(String name) {
+		for (int i = 0; i < keyInventory.size(); i++) {
+			if (keyInventory.get(i).getName().equals(name)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+	
+	public Key getKeyInventoryItem(int index) {
+		return keyInventory.get(index);
+
+	}
+	//this is to remove used keys, convoluted a bit because different inventories
+	public void checkKeyInventoryUsed() {
+		for (int i = 0; i < keyInventory.size(); i++) {
+				if (keyInventory.get(i).getUsed()) {
+					keyInventory.remove(i);
+					i--;
+				}
+		}
+	}
 
 }

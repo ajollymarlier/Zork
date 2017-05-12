@@ -24,8 +24,9 @@ import java.util.Scanner;
  */
 
 class Game {
-	// names of items that make them into weapons 
-	private String[] meleeNames = { "sword", "axe" };
+	public static String [] keyWeapons = {"machete"};
+	//names of items that make them into weapons 
+	private String [] meleeNames = {"sword", "axe", "machete"};
 	private Parser parser;
 	private Room currentRoom;
 	// This is a MASTER object that contains all of the rooms and is easily
@@ -51,17 +52,18 @@ class Game {
 				Room room = new Room();
 				// Read the Name
 				String roomName = roomScanner.nextLine();
-				room.setRoomName(roomName.split(":")[1].trim());
+				room.setRoomName(roomName.split(":")[1].trim().split("-")[0]);
+				room.setUnlockType(Integer.parseInt(roomScanner.nextLine().split(":")[1].trim()));
 				// Read the Description
+				//TODO MAKE IT READ IN ROOM LOCKY TYPE, format of data file is problem 
 				String roomDescription = roomScanner.nextLine();
-				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n").trim());
-				// Stores in string array of each than parses after
+				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n"));
+				//Stores in string array of each than parses after
 				String s1 = roomScanner.nextLine();
-				String[] roomItemsString = s1.trim().split(":")[1].split(",");
-				Item[] roomItems = new Item[roomItemsString.length];
-				for (int i = 0; i < roomItems.length; i++) {
-					roomItems[i] = new Item(Integer.parseInt(roomItemsString[i].trim().split("-")[0]),
-							roomItemsString[i].trim().split("-")[1]);
+				String [] roomItemsString = s1.trim().split(":")[1].split(",");
+				Item [] roomItems = new Item[roomItemsString.length];
+				for (int i  =0;i< roomItems.length;i++){
+					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0]), roomItemsString[i].trim().split("-")[1]);
 				}
 				for (Item i : roomItems)
 					room.addRoomItems(specifiyItemType(i));
@@ -256,9 +258,43 @@ class Game {
 					System.out.println("You are already carrying too much");
 			}
 		}
+		//TODO writing the unlock mehthod
+				else if (commandWord.equals("unlock")){
+					processUnlock(command);
+				}
 
 		return false;
 	}
+	//TODO 
+		//processes unlock to see if door is unlockable and if the key works
+		
+		private void processUnlock(Command command) {
+			//testing code that displays all exits in hashmap
+			/*for (String i : currentRoom.getExits().keySet()){
+				System.out.println(i);
+			}*/
+			if (!command.hasSecondWord())
+				System.out.println("What do you want to unlock?");
+			else if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
+				System.out.println("There is no door in that direction");	
+			else if (!command.hasThirdWord())
+				System.out.println("What do you want to use to unlock it?");
+			else if (player.getKeyInventoryIndex(command.getThirdWord()) == -1){
+				System.out.println("That key is not in your inventory.");
+			}
+			//ok this looks bad, but just trys to unlock door with key and if it does gets rid of key and unlocks door
+			else if (!currentRoom.getExits().get(command.getSecondWord().trim()).unlock(player.getKeyInventoryItem(player.getKeyInventoryIndex(command.getThirdWord().trim())))){
+				System.out.println("That is not the right type of key");
+			}
+			else {
+				//TODO this doesnt check key type properly
+				currentRoom.getExits().get(command.getSecondWord().trim()).unlock(player.getKeyInventoryItem(player.getKeyInventoryIndex(command.getThirdWord().trim())));
+				player.getKeyInventoryItem(player.getKeyInventoryIndex(command.getThirdWord())).setUsed(true);
+				player.checkKeyInventoryUsed();
+				System.out.println("The door is unlocked!");
+			}
+			
+		}
 
 	// implementations of user commands:
 
@@ -292,6 +328,8 @@ class Game {
 
 		if (nextRoom == null)
 			System.out.println("There is no door!");
+		else if (nextRoom.isLocked())
+			System.out.println("The door is locked");
 		else {
 			currentRoom = nextRoom;
 			System.out.println(currentRoom.longDescription());

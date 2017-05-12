@@ -20,10 +20,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Objects;
 
-class Room  
+class Room implements Lockable
 {
 	private String roomName;
     private String description;
+    private int unlockType;
     private ArrayList<Item> items = new ArrayList<Item>();
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private HashMap<String, Room> exits;        // stores exits of this room.
@@ -32,6 +33,10 @@ class Room
      * Create a room described "description". Initially, it has no exits.
      * "description" is something like "a kitchen" or "an open court yard".
      */
+    public HashMap<String, Room> getExits (){
+    	return exits;
+    }
+    
     public Room(String description) 
     {
         this.description = description;
@@ -178,6 +183,31 @@ class Room
 		}
 		return -1;
 	}
+	@Override
+	public boolean isLocked() {
+		if (unlockType != 0)
+			return true;
+		return false;
+	}
+
+	@Override
+	public boolean unlock(Key key) {
+		if (key.getType() == unlockType){
+			unlockType = 0;
+			return true;
+		}
+		return false;
+	}
+	
+	public int getUnlockType(){
+		return unlockType;
+	}
+	
+	public void setUnlockType(int unlockType){
+		this.unlockType = unlockType;
+	}
+
+	
 
 	
 	
