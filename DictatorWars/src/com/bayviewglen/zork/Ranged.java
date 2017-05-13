@@ -1,6 +1,8 @@
 package com.bayviewglen.zork;
 
 public class Ranged extends Weapon {
+	static public final String[] RANGED = {"gun", "bow", "boomerang"};
+
 	private int ammo;
 
 	public Ranged(int weight, String name, int damage, int ammo) {

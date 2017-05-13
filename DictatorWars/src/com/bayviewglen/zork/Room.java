@@ -25,7 +25,8 @@ class Room implements Lockable
 	private String roomName;
     private String description;
     private int unlockType;
-    private ArrayList<Item> items = new ArrayList<Item>();
+    private Inventory inventory= new Inventory();
+    
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private HashMap<String, Room> exits;        // stores exits of this room.
 
@@ -144,24 +145,12 @@ class Room implements Lockable
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	//TODO make sure to make Items classs instead of just having them be generic Objects
-		public void addRoomItems(Item item){
-			this.items.add(item);
-		}
-		public void setRoomItems(ArrayList<Item> items){
-			this.items = items;
-		}
-		public ArrayList<Item> getRoomItems(){
-			return items;
-		}
-		//returns index of where name is
-		public int getRoomItemNameIndex(String name){
-			for (int i = 0; i < items.size(); i++)
-				if (items.get(i).getName().equals(name))
-					return i;
-			return -1;
-		}
 	
+	
+	public Inventory getInventory(){
+		return inventory;
+	}
+		
 	//Add enemies to a room
 	public void addRoomEnemy(Enemy enemy){
 		enemies.add(enemy);
@@ -206,6 +195,8 @@ class Room implements Lockable
 	public void setUnlockType(int unlockType){
 		this.unlockType = unlockType;
 	}
+
+
 
 	
 

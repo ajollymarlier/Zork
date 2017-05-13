@@ -16,5 +16,9 @@ public  class Item {
 	public String getName(){
 		return name;
 	}
+	
+	public boolean equals(String descr){
+		return (name.equals(descr));
+	}
 
 }

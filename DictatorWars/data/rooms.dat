@@ -1,30 +1,30 @@
 Room Name: Ship Room
 Lock Type: 0
 Room Description:  This is the Ship Room
-Room Items: 10-axe, 10-Stick
-Room Enemies: GRUNT-C, GRUNT-F, GRUNT-C
+Room Items: 10-axe, 10-stick
+Room Enemies: grunt-C, grunt-F, grunt-C
 Exit Rooms: N-Upper Cliff
 Room Name: Upper Cliff
 Lock Type: 2
 Room Description:  This is the Upper Cliff
 Room Items: 50-Chest
-Room Enemies: GRUNT-C, GRUNT-F
+Room Enemies: grunt-C, grunt-F
 Exit Rooms: W-Village, E-River Basin, S-Ship Room
 Room Name: Village
 Lock Type: 0
 Room Description:  You are in the village
 Room Items: 5-Sword
-Room Enemies: GRUNT-C
+Room Enemies: grunt-C
 Exit Rooms: E-Upper Cliff
 Room Name: River Basin
 Lock Type: 3
 Room Description:  You are in the River Basin
-Room Items: 40-Food,10-Sword
-Room Enemies: GRUNT-C
+Room Items: 40-food,10-sword
+Room Enemies: grunt-C
 Exit Rooms: E-Cliff Plateau, W-Upper Cliff
 Room Name: Cliff Plateau
 Lock Type: 0
 Room Description:  You are in the plateau
 Room Items: 2-Shoe
-Room Enemies: GRUNT-C
+Room Enemies: grunt-C
 Exit Rooms: W-River Basin

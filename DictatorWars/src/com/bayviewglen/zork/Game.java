@@ -61,12 +61,20 @@ class Game {
 				//Stores in string array of each than parses after
 				String s1 = roomScanner.nextLine();
 				String [] roomItemsString = s1.trim().split(":")[1].split(",");
-				Item [] roomItems = new Item[roomItemsString.length];
-				for (int i  =0;i< roomItems.length;i++){
-					roomItems[i] = new Item (Integer.parseInt(roomItemsString[i].trim().split("-")[0]), roomItemsString[i].trim().split("-")[1]);
+				
+				// finds out the type of item and adds it in
+				for(int i = 0; i< roomItemsString.length; i++){
+					int weight = Integer.parseInt(roomItemsString[i].trim().split("-")[0]);
+					String name = roomItemsString[i].trim().split("-")[1];
+					if(Arrays.asList(Melee.MELEE).indexOf(name) != -1){
+						room.getInventory().add(new Melee(weight, name, 20));
+					}else if(Arrays.asList(Ranged.RANGED).indexOf(name) != -1){
+						room.getInventory().add(new Ranged(weight, name, 20, 40));
+					}
+					
 				}
-				for (Item i : roomItems)
-					room.addRoomItems(specifiyItemType(i));
+				
+				
 
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
@@ -76,12 +84,12 @@ class Game {
 					// boolean parameter in the enemy constructor
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
-					if (currentEnemyType.equals("GRUNT"))
-						room.addRoomEnemy(new Grunt(100, 30, 40, "GRUNT", inRange.equals("C")));
-					else if (currentEnemyType.equals("MINIBOSS"))
-						room.addRoomEnemy(new MiniBoss(100, 0, 0, "MINIBOSS", inRange.equals("C")));
-					else if (currentEnemyType.equals("BOSS"))
-						room.addRoomEnemy(new Boss(100, 0, 0, "BOSS", inRange.equals("C")));
+					if (currentEnemyType.equals("grunt"))
+						room.addRoomEnemy(new Grunt(100, 30, 40, "grunt", inRange.equals("C")));
+					else if (currentEnemyType.equals("miniboss"))
+						room.addRoomEnemy(new MiniBoss(100, 0, 0, "miniboss", inRange.equals("C")));
+					else if (currentEnemyType.equals("boss"))
+						room.addRoomEnemy(new Boss(100, 0, 0, "boss", inRange.equals("C")));
 					counter++;
 				}
 
@@ -124,17 +132,7 @@ class Game {
 		}
 	}
 
-	// TODO MAKES GENERAL ITEMS IN ROOM TO SPECIFIC ITEM
-	// right now just has empty array list of Items inside each chest, find way
-	// make chest have certain items
-	private Item specifiyItemType(Item roomItem) {
-		ArrayList<Item> asdf = new ArrayList<Item>();
-		if (Arrays.asList(meleeNames).indexOf(roomItem.getName()) != -1)
-			return (new Melee(roomItem.getWeight(), roomItem.getName(), (int) (roomItem.getWeight() * .5)));
-		if (roomItem.getName().equals("chest"))
-			return (new Chest(roomItem.getWeight(), roomItem.getName(), true, asdf));
-		return roomItem;
-	}
+
 
 	/**
 	 * Create the game and initialise its internal map.
@@ -218,12 +216,7 @@ class Game {
 				System.out.println("The break command don't work yet");
 		} else if (commandWord.equals("check")) {
 			System.out.print("The items in the room are: ");
-			for (int i = 0; i < currentRoom.getRoomItems().size(); i++) {
-				if (i != currentRoom.getRoomItems().size() - 1)
-					System.out.print(currentRoom.getRoomItems().get(i).getName() + ", ");
-				else
-					System.out.print(currentRoom.getRoomItems().get(i).getName());
-			}
+			currentRoom.getInventory().displayAll();
 			System.out.println();
 
 			// print out the enemies in the room
@@ -246,12 +239,10 @@ class Game {
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
-			else if (currentRoom.getRoomItemNameIndex(command.getSecondWord()) == -1)
+			else if (currentRoom.getInventory().isInInventory(command.getSecondWord()))
 				System.out.println("That item is not in the room");
 			else {
-				boolean works = player.pickUp(
-						currentRoom.getRoomItems().remove(currentRoom.getRoomItemNameIndex(command.getSecondWord())),
-						currentRoom);
+				boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
 				if (works)
 					System.out.println("You obtianed: " + command.getSecondWord());
 				else
@@ -279,18 +270,18 @@ class Game {
 				System.out.println("There is no door in that direction");	
 			else if (!command.hasThirdWord())
 				System.out.println("What do you want to use to unlock it?");
-			else if (player.getKeyInventoryIndex(command.getThirdWord()) == -1){
+			else if (!player.getInventory().isInInventory(command.getThirdWord())){
 				System.out.println("That key is not in your inventory.");
 			}
 			//ok this looks bad, but just trys to unlock door with key and if it does gets rid of key and unlocks door
-			else if (!currentRoom.getExits().get(command.getSecondWord().trim()).unlock(player.getKeyInventoryItem(player.getKeyInventoryIndex(command.getThirdWord().trim())))){
+			else if (!currentRoom.getExits().get(command.getSecondWord().trim()).unlock( player.getInventory().getKey(command.getThirdWord().trim()))){
 				System.out.println("That is not the right type of key");
 			}
 			else {
 				//TODO this doesnt check key type properly
-				currentRoom.getExits().get(command.getSecondWord().trim()).unlock(player.getKeyInventoryItem(player.getKeyInventoryIndex(command.getThirdWord().trim())));
-				player.getKeyInventoryItem(player.getKeyInventoryIndex(command.getThirdWord())).setUsed(true);
-				player.checkKeyInventoryUsed();
+				currentRoom.getExits().get(command.getSecondWord().trim()).unlock(player.getInventory().getKey(command.getThirdWord().trim()));
+				( player.getInventory().getKey(command.getThirdWord())).setUsed(true);
+				player.getInventory().checkKeyInventoryUsed();
 				System.out.println("The door is unlocked!");
 			}
 			
@@ -389,18 +380,18 @@ class Game {
 
 			if (!command.hasSecondWord()){
 				System.out.println("What do you want to attack?");
-			}else if (currentRoom.getEnemyIndex(command.getSecondWord().toUpperCase()) == -1){
+			}else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1){
 				System.out.println("That enemy is not in the room");
 			}else if (!command.hasThirdWord()){
 				System.out.println("What do you want to hit them with?");
-			}else if (player.getInventoryIndex(command.getThirdWord()) == -1) {
+			}else if (!player.getInventory().isInInventory(command.getThirdWord())) {
 				System.out.println("You do not have that!");
 
 			} else {
+				Item chosenWeapon = (Item) player.getInventory().getItem(command.getThirdWord());
 				// if chosen weapon is a Melee
-				if (player.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Melee) {
-					Melee currentWeapon = (Melee) (player
-							.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+				if (chosenWeapon instanceof Melee) {
+					Melee currentWeapon = (Melee) chosenWeapon;
 					// if enemy is in range
 					if (currentEnemy.getInRange()) {
 						badCommand = false;
@@ -414,11 +405,9 @@ class Game {
 					
 				}
 				// if chosen weapon is a Ranged
-				else if (player
-						.getInventoryItem(player.getInventoryIndex(command.getThirdWord())) instanceof Ranged) {
+				else if (chosenWeapon instanceof Ranged) {
 					badCommand = false;
-					Ranged currentWeapon = (Ranged) (player
-							.getInventoryItem(player.getInventoryIndex(command.getThirdWord())));
+					Ranged currentWeapon = (Ranged) chosenWeapon;
 					if (player.attack(currentEnemy, currentWeapon)) {
 						processDeadEnemy();
 						return true;

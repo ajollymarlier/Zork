@@ -47,7 +47,7 @@ class Parser {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		try {
-			inputLine = reader.readLine();
+			inputLine = reader.readLine().toLowerCase();
 		} catch (java.io.IOException exc) {
 			System.out.println("There was an error during reading: " + exc.getMessage());
 		}

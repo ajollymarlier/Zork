@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Player extends Character {
-	private ArrayList<Item> inventory = new ArrayList<Item>();
-	private ArrayList<Key> keyInventory = new ArrayList<Key>();
-	
+	private Inventory inventory;
 	private int weightCarried = 0;
 	private final int MAX_WEIGHT = super.getStrength() * 10;
 	
@@ -15,16 +13,17 @@ public class Player extends Character {
 
 	public Player(int healthPoints, int speed, int strength) {
 		super(healthPoints, speed, strength);
-		
-		//TODO dunno why this is here
-		inventory.add(new Melee(10, "sword", 30));
-		inventory.add(new Ranged(10, "bow", 40, 10));
-		keyInventory.add(new Key("test" , 3));
-		keyInventory.add(new Key("test2" , 2));
+		inventory = new Inventory();
+		//innitialized with stuff to test out game
+		inventory.addItem(new Melee(10, "sword", 30));
+		inventory.addItem(new Ranged(10, "bow", 40, 10));
+		inventory.addItem(new Key("test" , 3));
+		inventory.addItem(new Key("test2" , 2));
+		inventory.displayAll();
 
 	}
 
-	public boolean pickUp(Item item, Room room) {
+	public boolean pickUp(Item item) {
 
 		if (item instanceof Ammo) {
 			addAmmo((Ammo) item);
@@ -38,10 +37,10 @@ public class Player extends Character {
 						keyType = i;
 						break;
 					}
-				keyInventory.add(new Key(item.getName(), keyType));
+				inventory.addItem(new Key(item.getName(), keyType));
 				
 			}
-			inventory.add(item);
+			inventory.addItem(item);
 			weightCarried += item.getWeight();
 			//TODO need to remove item from room
 			return true;
@@ -52,58 +51,10 @@ public class Player extends Character {
 		}
 	}
 
-	// used to check inventory to see if something has been used or not and
-	// remove it TODO IMPLEMENT WITH ITEMS
-	// need to run each time item used to check if something has been used
-	public void checkInventoryUsed() {
-		for (int i = 0; i < inventory.size(); i++) {
-			if (inventory.get(i) instanceof ConsumableItem)
-				if (((ConsumableItem) inventory.get(i)).getUsed()) {
-					inventory.remove(i);
-					i--;
-				}
-		}
-	}
-
 	// adds number of ammo to int in weapon class
 	//TODO the weapon might not change the original weapon
 	private void addAmmo(Ammo ammo) {
 		ammo.getType().setAmmo(ammo.getType().getAmmo() + ammo.getAmt());
-	}
-
-	// TODO this sort of works... Theoretically
-	public void drop(Item item, Room room) {
-		weightCarried -= item.getWeight();
-		room.addRoomItems(removeInventoryItem(item));
-	}
-
-	// TODO this too
-	private Item removeInventoryItem(Item item) {
-		for (int i = 0; i < inventory.size(); i++) {
-			if (inventory.get(i).equals(item)) {
-				return inventory.remove(i);
-			}
-		}
-		return null;
-	}
-
-	// finds an item with a given name in the inventory
-	public int getInventoryIndex(String name) {
-		for (int i = 0; i < inventory.size(); i++) {
-			if (inventory.get(i).getName().equals(name)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	public Item getInventoryItem(int index) {
-		return inventory.get(index);
-
-	}
-
-	public ArrayList<Item> getInventory() {
-		return inventory;
 	}
 
 	public boolean attack(Enemy enemy, Melee weapon) {
@@ -122,36 +73,32 @@ public class Player extends Character {
 		}
 
 	}
+	
+	public Inventory getInventory(){
+		return inventory;
+	}
+	// TODO this sort of works... Theoretically
+	public void drop(String name, Room room) {
+		Item droppedItem = inventory.removeItem(name);
+		weightCarried -= droppedItem.getWeight();
+		room.getInventory().addItem(droppedItem);
+	}
+
+	
+	public int getDefense(){
+		return 0;
+	}
+
+
+
+
+
 	public void equip(){
 		
 	}
 	//Todo add resistance 
 	
-	public ArrayList<Key> getKeyInventory() {
-		return keyInventory;
-	}
 	
-	public int getKeyInventoryIndex(String name) {
-		for (int i = 0; i < keyInventory.size(); i++) {
-			if (keyInventory.get(i).getName().equals(name)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-	
-	public Key getKeyInventoryItem(int index) {
-		return keyInventory.get(index);
 
-	}
-	//this is to remove used keys, convoluted a bit because different inventories
-	public void checkKeyInventoryUsed() {
-		for (int i = 0; i < keyInventory.size(); i++) {
-				if (keyInventory.get(i).getUsed()) {
-					keyInventory.remove(i);
-					i--;
-				}
-		}
-	}
 
 }
