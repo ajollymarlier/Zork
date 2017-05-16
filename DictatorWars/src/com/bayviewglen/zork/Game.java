@@ -215,25 +215,19 @@ class Game {
 			else
 				System.out.println("The break command don't work yet");
 		} else if (commandWord.equals("check")) {
-			System.out.print("The items in the room are: ");
-			currentRoom.getInventory().displayAll();
-			System.out.println();
-
-			// print out the enemies in the room
-			System.out.print("The enemies in the room are: ");
-			for (int i = 0; i < currentRoom.getRoomEnemies().size(); i++) {
-				String message = "not ";
-				if (currentRoom.getRoomEnemies().get(i).getInRange())
-					message = "";
-				if (i != currentRoom.getRoomEnemies().size() - 1) {
-					System.out.print(currentRoom.getRoomEnemies().get(i) + " is " + message + "in range, ");
+			if (!command.hasSecondWord()) {
+				System.out.println("What do you want to check?");
+			} else {
+				if (command.getSecondWord().equals("room")) {
+					System.out.print("The items in the room are: ");
+					currentRoom.getInventory().displayAll();
+				}else if (command.getSecondWord().equals("inventory")) {
+					player.getInventory().displayAll();
 				} else {
-					System.out.print(currentRoom.getRoomEnemies().get(i) + " is " + message + "in range.");
+					System.out.println("I do not understand what you are saying.");
 				}
 			}
-			System.out.println();
-			// TODO right now is case sensitive, consider adding way to make it
-			// non case sensitive 
+
 			// TODO also minor changes once an inventory is created to allow the
 			// item to be removed from the room and added to the inventory
 		} else if (commandWord.equals("grab")) {
