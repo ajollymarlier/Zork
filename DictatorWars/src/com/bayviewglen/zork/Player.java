@@ -34,7 +34,7 @@ public class Player extends Character {
 				int keyType = -1;
 				for (int i  = 0; i < Game.keyWeapons.length; i++)
 					if (Game.keyWeapons[i].equals(item.getName())){
-						keyType = i;
+						keyType = i + 5;
 						break;
 					}
 				inventory.addItem(new Key(item.getName(), keyType));

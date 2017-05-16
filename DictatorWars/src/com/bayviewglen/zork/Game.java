@@ -26,7 +26,6 @@ import java.util.Scanner;
 class Game {
 	public static String [] keyWeapons = {"machete"};
 	//names of items that make them into weapons 
-	private String [] meleeNames = {"sword", "axe", "machete"};
 	private Parser parser;
 	private Room currentRoom;
 	// This is a MASTER object that contains all of the rooms and is easily
@@ -67,7 +66,8 @@ class Game {
 					int weight = Integer.parseInt(roomItemsString[i].trim().split("-")[0]);
 					String name = roomItemsString[i].trim().split("-")[1];
 					if(Arrays.asList(Melee.MELEE).indexOf(name) != -1){
-						room.getInventory().add(new Melee(weight, name, 20));
+						//TODO change damage system
+						room.getInventory().add(new Melee(weight, name, weight*2));
 					}else if(Arrays.asList(Ranged.RANGED).indexOf(name) != -1){
 						room.getInventory().add(new Ranged(weight, name, 20, 40));
 					}

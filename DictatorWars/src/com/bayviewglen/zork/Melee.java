@@ -2,7 +2,7 @@ package com.bayviewglen.zork;
 
 public class Melee extends Weapon{
 	//contains all possible Melee weapon names in caps;
-	static public final String[] MELEE = {"sword", "axe", "stick"};
+	static public final String[] MELEE = {"sword", "axe", "stick", "machete", "fists"};
 	public Melee(int weight, String name, int damage) {
 		super(weight, name, damage);
 	}

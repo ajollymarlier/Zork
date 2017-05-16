@@ -1,11 +1,11 @@
 Room Name: Ship Room
 Lock Type: 0
 Room Description:  This is the Ship Room
-Room Items: 10-axe, 10-stick
+Room Items: 10-axe, 10-stick, 50-machete, 10-hi
 Room Enemies: grunt-C, grunt-F, grunt-C
 Exit Rooms: N-Upper Cliff
 Room Name: Upper Cliff
-Lock Type: 2
+Lock Type: 5
 Room Description:  This is the Upper Cliff
 Room Items: 50-Chest
 Room Enemies: grunt-C, grunt-F
