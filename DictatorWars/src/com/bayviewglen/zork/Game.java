@@ -239,7 +239,7 @@ class Game {
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
-			else if (currentRoom.getInventory().isInInventory(command.getSecondWord()))
+			else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
 				System.out.println("That item is not in the room");
 			else {
 				boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
