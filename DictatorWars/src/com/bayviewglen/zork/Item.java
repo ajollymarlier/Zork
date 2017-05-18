@@ -9,9 +9,9 @@ public  class Item {
 		this.weight = weight;
 		this.name = name;
 		if (name.equals("fist"))
-			dropable = true;
-		else 
 			dropable = false;
+		else 
+			dropable = true;
 	}
 
 	public int getWeight() {

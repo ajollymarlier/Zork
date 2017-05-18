@@ -24,6 +24,7 @@ public class Inventory {
 		allInventories[1] = rangedInventory;
 		allInventories[2] = keyInventory;
 		allInventories[3] = otherInventory;
+		
 
 	}
 

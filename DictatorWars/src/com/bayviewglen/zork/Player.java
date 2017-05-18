@@ -7,6 +7,7 @@ public class Player extends Character {
 	private Inventory inventory;
 	private int weightCarried = 0;
 	private final int MAX_WEIGHT = super.getStrength() * 10;
+	private final int FISTS_DAMAGE = 10;
 	
 	// TODO This max weight will be changed to a variable based on character
 	// attributes
@@ -14,6 +15,9 @@ public class Player extends Character {
 	public Player(int healthPoints, int speed, int strength) {
 		super(healthPoints, speed, strength);
 		inventory = new Inventory();
+		//start out with having a fist melee weapon
+		//remember for when we add drop command to check fist if droppable
+		inventory.addItem(new Melee (0,"fists", FISTS_DAMAGE));
 		//innitialized with stuff to test out game
 		inventory.addItem(new Melee(10, "sword", 30));
 		inventory.addItem(new Ranged(10, "bow", 40, 10));
