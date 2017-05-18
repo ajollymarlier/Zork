@@ -17,19 +17,10 @@ package com.bayviewglen.zork;
  */
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
-//hi
-// test DR...
 
-// at WAS Here
-// test DR...
-
-// DR was also Here
-
-// test DR...
-
-// DR was also Here
 class Parser {
 
 	private CommandWords commands; // holds all valid command words
@@ -48,7 +39,7 @@ class Parser {
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		try {
 			inputLine = reader.readLine().toLowerCase();
-		} catch (java.io.IOException exc) {
+		} catch (IOException exc) {
 			System.out.println("There was an error during reading: " + exc.getMessage());
 		}
 

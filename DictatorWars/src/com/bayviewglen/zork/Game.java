@@ -238,12 +238,24 @@ class Game {
 			else {
 				boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
 				if (works)
-					System.out.println("You obtianed: " + command.getSecondWord());
+					System.out.println("You obtained: " + command.getSecondWord());
 				else
 					System.out.println("You are already carrying too much");
 			}
+		} else if (commandWord.equals("drop")){
+			if (!command.hasSecondWord())
+				System.out.println("What do you want to drop");
+			else if(!currentRoom.getInventory().isInInventory(command.getSecondWord()))
+					System.out.println("You are not carrying that item");
+			else {
+				
+				if(command.getSecondWord().equals("fists"))
+					System.out.println("That is not physically possible");
+				else 
+					player.drop(command.getSecondWord(), currentRoom);
+				
+			}
 		}
-		//TODO writing the unlock mehthod
 				else if (commandWord.equals("unlock")){
 					processUnlock(command);
 				}

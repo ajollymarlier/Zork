@@ -15,7 +15,6 @@ public class MiniBoss extends Enemy {
 				player.setHealthPoints(player.getHealthPoints() - getStrength() + ((int)(Math.random() * 5) + 10) + player.getDefense());
 			else
 				player.setHealthPoints(player.getHealthPoints() - getStrength() + ((int)(Math.random() * 5) + 5)); 
-			
 		}
 
 }
