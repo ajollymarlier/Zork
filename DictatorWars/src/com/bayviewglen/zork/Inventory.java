@@ -4,11 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Inventory {
-	private final int NUM_OF_INVENTORIES = 4;
+	private final int NUM_OF_INVENTORIES = 5;
 	public ArrayList[] allInventories;
 	public ArrayList<Melee> meleeInventory;
 	public ArrayList<Ranged> rangedInventory;
 	public ArrayList<Key> keyInventory;
+	public ArrayList<EquippableItem> equippableInventory;
+
 	public ArrayList<Item> otherInventory;
 
 	public Inventory() {
@@ -23,6 +25,7 @@ public class Inventory {
 		allInventories[0] = meleeInventory;
 		allInventories[1] = rangedInventory;
 		allInventories[2] = keyInventory;
+		allInventories[4] = equippableInventory;
 		allInventories[3] = otherInventory;
 		
 
@@ -44,8 +47,10 @@ public class Inventory {
 			return 1;
 		} else if (item instanceof Key) {
 			return 2;
-		} else {
+		} else if (item instanceof EquippableItem) {
 			return 3;
+		} else  {
+			return 4;
 		}
 	}
 
@@ -56,8 +61,10 @@ public class Inventory {
 			return 1;
 		} else if (Arrays.asList(Key.KEY).indexOf(name) != -1) {
 			return 2;
-		} else {
+		} else if (Arrays.asList(EquippableItem.EQUIPPABLE).indexOf(name) != -1) {
 			return 3;
+		} else {
+			return 4;
 		}
 	}
 
@@ -109,6 +116,10 @@ public class Inventory {
 		if (keyInventory.size() != 0) {
 			System.out.print("Key Items: ");
 			displaySpecific(keyInventory);
+		}
+		if (equippableInventory.size() != 0) {
+			System.out.print("Equippable Items: ");
+			displaySpecific(equippableInventory);
 		}
 		if (otherInventory.size() != 0) {
 			System.out.print("Miscellaneous Items: ");
