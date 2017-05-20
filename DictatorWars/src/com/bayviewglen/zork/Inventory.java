@@ -16,11 +16,15 @@ public class Inventory {
 	public Inventory() {
 		// <? extends Item> allows for an ArrayList to use The Item Class as its
 		// storing reference
-
+		
+		//instantiate inventories
 		meleeInventory = new ArrayList<Melee>();
 		rangedInventory = new ArrayList<Ranged>();
 		keyInventory = new ArrayList<Key>();
+		equippableInventory = new ArrayList<EquippableItem>();
 		otherInventory = new ArrayList<Item>();
+		
+		// assign inventories arraylists to be part of a total array
 		allInventories = new ArrayList[NUM_OF_INVENTORIES];
 		allInventories[0] = meleeInventory;
 		allInventories[1] = rangedInventory;
@@ -163,6 +167,11 @@ public class Inventory {
 	//this is me being lazy, stop being lazy fool
 	public Key getKey(String name) {
 		return keyInventory.get(findIndexSpecific(keyInventory, name));
+	}
+
+	public void getEquippable() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
