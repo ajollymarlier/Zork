@@ -8,13 +8,13 @@ public class MiniBoss extends Enemy {
 	}
 
 	// Adds number from 10-15 to strength
-	public void attack(Player player){
+	public boolean attack(Player player){
 			int choice = (int) (Math.random()* 4) + 1;
 			
 			if(choice == 1)
-				player.setHealthPoints(player.getHealthPoints() - getStrength() + ((int)(Math.random() * 5) + 10) + player.getDefense());
+				return player.setDamage(getStrength() + ((int)(Math.random() * 5) + 10) + player.getDefense());
 			else
-				player.setHealthPoints(player.getHealthPoints() - getStrength() + ((int)(Math.random() * 5) + 5)); 
+				return player.setDamage(getStrength() + ((int)(Math.random() * 5) + 5));
 		}
 
 }
