@@ -6,9 +6,19 @@ import java.util.Arrays;
 public class Player extends Character {
 	private Inventory inventory;
 	private int weightCarried = 0;
+	private int health;
+	private int defense;
+	private int speed;
+	private int strength;
+	//TODO just filler base values right now
+	private final int baseHealth = 100;
+	private final int baseDefense = 5;
+	private final int baseSpeed = 5;
+	private final int baseStrength = 5;
 	private final int MAX_WEIGHT = super.getStrength() * 10;
 	private final int FISTS_DAMAGE = 10;
-	
+	private final EquippableItem [] equippedItems = new EquippableItem [5];
+
 	// TODO This max weight will be changed to a variable based on character
 	// attributes
 
@@ -96,11 +106,35 @@ public class Player extends Character {
 
 
 
-
-	public void equip(){
+//once we are able to equip items need to make sure this stuff works
+	public void equip(EquippableItem armour){
+		for (int i = 0 ; i < equippedItems.length; i++){
+			if (equippedItems[i] instanceof EquippableItem){
+				if (equippedItems[i].getType().equals(armour.getType())){
+					//TODO ask if it is alright to change gear
+					equippedItems[i].setEquipped(false);
+					equippedItems[i] = armour;
+					armour.setEquipped(true);
+				}
+			} else if (equippedItems[i] == null){
+				equippedItems[i] = armour;
+				armour.setEquipped(true);
+			}
+			
+		}
+		//TODO double check that the update works
+		updatePlayerStats(armour.getHealthBoost(), armour.getDefenseBoost(), armour.getSpeedBoost(), armour.getStrengthBoost());
 		
 	}
-	//Todo add resistance 
+
+	public void updatePlayerStats(int healthBoost, int defenseBoost, int speedBoost, int strengthBoost) {
+		health = baseHealth + healthBoost;
+		defense = baseDefense + defenseBoost;
+		speed = baseSpeed + speedBoost;
+		strength = baseStrength + strengthBoost;
+		
+	}
+	
 	
 	
 
