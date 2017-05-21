@@ -25,8 +25,8 @@ public class Inventory {
 		allInventories[0] = meleeInventory;
 		allInventories[1] = rangedInventory;
 		allInventories[2] = keyInventory;
-		allInventories[4] = equippableInventory;
-		allInventories[3] = otherInventory;
+		allInventories[3] = equippableInventory;
+		allInventories[4] = otherInventory;
 		
 
 	}
