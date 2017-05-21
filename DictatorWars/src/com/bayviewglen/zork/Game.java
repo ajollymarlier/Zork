@@ -24,8 +24,8 @@ import java.util.Scanner;
  */
 
 class Game {
-	public static String [] keyWeapons = {"machete"};
-	//names of items that make them into weapons 
+	public static String[] keyWeapons = { "machete" };
+	// names of items that make them into weapons
 	private Parser parser;
 	private Room currentRoom;
 	// This is a MASTER object that contains all of the rooms and is easily
@@ -54,27 +54,28 @@ class Game {
 				room.setRoomName(roomName.split(":")[1].trim().split("-")[0]);
 				room.setUnlockType(Integer.parseInt(roomScanner.nextLine().split(":")[1].trim()));
 				// Read the Description
-				//TODO MAKE IT READ IN ROOM LOCKY TYPE, format of data file is problem 
+				// TODO MAKE IT READ IN ROOM LOCKY TYPE, format of data file is
+				// problem
 				String roomDescription = roomScanner.nextLine();
 				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n"));
-				//Stores in string array of each than parses after
+				// Stores in string array of each than parses after
 				String s1 = roomScanner.nextLine();
-				String [] roomItemsString = s1.trim().split(":")[1].split(",");
-				
+				String[] roomItemsString = s1.trim().split(":")[1].split(",");
+
 				// finds out the type of item and adds it in
-				for(int i = 0; i< roomItemsString.length; i++){
+				for (int i = 0; i < roomItemsString.length; i++) {
 					int weight = Integer.parseInt(roomItemsString[i].trim().split("-")[0]);
 					String name = roomItemsString[i].trim().split("-")[1];
-					if(Arrays.asList(Melee.MELEE).indexOf(name) != -1){
-						//TODO change damage system
-						room.getInventory().add(new Melee(weight, name, weight*2));
-					}else if(Arrays.asList(Ranged.RANGED).indexOf(name) != -1){
+					if (Arrays.asList(Melee.MELEE).indexOf(name) != -1) {
+						// TODO change damage system
+						room.getInventory().add(new Melee(weight, name, weight * 2));
+					} else if (Arrays.asList(Ranged.RANGED).indexOf(name) != -1) {
 						room.getInventory().add(new Ranged(weight, name, 20, 40));
+					} else if (Arrays.asList(EquippableItem.EQUIPPABLE).indexOf(name) != -1) {
+						room.getInventory().add(new EquippableItem(weight, name, 20, 40, 10, 10, "head"));
 					}
-					
+
 				}
-				
-				
 
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
@@ -85,11 +86,11 @@ class Game {
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
 					if (currentEnemyType.equals("grunt"))
-						room.addRoomEnemy(new Grunt(100, 30, 40, "grunt", inRange.equals("C")));
+						room.addRoomEnemy(new Grunt(50, 20, 10, "grunt", inRange.equals("C")));
 					else if (currentEnemyType.equals("miniboss"))
 						room.addRoomEnemy(new MiniBoss(100, 0, 0, "miniboss", inRange.equals("C")));
 					else if (currentEnemyType.equals("boss"))
-						room.addRoomEnemy(new Boss(100, 0, 0, "boss", inRange.equals("C")));
+						room.addRoomEnemy(new Boss(150, 0, 0, "boss", inRange.equals("C")));
 					counter++;
 				}
 
@@ -131,8 +132,6 @@ class Game {
 			e.printStackTrace();
 		}
 	}
-
-
 
 	/**
 	 * Create the game and initialise its internal map.
@@ -221,8 +220,10 @@ class Game {
 				if (command.getSecondWord().equals("room")) {
 					System.out.print("The items in the room are: ");
 					currentRoom.getInventory().displayAll();
-				}else if (command.getSecondWord().equals("inventory")) {
+				} else if (command.getSecondWord().equals("inventory")) {
 					player.getInventory().displayAll();
+				} else if (command.getSecondWord().equals("stats")) {
+					player.displayStats();
 				} else {
 					System.out.println("I do not understand what you are saying.");
 				}
@@ -242,56 +243,71 @@ class Game {
 				else
 					System.out.println("You are already carrying too much");
 			}
-		} else if (commandWord.equals("drop")){
+		} else if (commandWord.equals("drop")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to drop");
-			else if(!currentRoom.getInventory().isInInventory(command.getSecondWord()))
-					System.out.println("You are not carrying that item");
+			else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
+				System.out.println("You are not carrying that item");
 			else {
-				
-				if(command.getSecondWord().equals("fists"))
+
+				if (command.getSecondWord().equals("fists"))
 					System.out.println("That is not physically possible");
-				else 
+				else
 					player.drop(command.getSecondWord(), currentRoom);
-				
+
+			}
+		} else if (commandWord.equals("unlock")) {
+			processUnlock(command);
+		} else if (commandWord.equals("use")) {
+			if (!command.hasSecondWord())
+				System.out.println("What do you want to use");
+			else if (!player.getInventory().isInInventory(command.getSecondWord()))
+				System.out.println("You are not carrying that item");
+			else {
+				EffectItem chosenItem = player.getInventory().getEffectItem(command.getSecondWord());
+				if (chosenItem == null) {
+					System.out.println("You can't use this!");
+				} else {
+					player.use(chosenItem);
+				}
 			}
 		}
-				else if (commandWord.equals("unlock")){
-					processUnlock(command);
-				}
 
 		return false;
 	}
-	//TODO 
-		//processes unlock to see if door is unlockable and if the key works
-		
-		private void processUnlock(Command command) {
-			//testing code that displays all exits in hashmap
-			/*for (String i : currentRoom.getExits().keySet()){
-				System.out.println(i);
-			}*/
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to unlock?");
-			else if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
-				System.out.println("There is no door in that direction");	
-			else if (!command.hasThirdWord())
-				System.out.println("What do you want to use to unlock it?");
-			else if (!player.getInventory().isInInventory(command.getThirdWord())){
-				System.out.println("That key is not in your inventory.");
-			}
-			//ok this looks bad, but just trys to unlock door with key and if it does gets rid of key and unlocks door
-			else if (!currentRoom.getExits().get(command.getSecondWord().trim()).unlock( player.getInventory().getKey(command.getThirdWord().trim()))){
-				System.out.println("That is not the right type of key");
-			}
-			else {
-				//TODO this doesnt check key type properly
-				currentRoom.getExits().get(command.getSecondWord().trim()).unlock(player.getInventory().getKey(command.getThirdWord().trim()));
-				( player.getInventory().getKey(command.getThirdWord())).setUsed(true);
-				player.getInventory().checkKeyInventoryUsed();
-				System.out.println("The door is unlocked!");
-			}
-			
+	// TODO
+	// processes unlock to see if door is unlockable and if the key works
+
+	private void processUnlock(Command command) {
+		// testing code that displays all exits in hashmap
+		/*
+		 * for (String i : currentRoom.getExits().keySet()){
+		 * System.out.println(i); }
+		 */
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to unlock?");
+		else if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
+			System.out.println("There is no door in that direction");
+		else if (!command.hasThirdWord())
+			System.out.println("What do you want to use to unlock it?");
+		else if (!player.getInventory().isInInventory(command.getThirdWord())) {
+			System.out.println("That key is not in your inventory.");
 		}
+		// ok this looks bad, but just trys to unlock door with key and if it
+		// does gets rid of key and unlocks door
+		else if (!currentRoom.getExits().get(command.getSecondWord().trim())
+				.unlock(player.getInventory().getKey(command.getThirdWord().trim()))) {
+			System.out.println("That is not the right type of key");
+		} else {
+			// TODO this doesnt check key type properly
+			currentRoom.getExits().get(command.getSecondWord().trim())
+					.unlock(player.getInventory().getKey(command.getThirdWord().trim()));
+			(player.getInventory().getKey(command.getThirdWord())).setUsed(true);
+			player.getInventory().checkKeyInventoryUsed();
+			System.out.println("The door is unlocked!");
+		}
+
+	}
 
 	// implementations of user commands:
 
@@ -384,13 +400,13 @@ class Game {
 		boolean badCommand = true;
 		while (badCommand) {
 
-			if (!command.hasSecondWord()){
+			if (!command.hasSecondWord()) {
 				System.out.println("What do you want to attack?");
-			}else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1){
+			} else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1) {
 				System.out.println("That enemy is not in the room");
-			}else if (!command.hasThirdWord()){
+			} else if (!command.hasThirdWord()) {
 				System.out.println("What do you want to hit them with?");
-			}else if (!player.getInventory().isInInventory(command.getThirdWord())) {
+			} else if (!player.getInventory().isInInventory(command.getThirdWord())) {
 				System.out.println("You do not have that!");
 
 			} else {
@@ -405,10 +421,10 @@ class Game {
 							processDeadEnemy();
 							return true;
 						}
-					} else  {
+					} else {
 						System.out.println("Enemy is out of range for a Melee Weapon");
 					}
-					
+
 				}
 				// if chosen weapon is a Ranged
 				else if (chosenWeapon instanceof Ranged) {
@@ -419,15 +435,15 @@ class Game {
 						return true;
 					}
 
-				} 
+				}
 				// if chosen weapon is not a weapons
 				else {
 					System.out.println("You can not attack with that");
 				}
-				
+
 			}
-			//if it is a bad command get a new command
-			if(badCommand){
+			// if it is a bad command get a new command
+			if (badCommand) {
 				command = parser.getCommand();
 			}
 		}
@@ -437,16 +453,16 @@ class Game {
 
 	private boolean processEnemyAttack() {
 		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
-		int damage = 0;
+		boolean playerDead = false;
 		if (currEnemy instanceof Grunt) {
-			damage = (int) (Math.random() * 10);
+			playerDead = ((Grunt) currEnemy).attack(player);
 		} else if (currEnemy instanceof MiniBoss) {
-			damage = (int) (Math.random() * 10 + 20);
+			playerDead = ((MiniBoss) currEnemy).attack(player);
 		} else if (currEnemy instanceof Boss) {
-			damage = (int) (Math.random() * 20 + 30);
+			playerDead = ((Boss) currEnemy).attack(player);
 		}
 		System.out.println("the enemy Attacks!!!");
-		return player.setDamage(damage);
+		return playerDead;
 	}
 
 	private void processDeadEnemy() {

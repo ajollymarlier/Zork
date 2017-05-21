@@ -1,17 +1,34 @@
 package com.bayviewglen.zork;
 
-public class EffectItem extends ConsumableItem{
-	private String type;
-	
-	//This is a test
-	
-	public EffectItem(int weight, String name, String type){
+public class EffectItem extends ConsumableItem {
+	public static final String[] EFFECT_ITEMS = {"potion", "Speedy", "Go Go Go"};
+	private int healthBoost;
+	private int defenseBoost;
+	private int speedBoost;
+	private int strengthBoost;
+
+	public EffectItem(int weight, String name, int healthBoost, int defenseBoost, int speedBoost, int strengthBoost) {
 		super(weight, name);
-		this.type = type;
+		this.healthBoost = healthBoost;
+		this.defenseBoost = defenseBoost;
+		this.speedBoost = speedBoost;
+		this.strengthBoost = strengthBoost;
 	}
-	
-	public void use(){
-		//TODO boosts player attribute based on type listed in if statement
+
+
+	public int getHealthBoost() {
+		return healthBoost;
 	}
-	
+
+	public int getDefenseBoost() {
+		return defenseBoost;
+	}
+
+	public int getSpeedBoost() {
+		return speedBoost;
+	}
+
+	public int getStrengthBoost() {
+		return strengthBoost;
+	}
 }

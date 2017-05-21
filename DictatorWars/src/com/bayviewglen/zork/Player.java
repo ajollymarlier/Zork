@@ -6,15 +6,8 @@ import java.util.Arrays;
 public class Player extends Character {
 	private Inventory inventory;
 	private int weightCarried = 0;
-	private int health;
-	private int defense;
-	private int speed;
-	private int strength;
-	//TODO just filler base values right now
-	private final int baseHealth = 100;
-	private final int baseDefense = 5;
-	private final int baseSpeed = 5;
-	private final int baseStrength = 5;
+	
+	
 	private final int MAX_WEIGHT = super.getStrength() * 10;
 	private final int FISTS_DAMAGE = 10;
 	private final EquippableItem [] equippedItems = new EquippableItem [5];
@@ -33,6 +26,7 @@ public class Player extends Character {
 		inventory.addItem(new Ranged(10, "bow", 40, 10));
 		inventory.addItem(new Key("test" , 3));
 		inventory.addItem(new Key("test2" , 2));
+		inventory.addItem(new EffectItem(10, "potion", 10,10,10,10));
 		inventory.displayAll();
 
 	}
@@ -126,12 +120,23 @@ public class Player extends Character {
 		updatePlayerStats(armour.getHealthBoost(), armour.getDefenseBoost(), armour.getSpeedBoost(), armour.getStrengthBoost());
 		
 	}
-
+	public void displayStats(){
+		System.out.println("Your Health is: " + getHealthPoints());
+		System.out.println("Your Strength is: " + getStrength());
+		System.out.println("Your Speed is: " + getSpeed());
+	}
+	
+	public void use(EffectItem item){
+		updatePlayerStats(item.getHealthBoost(), item.getDefenseBoost(), item.getSpeedBoost(), item.getStrengthBoost());
+		inventory.removeItem(item.getName());
+		displayStats();
+	}
+	
 	public void updatePlayerStats(int healthBoost, int defenseBoost, int speedBoost, int strengthBoost) {
-		health = baseHealth + healthBoost;
-		defense = baseDefense + defenseBoost;
-		speed = baseSpeed + speedBoost;
-		strength = baseStrength + strengthBoost;
+		changeHealthPoints(healthBoost);
+		changeSpeed(speedBoost);
+		changeStrength(strengthBoost);
+		//defense boost
 		
 	}
 	

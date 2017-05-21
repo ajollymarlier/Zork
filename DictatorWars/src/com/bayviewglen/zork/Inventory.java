@@ -4,12 +4,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Inventory {
-	private final int NUM_OF_INVENTORIES = 5;
+	private final int NUM_OF_INVENTORIES = 6;
 	public ArrayList[] allInventories;
 	public ArrayList<Melee> meleeInventory;
 	public ArrayList<Ranged> rangedInventory;
 	public ArrayList<Key> keyInventory;
 	public ArrayList<EquippableItem> equippableInventory;
+	public ArrayList<EffectItem> effectInventory;
 
 	public ArrayList<Item> otherInventory;
 
@@ -22,6 +23,8 @@ public class Inventory {
 		rangedInventory = new ArrayList<Ranged>();
 		keyInventory = new ArrayList<Key>();
 		equippableInventory = new ArrayList<EquippableItem>();
+		effectInventory =  new ArrayList<EffectItem>();
+
 		otherInventory = new ArrayList<Item>();
 		
 		// assign inventories arraylists to be part of a total array
@@ -30,7 +33,8 @@ public class Inventory {
 		allInventories[1] = rangedInventory;
 		allInventories[2] = keyInventory;
 		allInventories[3] = equippableInventory;
-		allInventories[4] = otherInventory;
+		allInventories[4] = effectInventory;
+		allInventories[5] = otherInventory;
 		
 
 	}
@@ -53,8 +57,10 @@ public class Inventory {
 			return 2;
 		} else if (item instanceof EquippableItem) {
 			return 3;
-		} else  {
+		} else if (item instanceof EffectItem) {
 			return 4;
+		}else  {
+			return 5;
 		}
 	}
 
@@ -67,8 +73,10 @@ public class Inventory {
 			return 2;
 		} else if (Arrays.asList(EquippableItem.EQUIPPABLE).indexOf(name) != -1) {
 			return 3;
-		} else {
+		}  else if (Arrays.asList(EffectItem.EFFECT_ITEMS).indexOf(name) != -1) {
 			return 4;
+		}else {
+			return 5;
 		}
 	}
 
@@ -125,6 +133,10 @@ public class Inventory {
 			System.out.print("Equippable Items: ");
 			displaySpecific(equippableInventory);
 		}
+		if (effectInventory.size() != 0) {
+			System.out.print("Effect Items: ");
+			displaySpecific(effectInventory);
+		}
 		if (otherInventory.size() != 0) {
 			System.out.print("Miscellaneous Items: ");
 			displaySpecific(otherInventory);
@@ -164,14 +176,27 @@ public class Inventory {
 		}
 	}
 
-	//this is me being lazy, stop being lazy fool
-	public Key getKey(String name) {
-		return keyInventory.get(findIndexSpecific(keyInventory, name));
-	}
 
 	public void getEquippable() {
 		// TODO Auto-generated method stub
 		
 	}
+
+	public void add(EquippableItem equippableItem) {
+		equippableInventory.add(equippableItem);
+	}
+	
+	//this is me being lazy, stop being lazy fool
+		public Key getKey(String name) {
+			int index = findIndexSpecific(keyInventory, name);
+			if(index == -1) return null;
+			return keyInventory.get(index);
+		}
+
+		public EffectItem getEffectItem(String name) {
+			int index = findIndexSpecific(effectInventory, name);
+			if(index == -1) return null;
+			return effectInventory.get(index);
+		}
 
 }

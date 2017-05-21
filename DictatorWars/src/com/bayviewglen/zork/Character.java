@@ -15,11 +15,11 @@ public abstract class Character {
 	public int getHealthPoints() {
 		return healthPoints;
 	}
-
-
-	public void setHealthPoints(int healthPoints) {
-		this.healthPoints = healthPoints;
+	
+	public void changeHealthPoints(int healthPoints) {
+		this.healthPoints += healthPoints;
 	}
+
 	
 	//returns true if dead
 	public boolean setDamage(int hitPoint) {
@@ -31,9 +31,8 @@ public abstract class Character {
 		return speed;
 	}
 
-
-	public void setSpeed(int speed) {
-		this.speed = speed;
+	public void changeSpeed(int amount) {
+		speed += amount;
 	}
 
 
@@ -41,9 +40,10 @@ public abstract class Character {
 		return strength;
 	}
 
-
-	public void setStrength(int strength) {
-		this.strength = strength;
+	
+	public void changeStrength(int amount) {
+		strength += amount;
 	}
+	
 
 }
