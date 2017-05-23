@@ -45,5 +45,6 @@ public abstract class Character {
 		strength += amount;
 	}
 	
+	
 
 }
