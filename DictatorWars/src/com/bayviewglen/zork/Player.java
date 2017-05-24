@@ -29,6 +29,8 @@ public class Player extends Character {
 		inventory.addItem(new EffectItem(10, "potion", 10,10,10,10));
 		inventory.addItem(new EquippableItem(10, "shirt", 10,10,10,10, "chest"));
 		inventory.addItem(new EquippableItem(10, "chestplate", 50,10,10,10, "chest"));
+		inventory.addItem(new EquippableItem(10, "gloves", 5,5,5,5, "gloves"));
+		
 		inventory.displayAll();
 
 	}
@@ -107,12 +109,12 @@ public class Player extends Character {
 		for (int i = 0 ; i < equippedItems.length; i++){
 			if (equippedItems[i] instanceof EquippableItem){
 				if (equippedItems[i].getType().equals(armour.getType())){
+					System.out.println("You have taken off your " + equippedItems[i].getName() + " and . . . ");
 					equippedItems[i].setEquipped(false);
 					updatePlayerStats(-equippedItems[i].getHealthBoost(), -equippedItems[i].getDefenseBoost(), -equippedItems[i].getSpeedBoost(), -equippedItems[i].getStrengthBoost());
 					equippedItems[i] = armour;
 					armour.setEquipped(true);
 					updatePlayerStats(armour.getHealthBoost(), armour.getDefenseBoost(), armour.getSpeedBoost(), armour.getStrengthBoost());
-					System.out.println("You have taken off your " + equippedItems[i].getName() + " and . . . ");
 					return true;
 				}
 			} else if (equippedItems[i] == null){
@@ -128,6 +130,18 @@ public class Player extends Character {
 		
 		return false;
 		
+	}
+	
+	public void unequip (String armour){
+		for (int i = 0 ; i < equippedItems.length; i++){
+			if (equippedItems[i] instanceof EquippableItem){
+				if (equippedItems[i].getName().equals(armour)){
+					updatePlayerStats(-equippedItems[i].getHealthBoost(), -equippedItems[i].getDefenseBoost(), -equippedItems[i].getSpeedBoost(), -equippedItems[i].getStrengthBoost());
+					equippedItems[i].setEquipped(false);
+					equippedItems[i] = null;
+				}
+			}
+		}
 	}
 	public void displayStats(){
 		System.out.println("Your Health is: " + getHealthPoints());
@@ -160,6 +174,18 @@ public class Player extends Character {
 				return true;
 		}
 		return false;
+		
+	}
+
+	public void displayInventory() {
+		System.out.print("Equipped Items are: ");
+		String line = "";
+		for (int i  = 0; i < equippedItems.length; i++){
+			if (equippedItems[i] != null){
+					line += equippedItems[i].getName() + ", ";
+			}
+		}
+		System.out.println(line.substring(0, line.lastIndexOf(",")) + ".");
 		
 	}
 	

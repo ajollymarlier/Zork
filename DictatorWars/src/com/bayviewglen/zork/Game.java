@@ -224,7 +224,9 @@ class Game {
 					player.getInventory().displayAll();
 				} else if (command.getSecondWord().equals("stats")) {
 					player.displayStats();
-				} else {
+				} else if (command.getSecondWord().equals("body")){ 
+					player.displayInventory();
+				}else {
 					System.out.println("I do not understand what you are saying.");
 				}
 			}
@@ -246,7 +248,7 @@ class Game {
 		} else if (commandWord.equals("drop")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to drop");
-			else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
+			else if (!currentRoom.getInventory().isInInventory(command.getSecondWord().trim()))
 				System.out.println("You are not carrying that item");
 			else {
 
@@ -271,21 +273,34 @@ class Game {
 					player.use(chosenItem);
 				}
 			}
-			//for equiping things from the inventory
-		} else if (commandWord.equals("equip")){
+			// for equiping things from the inventory
+		} else if (commandWord.equals("equip")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to equip?");
 			else if (!player.getInventory().isInInventory(command.getSecondWord()))
 				System.out.println("That item is not in your inventory.");
 			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
 				System.out.println("That is not something you can equip.");
-			//TODO ali is making a way to directly check E.I inventory
-			else if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()){
-				System.out.println("That item is already equiped.");
-			}
-			else {
+			// TODO ali is making a way to directly check E.I inventory
+			else if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
+				System.out.println("That item is already equipped.");
+			} else {
 				player.equip(((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))));
-				System.out.println("You have equiped " + command.getSecondWord());
+				System.out.println("You have equipped " + command.getSecondWord());
+			}
+		} else if (commandWord.equals("unequip")) {
+			if (!command.hasSecondWord())
+				System.out.println("What do you want to equip?");
+			else if (!player.getInventory().isInInventory(command.getSecondWord()))
+				System.out.println("That item is not in your inventory.");
+			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
+				System.out.println("That is not something you can unequip.");
+			// TODO ali is making a way to directly check E.I inventory
+			else if (!((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
+				System.out.println("That item is already unequipped.");
+			} else {
+				player.unequip(command.getSecondWord());
+				System.out.println("You have unequipped " + command.getSecondWord());
 			}
 		}
 
