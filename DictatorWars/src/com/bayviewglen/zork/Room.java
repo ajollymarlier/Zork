@@ -25,7 +25,7 @@ class Room implements Lockable
 	private String roomName;
     private String description;
     private int unlockType;
-    private Inventory inventory= new Inventory();
+    private Inventory inventory = new Inventory();
     
     private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
     private HashMap<String, Room> exits;        // stores exits of this room.
