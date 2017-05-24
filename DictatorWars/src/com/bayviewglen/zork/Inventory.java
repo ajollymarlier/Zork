@@ -179,7 +179,6 @@ public class Inventory {
 
 	public void getEquippable() {
 		// TODO Auto-generated method stub
-		
 	}
 
 	public void add(EquippableItem equippableItem) {

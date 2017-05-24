@@ -10,7 +10,7 @@ public class Player extends Character {
 	
 	private final int MAX_WEIGHT = super.getStrength() * 10;
 	private final int FISTS_DAMAGE = 10;
-	private final EquippableItem [] equippedItems = new EquippableItem [5];
+	private EquippableItem [] equippedItems = new EquippableItem [5];
 
 	// TODO This max weight will be changed to a variable based on character
 	// attributes
@@ -27,6 +27,8 @@ public class Player extends Character {
 		inventory.addItem(new Key("test" , 3));
 		inventory.addItem(new Key("test2" , 2));
 		inventory.addItem(new EffectItem(10, "potion", 10,10,10,10));
+		inventory.addItem(new EquippableItem(10, "shirt", 10,10,10,10, "chest"));
+		inventory.addItem(new EquippableItem(10, "chestplate", 50,10,10,10, "chest"));
 		inventory.displayAll();
 
 	}
@@ -100,24 +102,31 @@ public class Player extends Character {
 
 
 
-//once we are able to equip items need to make sure this stuff works
-	public void equip(EquippableItem armour){
+//returns true if a piece of equipment had to switched out for another
+	public boolean equip(EquippableItem armour){
 		for (int i = 0 ; i < equippedItems.length; i++){
 			if (equippedItems[i] instanceof EquippableItem){
 				if (equippedItems[i].getType().equals(armour.getType())){
-					//TODO ask if it is alright to change gear
 					equippedItems[i].setEquipped(false);
+					updatePlayerStats(-equippedItems[i].getHealthBoost(), -equippedItems[i].getDefenseBoost(), -equippedItems[i].getSpeedBoost(), -equippedItems[i].getStrengthBoost());
 					equippedItems[i] = armour;
 					armour.setEquipped(true);
+					updatePlayerStats(armour.getHealthBoost(), armour.getDefenseBoost(), armour.getSpeedBoost(), armour.getStrengthBoost());
+					System.out.println("You have taken off your " + equippedItems[i].getName() + " and . . . ");
+					return true;
 				}
 			} else if (equippedItems[i] == null){
 				equippedItems[i] = armour;
 				armour.setEquipped(true);
+				updatePlayerStats(armour.getHealthBoost(), armour.getDefenseBoost(), armour.getSpeedBoost(), armour.getStrengthBoost());
+				return false;
 			}
 			
+			
 		}
-		//TODO double check that the update works
-		updatePlayerStats(armour.getHealthBoost(), armour.getDefenseBoost(), armour.getSpeedBoost(), armour.getStrengthBoost());
+		
+		
+		return false;
 		
 	}
 	public void displayStats(){
@@ -140,7 +149,19 @@ public class Player extends Character {
 		
 	}
 	
+	public EquippableItem [] getEquippedItems (){
+		return equippedItems;
+	}
 	
+	public boolean typeAlreadyEquipped(String type){
+		for (int i  = 0; i < equippedItems.length; i++){
+			if (equippedItems[i] != null)
+			if (equippedItems[i].getType().equals(type))
+				return true;
+		}
+		return false;
+		
+	}
 	
 
 

@@ -8,7 +8,7 @@ public class EquippableItem extends Item{
 	private int strengthBoost;
 	private String type;
 	
-	static public final String [] EQUIPPABLE = {"helmet", "shield", "shirt"};
+	static public final String [] EQUIPPABLE = {"helmet", "shield", "shirt", "chestplate"};
 	//TODO add defense attribute in player class
 	public EquippableItem(int weight, String name, int healthBoost, int defenseBoost, int speedBoost, int strengthBoost, String type){
 		super(weight, name);

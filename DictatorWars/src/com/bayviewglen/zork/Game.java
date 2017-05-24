@@ -271,6 +271,22 @@ class Game {
 					player.use(chosenItem);
 				}
 			}
+			//for equiping things from the inventory
+		} else if (commandWord.equals("equip")){
+			if (!command.hasSecondWord())
+				System.out.println("What do you want to equip?");
+			else if (!player.getInventory().isInInventory(command.getSecondWord()))
+				System.out.println("That item is not in your inventory.");
+			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
+				System.out.println("That is not something you can equip.");
+			//TODO ali is making a way to directly check E.I inventory
+			else if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()){
+				System.out.println("That item is already equiped.");
+			}
+			else {
+				player.equip(((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))));
+				System.out.println("You have equiped " + command.getSecondWord());
+			}
 		}
 
 		return false;
