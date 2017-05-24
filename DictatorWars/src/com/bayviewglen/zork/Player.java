@@ -94,22 +94,22 @@ public class Player extends Character {
 	// TODO also dont have a fix for if the item doesnt exist. Might be treated in other classes
 	public void drop(String name, Room room) {
 		if(inventory.getItem(name) instanceof Melee){
-			room.getInventory().add((Melee)inventory.getItem(name));
+			room.getInventory().add((Melee)inventory.removeItem(name));
 					
 		}else if(inventory.getItem(name) instanceof Ranged){
-			room.getInventory().add((Ranged)inventory.getItem(name));
+			room.getInventory().add((Ranged)inventory.removeItem(name));
 			
 		}else if(inventory.getItem(name) instanceof Key){
-			room.getInventory().add((Key)inventory.getItem(name));
+			room.getInventory().add((Key)inventory.removeItem(name));
 			
 		}else if(inventory.getItem(name) instanceof EquippableItem){
-			room.getInventory().add((EquippableItem)inventory.getItem(name));
+			room.getInventory().add((EquippableItem)inventory.removeItem(name));
 			
 		}else if(inventory.getItem(name) instanceof EffectItem){
-			room.getInventory().add(((EffectItem)inventory.getItem(name)));
+			room.getInventory().add(((EffectItem)inventory.removeItem(name)));
 			
 		}else{
-			room.getInventory().addItem(inventory.getItem(name));
+			room.getInventory().addItem(inventory.removeItem(name));
 		}
 	}
 

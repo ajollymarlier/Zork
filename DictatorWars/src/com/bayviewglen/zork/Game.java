@@ -268,14 +268,17 @@ class Game {
 		} else if (commandWord.equals("drop")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to drop");
-			else if (!currentRoom.getInventory().isInInventory(command.getSecondWord().trim()))
+			else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
 				System.out.println("You are not carrying that item");
 			else {
 
 				if (command.getSecondWord().equals("fists"))
 					System.out.println("That is not physically possible");
-				else
+				else{
 					player.drop(command.getSecondWord(), currentRoom);
+					System.out.println("You dropped: " + command.getSecondWord());
+				}
+					
 
 			}
 		} else if (commandWord.equals("unlock")) {
