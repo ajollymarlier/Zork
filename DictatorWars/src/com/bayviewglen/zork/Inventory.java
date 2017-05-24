@@ -184,6 +184,13 @@ public class Inventory {
 	public void add(EquippableItem equippableItem) {
 		equippableInventory.add(equippableItem);
 	}
+	public void add(Key key) {
+		keyInventory.add(key);
+	}
+	
+	public void add(EffectItem effectItem) {
+		effectInventory.add(effectItem);
+	}
 	
 	//this is me being lazy, stop being lazy fool
 		public Key getKey(String name) {

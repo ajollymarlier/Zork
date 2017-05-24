@@ -64,17 +64,37 @@ class Game {
 
 				// finds out the type of item and adds it in
 				for (int i = 0; i < roomItemsString.length; i++) {
-					int weight = Integer.parseInt(roomItemsString[i].trim().split("-")[0]);
+					String itemType = roomItemsString[i].trim().split("-")[0];
 					String name = roomItemsString[i].trim().split("-")[1];
-					if (Arrays.asList(Melee.MELEE).indexOf(name) != -1) {
-						// TODO change damage system
-						room.getInventory().add(new Melee(weight, name, weight * 2));
-					} else if (Arrays.asList(Ranged.RANGED).indexOf(name) != -1) {
-						room.getInventory().add(new Ranged(weight, name, 20, 40));
-					} else if (Arrays.asList(EquippableItem.EQUIPPABLE).indexOf(name) != -1) {
-						room.getInventory().add(new EquippableItem(weight, name, 20, 40, 10, 10, "head"));
-					}
+					if (itemType.equals("K")) {
+						int type = Integer.parseInt(roomItemsString[i].trim().split("-")[2]);
+						room.getInventory().add(new Key(name, type));
+					} else {
+						int weight = Integer.parseInt(roomItemsString[i].trim().split("-")[2]);
+						if (itemType.equals("M") || itemType.equals("R")) {
+							int damage = Integer.parseInt(roomItemsString[i].trim().split("-")[3]);
+							if (itemType.equals("M")) {
+								room.getInventory().add(new Melee(weight, name, damage));
+							} else {
+								int ammo = Integer.parseInt(roomItemsString[i].trim().split("-")[4]);
+								room.getInventory().add(new Ranged(weight, name, damage, ammo));
+							}
+						} else if (itemType.equals("E") || itemType.equals("Q")) {
+							int healthBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[3]);
+							int defenseBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[4]);
+							int speedBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[5]);
+							int strengthBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[6]);
+							if (itemType.equals("E")) {
+								room.getInventory().add(new EffectItem(weight, name, healthBoost, defenseBoost,
+										speedBoost, strengthBoost));
+							} else {
+								String type = roomItemsString[i].trim().split("-")[7];
+								room.getInventory().add(new EquippableItem(weight, name, healthBoost, defenseBoost,
+										speedBoost, strengthBoost, type));
 
+							}
+						}
+					}
 				}
 
 				// Read enemies
@@ -224,9 +244,9 @@ class Game {
 					player.getInventory().displayAll();
 				} else if (command.getSecondWord().equals("stats")) {
 					player.displayStats();
-				} else if (command.getSecondWord().equals("body")){ 
+				} else if (command.getSecondWord().equals("body")) {
 					player.displayInventory();
-				}else {
+				} else {
 					System.out.println("I do not understand what you are saying.");
 				}
 			}
