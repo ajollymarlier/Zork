@@ -34,6 +34,7 @@ class Parser {
 		String word1;
 		String word2;
 		String word3;
+		String fillerWord = null;
 		System.out.print("> "); // print prompt
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -53,8 +54,11 @@ class Parser {
 			word2 = tokenizer.nextToken(); // get second word
 		else
 			word2 = null;
+		//TODO rename variables of words to make sense
+		if (tokenizer.hasMoreTokens()){
+			fillerWord = tokenizer.nextToken();
+		}
 		if (tokenizer.hasMoreTokens()) {
-			tokenizer.nextToken();
 			word3 = tokenizer.nextToken(); // get third word
 		} else
 			word3 = null;
@@ -66,7 +70,9 @@ class Parser {
 		//pretty sure this works
 		if (commands.isCommand(word1))
 			if (word3 != null)
-				return new Command(word1, word2, word3);
+				return new Command(word1, word2,fillerWord, word3);
+			else if(fillerWord != null)
+				return new Command(word1, word2, fillerWord);
 			else
 				return new Command(word1, word2);
 		else
