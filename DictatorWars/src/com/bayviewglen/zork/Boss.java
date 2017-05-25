@@ -1,7 +1,8 @@
 package com.bayviewglen.zork;
 
 public class Boss extends Enemy {
-	//small change
+	private int specialMaxAttack = 30;
+	private int attackRange = 5;
 	public Boss(int healthPoints, int speed, int strength, String name, boolean inRange) {
 		super(healthPoints, speed, strength, name, inRange);
 	}
@@ -15,12 +16,12 @@ public class Boss extends Enemy {
 		if(choice == 10){
 			changeStrength((int) (Math.random() * 3) + 1);
 			System.out.println(getName() + "'s strength increased!");
-			return player.setDamage(getStrength() + ((int)(Math.random() * 5) + 30 + 1) + player.getDefense()) ;
+			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) + player.getDefense()) ;
 		}else if(choice == 1 || choice == 2){
-			return player.setDamage(getStrength() + ((int)(Math.random() * 5) + 30 + 1) + player.getDefense());
+			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) + player.getDefense());
 			
 		}else{
-			return player.setDamage(getStrength() + ((int)(Math.random() * 5) + 25 + 1));
+			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1));
 		}
 		
 	}
