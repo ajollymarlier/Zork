@@ -61,41 +61,9 @@ class Game {
 				// Stores in string array of each than parses after
 				String s1 = roomScanner.nextLine();
 				String[] roomItemsString = s1.trim().split(":")[1].split(",");
-
 				// finds out the type of item and adds it in
-				for (int i = 0; i < roomItemsString.length; i++) {
-					String itemType = roomItemsString[i].trim().split("-")[0];
-					String name = roomItemsString[i].trim().split("-")[1];
-					if (itemType.equals("K")) {
-						int type = Integer.parseInt(roomItemsString[i].trim().split("-")[2]);
-						room.getInventory().add(new Key(name, type));
-					} else {
-						int weight = Integer.parseInt(roomItemsString[i].trim().split("-")[2]);
-						if (itemType.equals("M") || itemType.equals("R")) {
-							int damage = Integer.parseInt(roomItemsString[i].trim().split("-")[3]);
-							if (itemType.equals("M")) {
-								room.getInventory().add(new Melee(weight, name, damage));
-							} else {
-								int ammo = Integer.parseInt(roomItemsString[i].trim().split("-")[4]);
-								room.getInventory().add(new Ranged(weight, name, damage, ammo));
-							}
-						} else if (itemType.equals("E") || itemType.equals("Q")) {
-							int healthBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[3]);
-							int defenseBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[4]);
-							int speedBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[5]);
-							int strengthBoost = Integer.parseInt(roomItemsString[i].trim().split("-")[6]);
-							if (itemType.equals("E")) {
-								room.getInventory().add(new EffectItem(weight, name, healthBoost, defenseBoost,
-										speedBoost, strengthBoost));
-							} else {
-								String type = roomItemsString[i].trim().split("-")[7];
-								room.getInventory().add(new EquippableItem(weight, name, healthBoost, defenseBoost,
-										speedBoost, strengthBoost, type));
-
-							}
-						}
-					}
-				}
+				
+				itemMaker(roomItemsString, room);
 
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
@@ -153,9 +121,103 @@ class Game {
 		}
 	}
 
+	public void itemMaker(String[] line, Room room) {
+		for (int i = 0; i < line.length; i++) {
+			String itemType = line[i].trim().split("-")[0];
+			String name = line[i].trim().split("-")[1];
+			if (itemType.equals("C")) {
+				int type = Integer.parseInt(line[i].trim().split("-")[2]);
+
+				System.out.println(line[i]);
+				// Test array
+				String[] test = line[i].trim().split("\\|");
+				String items = test[1];
+				System.out.println(items);
+				String[] chestItems = items.trim().split(";");
+				System.out.println(chestItems[0]);
+				System.out.println(chestItems[1]);
+
+				Chest chest = new Chest(name, type);
+				room.getInventory().add(chest);
+				chestMaker(chestItems, chest);
+			} else if (itemType.equals("K")) {
+
+				int type = Integer.parseInt(line[i].trim().split("-")[2]);
+				room.getInventory().add(new Key(name, type));
+			} else {
+				int weight = Integer.parseInt(line[i].trim().split("-")[2]);
+				if (itemType.equals("M") || itemType.equals("R")) {
+					int damage = Integer.parseInt(line[i].trim().split("-")[3]);
+					if (itemType.equals("M")) {
+						room.getInventory().add(new Melee(weight, name, damage));
+					} else {
+						int ammo = Integer.parseInt(line[i].trim().split("-")[4]);
+						room.getInventory().add(new Ranged(weight, name, damage, ammo));
+					}
+				} else if (itemType.equals("E") || itemType.equals("Q")) {
+					int healthBoost = Integer.parseInt(line[i].trim().split("-")[3]);
+					int defenseBoost = Integer.parseInt(line[i].trim().split("-")[4]);
+					int speedBoost = Integer.parseInt(line[i].trim().split("-")[5]);
+					int strengthBoost = Integer.parseInt(line[i].trim().split("-")[6]);
+					if (itemType.equals("E")) {
+						room.getInventory().add(
+								new EffectItem(weight, name, healthBoost, defenseBoost, speedBoost, strengthBoost));
+					} else {
+						String type = line[i].trim().split("-")[7];
+						room.getInventory().add(new EquippableItem(weight, name, healthBoost, defenseBoost, speedBoost,
+								strengthBoost, type));
+
+					}
+				}
+			}
+		}
+	}
+
+	//TODO you currently can pick up chests...
+	public void chestMaker(String[] line, Chest chest) {
+
+		for (int i = 0; i < line.length; i++) {
+			System.out.println(line[i]);
+			String itemType = line[i].trim().split("-")[0];
+			String name = line[i].trim().split("-")[1];
+			if (itemType.equals("K")) {
+
+				int type = Integer.parseInt(line[i].trim().split("-")[2]);
+				chest.getInventory().add(new Key(name, type));
+			} else {
+				int weight = Integer.parseInt(line[i].trim().split("-")[2]);
+				if (itemType.equals("M") || itemType.equals("R")) {
+					int damage = Integer.parseInt(line[i].trim().split("-")[3]);
+					if (itemType.equals("M")) {
+						chest.getInventory().add(new Melee(weight, name, damage));
+					} else {
+						int ammo = Integer.parseInt(line[i].trim().split("-")[4]);
+						chest.getInventory().add(new Ranged(weight, name, damage, ammo));
+					}
+				} else if (itemType.equals("E") || itemType.equals("Q")) {
+					int healthBoost = Integer.parseInt(line[i].trim().split("-")[3]);
+					int defenseBoost = Integer.parseInt(line[i].trim().split("-")[4]);
+					int speedBoost = Integer.parseInt(line[i].trim().split("-")[5]);
+					int strengthBoost = Integer.parseInt(line[i].trim().split("-")[6]);
+					if (itemType.equals("E")) {
+						chest.getInventory().add(
+								new EffectItem(weight, name, healthBoost, defenseBoost, speedBoost, strengthBoost));
+					} else {
+						String type = line[i].trim().split("-")[7];
+						chest.getInventory().add(new EquippableItem(weight, name, healthBoost, defenseBoost, speedBoost,
+								strengthBoost, type));
+
+					}
+				}
+			}
+		}
+	}
+
 	/**
 	 * Create the game and initialise its internal map.
 	 */
+	
+	
 	public Game() {
 		try {
 			initRooms("data/Rooms.dat");
@@ -240,12 +302,40 @@ class Game {
 				if (command.getSecondWord().equals("room")) {
 					System.out.print("The items in the room are: ");
 					currentRoom.getInventory().displayAll();
+				}else if (command.getSecondWord().equals("items")) {
+					if (!command.hasThirdWord()) {
+						System.out.println("What Chest like to check the items in?");
+					} else{
+						Chest chest = (Chest)(currentRoom.getInventory().getItem(command.getThirdWord()));
+					if (chest == null) {
+						System.out.println("The chest is not in the room!");
+					} else if (!(chest instanceof Chest)) {
+						System.out.println("That is not a chest!");
+					} else {
+						System.out.println("That chest has ");
+						chest.getInventory().displayAll();
+					}
+					}
+					
 				} else if (command.getSecondWord().equals("inventory")) {
 					player.getInventory().displayAll();
 				} else if (command.getSecondWord().equals("stats")) {
 					player.displayStats();
 				} else if (command.getSecondWord().equals("body")) {
 					player.displayInventory();
+				} else if (command.getSecondWord().equals("ammo")) {
+					if (!command.hasThirdWord()) {
+						System.out.println("What Ranged weapon would you like to check the ammo on?");
+					} else if ((player.getInventory().getItem(command.getThirdWord())) == null) {
+						System.out.println("You do not have that weapon!");
+					} else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Ranged)) {
+						System.out.println("That weapon does not have ammo!");
+					} else {
+						System.out.println("That weapon has "
+								+ ((Ranged) (player.getInventory().getItem(command.getThirdWord()))).getAmmo()
+								+ " ammo");
+					}
+
 				} else {
 					System.out.println("I do not understand what you are saying.");
 				}
@@ -274,11 +364,10 @@ class Game {
 
 				if (command.getSecondWord().equals("fists"))
 					System.out.println("That is not physically possible");
-				else{
+				else {
 					player.drop(command.getSecondWord(), currentRoom);
 					System.out.println("You dropped: " + command.getSecondWord());
 				}
-					
 
 			}
 		} else if (commandWord.equals("unlock")) {

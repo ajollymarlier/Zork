@@ -27,6 +27,7 @@ class Command
     private String commandWord;
     private String secondWord;
     private String thirdWord;
+    private String fillerWord;
     
     
     // this is a test
@@ -48,6 +49,13 @@ class Command
         commandWord = firstWord;
         this.secondWord = secondWord;
         this.thirdWord = thirdWord;
+    }
+    public Command(String firstWord, String secondWord,String fillerWord, String thirdWord)
+    {
+        commandWord = firstWord;
+        this.secondWord = secondWord;
+        this.thirdWord = thirdWord;
+        this.fillerWord = fillerWord;
     }
 
     /**
@@ -88,5 +96,19 @@ class Command
     }
     public boolean hasThirdWord(){
     	return (thirdWord != null);
+    }
+    public boolean hasFillerWord(){
+    	return (fillerWord != null);
+    }
+    public boolean checkFillerWordOn(){
+    	if (fillerWord.equals("on"))
+    		return true;
+    	return false;
+    }
+    
+    public boolean checkFillerWordWith(){
+    	if (fillerWord.equals("with"))
+    		return true;
+    	return false;
     }
 }

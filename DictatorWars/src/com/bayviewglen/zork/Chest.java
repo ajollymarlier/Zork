@@ -3,37 +3,41 @@ package com.bayviewglen.zork;
 import java.util.ArrayList;
 
 public class Chest extends Item implements Lockable {
-	private static int UNLOCK_TYPE = 1;
-	private boolean locked;
-	private ArrayList<Item> inChest;
+	private  int unlockType;
+	private Inventory inventory = new Inventory();
 	
 	//TODO MAKE THE KEYS WORK TO UNLOCK CHEST
-	public Chest (int weight, String name, boolean locked, ArrayList<Item> inChest){
-		super(weight,name);
-		this.locked = locked;
-		this.inChest = inChest;
+	public Chest (String name, int unlockType){
+		super(name);
+		this.unlockType = unlockType;
 	}
 	
 	
 	public boolean isLocked() {
-		return locked;
+		return (unlockType != 0);
 	}
 
 	//returns true if ends up locked
 	public boolean unlock(Key key) {
-		if (key.getType() == UNLOCK_TYPE){
+		if (key.getType() == unlockType){
 			key.setUsed(true);
+			unlockType = 0;
+			System.out.println("The chest is unlocked");
 			return true;
 		}
 		return false;
 			
-	}	
-	//returns true if the chest opens up
-	public ArrayList<Item> open(){
-		if (locked)
-			return null;
-		else
-			return inChest;
 	}
+
+
+	public Inventory getInventory() {
+		return inventory;
+	}
+
+
+	public void setInventory(Inventory inventory) {
+		this.inventory = inventory;
+	}	
+	
 
 }
