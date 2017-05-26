@@ -126,8 +126,7 @@ class Game {
 			String itemType = line[i].trim().split("-")[0];
 			String name = line[i].trim().split("-")[1];
 			if (itemType.equals("C")) {
-				int weight = Integer.parseInt(line[i].trim().split("-")[2]);
-				int type = Integer.parseInt(line[i].trim().split("-")[3]);
+				int type = Integer.parseInt(line[i].trim().split("-")[2]);
 
 				System.out.println(line[i]);
 				// Test array
@@ -138,7 +137,7 @@ class Game {
 				System.out.println(chestItems[0]);
 				System.out.println(chestItems[1]);
 
-				Chest chest = new Chest(weight, name, type);
+				Chest chest = new Chest(name, type);
 				room.getInventory().add(chest);
 				chestMaker(chestItems, chest);
 			} else if (itemType.equals("K")) {

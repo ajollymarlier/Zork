@@ -13,6 +13,11 @@ public  class Item {
 		else 
 			dropable = true;
 	}
+	
+	public Item(String name){
+		this.name = name;
+	}
+	
 
 	public int getWeight() {
 		return weight;
