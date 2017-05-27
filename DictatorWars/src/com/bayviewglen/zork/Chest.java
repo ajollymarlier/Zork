@@ -7,8 +7,8 @@ public class Chest extends Item implements Lockable {
 	private Inventory inventory = new Inventory();
 	
 	//TODO MAKE THE KEYS WORK TO UNLOCK CHEST
-	public Chest (int weight, String name, int unlockType){
-		super(weight,name);
+	public Chest (String name, int unlockType){
+		super(name);
 		this.unlockType = unlockType;
 	}
 	

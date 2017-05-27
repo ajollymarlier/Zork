@@ -12,7 +12,7 @@ public class Inventory {
 	public ArrayList<EquippableItem> equippableInventory;
 	public ArrayList<EffectItem> effectInventory;
 
-	public ArrayList<Item> otherInventory;
+	public ArrayList<Chest> chestInventory;
 
 	public Inventory() {
 		// <? extends Item> allows for an ArrayList to use The Item Class as its
@@ -25,7 +25,7 @@ public class Inventory {
 		equippableInventory = new ArrayList<EquippableItem>();
 		effectInventory =  new ArrayList<EffectItem>();
 
-		otherInventory = new ArrayList<Item>();
+		chestInventory = new ArrayList<Chest>();
 		
 		// assign inventories arraylists to be part of a total array
 		allInventories = new ArrayList[NUM_OF_INVENTORIES];
@@ -34,7 +34,7 @@ public class Inventory {
 		allInventories[2] = keyInventory;
 		allInventories[3] = equippableInventory;
 		allInventories[4] = effectInventory;
-		allInventories[5] = otherInventory;
+		allInventories[5] = chestInventory;
 		
 
 	}
@@ -59,9 +59,10 @@ public class Inventory {
 			return 3;
 		} else if (item instanceof EffectItem) {
 			return 4;
-		}else  {
+		}else if(item instanceof Chest)  {
 			return 5;
 		}
+		return -1;
 	}
 
 	public int findType(String name) {
@@ -137,9 +138,9 @@ public class Inventory {
 			System.out.print("Effect Items: ");
 			displaySpecific(effectInventory);
 		}
-		if (otherInventory.size() != 0) {
+		if (chestInventory.size() != 0) {
 			System.out.print("Miscellaneous Items: ");
-			displaySpecific(otherInventory);
+			displaySpecific(chestInventory);
 		}
 
 	}
@@ -190,6 +191,9 @@ public class Inventory {
 	
 	public void add(EffectItem effectItem) {
 		effectInventory.add(effectItem);
+	}
+	public void add(Chest chest) {
+		chestInventory.add(chest);
 	}
 	
 	//this is me being lazy, stop being lazy fool

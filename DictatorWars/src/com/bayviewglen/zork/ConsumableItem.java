@@ -1,6 +1,6 @@
 package com.bayviewglen.zork;
 
-public class ConsumableItem extends Item{
+public abstract class ConsumableItem extends Item{
 	private boolean used;
 	
 	public ConsumableItem(int weight, String name){
