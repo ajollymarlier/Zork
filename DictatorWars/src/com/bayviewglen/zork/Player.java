@@ -22,7 +22,7 @@ public class Player extends Character {
 		//remember for when we add drop command to check fist if droppable
 		inventory.addItem(new Melee (0,"fists", FISTS_DAMAGE));
 		//innitialized with stuff to test out game
-		inventory.addItem(new Melee(10, "sword", 30));
+		inventory.addItem(new Melee(10, "space_sword", 30));
 		inventory.addItem(new Ranged(10, "bow", 40, 10));
 		inventory.addItem(new Key("test" , 3));
 		inventory.addItem(new Key("test2" , 2));
