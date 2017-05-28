@@ -503,11 +503,14 @@ class Game {
 			else if (!command.hasThirdWord())
 				System.out.println("What do you want to use to unlock it?");
 			else {
-				if (((Chest) (currentRoom.getInventory().getItem("chest")))
-						.unlock(player.getInventory().getKey(command.getThirdWord())))
+				Key chosenKey = player.getInventory().getKey(command.getThirdWord());
+				if (chosenKey == null) {
+					System.out.println("You do not have that key!");
+				} else if (((Chest) (currentRoom.getInventory().getItem("chest"))).unlock(chosenKey)) {
 					System.out.println("The chest is unlocked!");
-				else
+				} else {
 					System.out.println("That is not the right type of key.");
+				}
 			}
 		}
 
