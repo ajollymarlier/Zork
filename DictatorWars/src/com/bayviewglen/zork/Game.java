@@ -62,7 +62,7 @@ class Game {
 				String s1 = roomScanner.nextLine();
 				String[] roomItemsString = s1.trim().split(":")[1].split(",");
 				// finds out the type of item and adds it in
-				
+
 				itemMaker(roomItemsString, room);
 
 				// Read enemies
@@ -173,7 +173,7 @@ class Game {
 		}
 	}
 
-	//TODO you currently can pick up chests...
+	// TODO you currently can pick up chests...
 	public void chestMaker(String[] line, Chest chest) {
 
 		for (int i = 0; i < line.length; i++) {
@@ -216,8 +216,7 @@ class Game {
 	/**
 	 * Create the game and initialise its internal map.
 	 */
-	
-	
+
 	public Game() {
 		try {
 			initRooms("data/Rooms.dat");
@@ -302,25 +301,25 @@ class Game {
 				if (command.getSecondWord().equals("room")) {
 					System.out.print("The items in the room are: ");
 					currentRoom.getInventory().displayAll();
-				}else if (command.getSecondWord().equals("items")) {
+				} else if (command.getSecondWord().equals("items")) {
 					if (!command.hasThirdWord()) {
 						System.out.println("What Chest like to check the items in?");
-					} else if (currentRoom.getInventory().isInInventory(command.getThirdWord())){
-						Chest chest = (Chest)(currentRoom.getInventory().getItem(command.getThirdWord()));
-					if (chest == null) {
-						System.out.println("The chest is not in the room!");
-					} else if (!(chest instanceof Chest)) {
-						System.out.println("That is not a chest!");
-					} else if (((Chest)currentRoom.getInventory().getItem(command.getThirdWord())).isLocked()){ 
-						System.out.println("The chest is locked. You cannot see inside it.");
-					}else {
-						System.out.println("That chest has ");
-						chest.getInventory().displayAll();
-					}
+					} else if (currentRoom.getInventory().isInInventory(command.getThirdWord())) {
+						Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getThirdWord()));
+						if (chest == null) {
+							System.out.println("The chest is not in the room!");
+						} else if (!(chest instanceof Chest)) {
+							System.out.println("That is not a chest!");
+						} else if (((Chest) currentRoom.getInventory().getItem(command.getThirdWord())).isLocked()) {
+							System.out.println("The chest is locked. You cannot see inside it.");
+						} else {
+							System.out.println("That chest has ");
+							chest.getInventory().displayAll();
+						}
 					} else {
 						System.out.println("That is not in the room.");
 					}
-					
+
 				} else if (command.getSecondWord().equals("inventory")) {
 					player.getInventory().displayAll();
 				} else if (command.getSecondWord().equals("stats")) {
@@ -350,29 +349,30 @@ class Game {
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
-			else if (command.getThirdWord().equals("chest")){
+			else if (command.hasThirdWord() && command.getThirdWord().equals("chest")) {
 				if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
 					System.out.println("There is not chest in the room.");
-				else if (((Chest)(currentRoom.getInventory().getItem("chest"))).isLocked())
+				else if (((Chest) (currentRoom.getInventory().getItem("chest"))).isLocked())
 					System.out.println("The chest is locked closed.");
 				else {
-					if (!((Chest)(currentRoom.getInventory().getItem("chest"))).getInventory().isInInventory(command.getSecondWord()))
+					if (!((Chest) (currentRoom.getInventory().getItem("chest"))).getInventory()
+							.isInInventory(command.getSecondWord()))
 						System.out.println("That item is not in the chest.");
 					else {
-						boolean works = player.pickUp(((Chest)(currentRoom.getInventory().getItem("chest"))).getInventory().removeItem(command.getSecondWord()));
+						boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem("chest")))
+								.getInventory().removeItem(command.getSecondWord()));
 						if (works)
 							System.out.println("You obtained: " + command.getSecondWord());
 						else
 							System.out.println("You are already carrying too much");
 					}
-					}
+				}
 			} else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
 				System.out.println("That item is not in the room");
-			else if (command.getSecondWord().equals("chest")){
+			else if (command.getSecondWord().equals("chest")) {
 				System.out.println("You can't pick up chests. They are too heavy for your noodle arms.");
-				
-				
-			}else {
+
+			} else {
 				boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
 				if (works)
 					System.out.println("You obtained: " + command.getSecondWord());
@@ -453,36 +453,38 @@ class Game {
 		 */
 		if (!command.hasSecondWord())
 			System.out.println("What do you want to unlock?");
-		else if (!command.getSecondWord().equals("chest")){
-		if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
-			System.out.println("There is no door in that direction");
-		else if (!command.hasThirdWord())
-			System.out.println("What do you want to use to unlock it?");
-		else if (!player.getInventory().isInInventory(command.getThirdWord())) {
-			System.out.println("That key is not in your inventory.");
-		}
-		// ok this looks bad, but just trys to unlock door with key and if it
-		// does gets rid of key and unlocks door
-		else if (!currentRoom.getExits().get(command.getSecondWord().trim())
-				.unlock(player.getInventory().getKey(command.getThirdWord().trim()))) {
-			System.out.println("That is not the right type of key");
-		} else {
-			// TODO this doesnt check key type properly
-			currentRoom.getExits().get(command.getSecondWord().trim())
-					.unlock(player.getInventory().getKey(command.getThirdWord().trim()));
-			(player.getInventory().getKey(command.getThirdWord())).setUsed(true);
-			player.getInventory().checkKeyInventoryUsed();
-			System.out.println("The door is unlocked!");
-		}
-		} else if(command.getSecondWord().equals("chest")) {
+		else if (!command.getSecondWord().equals("chest")) {
+			if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
+				System.out.println("There is no door in that direction");
+			else if (!command.hasThirdWord())
+				System.out.println("What do you want to use to unlock it?");
+			else if (!player.getInventory().isInInventory(command.getThirdWord())) {
+				System.out.println("That key is not in your inventory.");
+			}
+			// ok this looks bad, but just trys to unlock door with key and if
+			// it
+			// does gets rid of key and unlocks door
+			else if (!currentRoom.getExits().get(command.getSecondWord().trim())
+					.unlock(player.getInventory().getKey(command.getThirdWord().trim()))) {
+				System.out.println("That is not the right type of key");
+			} else {
+				// TODO this doesnt check key type properly
+				currentRoom.getExits().get(command.getSecondWord().trim())
+						.unlock(player.getInventory().getKey(command.getThirdWord().trim()));
+				(player.getInventory().getKey(command.getThirdWord())).setUsed(true);
+				player.getInventory().checkKeyInventoryUsed();
+				System.out.println("The door is unlocked!");
+			}
+		} else if (command.getSecondWord().equals("chest")) {
 			if (!currentRoom.getInventory().isInInventory("chest"))
 				System.out.println("There is no chest in the room");
 			else if (!command.hasThirdWord())
 				System.out.println("What do you want to use to unlock it?");
 			else {
-				if (((Chest)(currentRoom.getInventory().getItem("chest"))).unlock(player.getInventory().getKey(command.getThirdWord())))
-				System.out.println("The chest is unlocked!");
-				else 
+				if (((Chest) (currentRoom.getInventory().getItem("chest")))
+						.unlock(player.getInventory().getKey(command.getThirdWord())))
+					System.out.println("The chest is unlocked!");
+				else
 					System.out.println("That is not the right type of key.");
 			}
 		}
