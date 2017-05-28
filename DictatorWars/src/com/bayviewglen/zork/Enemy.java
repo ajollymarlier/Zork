@@ -31,6 +31,8 @@ public abstract class Enemy extends Character{
 		return dialogueNum;
 	}
 	
+	public abstract boolean attack(Player player);
+	
 	
 	
 

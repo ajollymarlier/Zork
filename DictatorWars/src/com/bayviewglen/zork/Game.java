@@ -661,14 +661,8 @@ class Game {
 
 	private boolean processEnemyAttack() {
 		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
-		boolean playerDead = false;
-		if (currEnemy instanceof Grunt) {
-			playerDead = ((Grunt) currEnemy).attack(player);
-		} else if (currEnemy instanceof MiniBoss) {
-			playerDead = ((MiniBoss) currEnemy).attack(player);
-		} else if (currEnemy instanceof Boss) {
-			playerDead = ((Boss) currEnemy).attack(player);
-		}
+		boolean playerDead = currEnemy.attack(player);
+		
 		System.out.println("the enemy Attacks!!!");
 		return playerDead;
 	}
