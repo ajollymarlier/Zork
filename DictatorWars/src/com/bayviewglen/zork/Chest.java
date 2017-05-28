@@ -22,7 +22,6 @@ public class Chest extends Item implements Lockable {
 		if (key.getType() == unlockType){
 			key.setUsed(true);
 			unlockType = 0;
-			System.out.println("The chest is unlocked");
 			return true;
 		}
 		return false;
@@ -38,6 +37,10 @@ public class Chest extends Item implements Lockable {
 	public void setInventory(Inventory inventory) {
 		this.inventory = inventory;
 	}	
+	
+	public int getUnlockType(){
+		return unlockType;
+	}
 	
 
 }

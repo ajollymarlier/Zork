@@ -58,7 +58,7 @@ public class Player extends Character {
 			return true;
 
 		} else {
-			System.out.print("You are carrying too much weight to pick that up");
+			
 			return false;
 		}
 	}
