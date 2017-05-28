@@ -5,8 +5,8 @@ public class MiniBoss extends Enemy {
 	private int maxAttack = 10;
 	private int attackRange = 5;
 	
-	public MiniBoss(int healthPoints, int speed, int strength, String name, boolean inRange) {
-		super(healthPoints, speed, strength, name, inRange);
+	public MiniBoss(int healthPoints, int speed, int strength, int dialogueNum, String name, boolean inRange) {
+		super(healthPoints, speed, strength, dialogueNum, name, inRange);
 
 	}
 

@@ -3,11 +3,13 @@ package com.bayviewglen.zork;
 public abstract class Enemy extends Character{
 	private String name;
 	private boolean inRange;
+	private int dialogueNum;
 	
-	public Enemy(int healthPoints, int speed, int strength, String name, boolean inRange) {
+	public Enemy(int healthPoints, int speed, int strength, int dialogueNum, String name, boolean inRange) {
 		super(healthPoints, speed, strength);
 		this.name = name;
 		this.inRange = inRange;
+		this.dialogueNum = dialogueNum;
 	}
 	
 	public String toString(){
@@ -23,6 +25,10 @@ public abstract class Enemy extends Character{
 	
 	public void setInRange(boolean inRange){
 		this.inRange = inRange;
+	}
+
+	public int getDialogueNum() {
+		return dialogueNum;
 	}
 	
 	

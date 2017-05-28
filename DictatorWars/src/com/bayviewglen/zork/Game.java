@@ -28,6 +28,7 @@ class Game {
 	// names of items that make them into weapons
 	private Parser parser;
 	private Room currentRoom;
+	String[] enemyDialogue;
 	// This is a MASTER object that contains all of the rooms and is easily
 	// accessible.
 	// The key will be the name of the room -> no spaces (Use all caps and
@@ -73,12 +74,17 @@ class Game {
 					// boolean parameter in the enemy constructor
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
+					int healthPoints = Integer.parseInt(enemies[counter].trim().split("-")[2]);
+					int speed = Integer.parseInt(enemies[counter].trim().split("-")[3]);
+					int strength = Integer.parseInt(enemies[counter].trim().split("-")[4]);
+					int dialogueNum = Integer.parseInt(enemies[counter].trim().split("-")[5]);
+					System.out.println(dialogueNum);
 					if (currentEnemyType.equals("grunt"))
-						room.addRoomEnemy(new Grunt(50, 20, 10, "grunt", inRange.equals("C")));
+						room.addRoomEnemy(new Grunt(healthPoints, speed, strength, dialogueNum, "grunt", inRange.equals("C")));
 					else if (currentEnemyType.equals("miniboss"))
-						room.addRoomEnemy(new MiniBoss(100, 0, 0, "miniboss", inRange.equals("C")));
+						room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, "miniboss", inRange.equals("C")));
 					else if (currentEnemyType.equals("boss"))
-						room.addRoomEnemy(new Boss(150, 0, 0, "boss", inRange.equals("C")));
+						room.addRoomEnemy(new Boss(healthPoints, speed, strength, dialogueNum, "boss", inRange.equals("C")));
 					counter++;
 				}
 
@@ -220,12 +226,28 @@ class Game {
 	public Game() {
 		try {
 			initRooms("data/Rooms.dat");
+			initEnemyDialogue("data/Enemy_Dialogue.dat");
 			currentRoom = masterRoomMap.get("SHIP_ROOM");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		parser = new Parser();
+	}
+
+	private void initEnemyDialogue(String fileName) {
+		Scanner dialogueScanner;
+		try {
+			dialogueScanner = new Scanner(new File(fileName));
+			int numLines = Integer.parseInt(dialogueScanner.nextLine());
+			enemyDialogue = new String[numLines];
+			for(int i = 0; i < numLines; i++) {
+				enemyDialogue[i] = dialogueScanner.nextLine();
+			}
+			dialogueScanner.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}		
 	}
 
 	/**
@@ -548,6 +570,7 @@ class Game {
 		} else {
 			System.out.println("A Grunt is at the other side of the room!");
 		}
+		System.out.println("The grunt screams, \""+ enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
 		System.out.println("You are now engaged in battle!");
 		inBattle = true;
 

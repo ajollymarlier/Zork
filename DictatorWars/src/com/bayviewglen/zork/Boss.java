@@ -3,8 +3,8 @@ package com.bayviewglen.zork;
 public class Boss extends Enemy {
 	private int specialMaxAttack = 30;
 	private int attackRange = 5;
-	public Boss(int healthPoints, int speed, int strength, String name, boolean inRange) {
-		super(healthPoints, speed, strength, name, inRange);
+	public Boss(int healthPoints, int speed, int strength, int dialogueNum, String name, boolean inRange) {
+		super(healthPoints, speed, strength, dialogueNum, name, inRange);
 	}
 	
 	//Regular Attack: Does damage from 25-30 + strength
