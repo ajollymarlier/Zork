@@ -1,0 +1,30 @@
+Room Name: Ship Room
+Lock Type: 0
+Room Description: This is the world 2 ship room
+Room Items: C-chest-3-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|, M-axe-10-10-10
+Room Enemies: grunt-C-10-10-10-0, grunt-C-10-10-10-1, grunt-C-10-10-10-2
+Exit Rooms: N-Upper Cliff
+Room Name: Upper Cliff
+Lock Type: 0
+Room Description:  This is the Upper Cliff
+Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
+Room Enemies: miniboss-C-100-10-10-3, grunt-C-10-10-10-4
+Exit Rooms: W-Village, E-River Basin, S-Ship Room
+Room Name: Village
+Lock Type: 0
+Room Description:  You are in the village
+Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
+Room Enemies: grunt-C-10-10-10-5
+Exit Rooms: E-Upper Cliff
+Room Name: River Basin
+Lock Type: 3
+Room Description:  You are in the River Basin
+Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
+Room Enemies: grunt-C-10-10-10-6
+Exit Rooms: E-Cliff Plateau, W-Upper Cliff
+Room Name: Cliff Plateau
+Lock Type: 0
+Room Description:  You are in the plateau
+Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
+Room Enemies: grunt-C-10-10-10-7
+Exit Rooms: W-River Basin
