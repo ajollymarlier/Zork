@@ -84,6 +84,7 @@ public class Player extends Character {
 	// TODO also dont have a fix for if the item doesnt exist. Might be treated in other classes
 	public void drop(String name, Room room) {
 		room.getInventory().addItem(inventory.removeItem(name));
+		
 	}
 
 	

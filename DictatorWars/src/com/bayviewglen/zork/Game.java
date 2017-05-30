@@ -422,6 +422,9 @@ class Game {
 				if (command.getSecondWord().equals("fists"))
 					System.out.println("That is not physically possible");
 				else {
+					if (player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem)
+						if (((EquippableItem)(player.getInventory().getItem(command.getSecondWord()))).getEquipped())
+							player.unequip(command.getSecondWord());
 					player.drop(command.getSecondWord(), currentRoom);
 					System.out.println("You dropped: " + command.getSecondWord());
 				}
