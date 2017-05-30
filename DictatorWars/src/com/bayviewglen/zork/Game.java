@@ -92,10 +92,15 @@ class Game {
 				// Stores in string array of each than parses after
 				String[] roomItemsString = roomScanner.nextLine().trim().split(":")[1].split(",");
 				// finds out the type of item and adds it in
-				itemMaker(roomItemsString, room);
+				if(!roomItemsString[0].trim().equals("none")){
+					System.out.println("loading");
+
+					itemMaker(roomItemsString, room);
+				}
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
+				if(!enemies[0].trim().equals("none")){
 				for (String s : enemies) {
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
@@ -115,6 +120,8 @@ class Game {
 					}
 					counter++;
 				}
+				}
+				
 
 				// Read the Exits
 				String roomExits = roomScanner.nextLine();
@@ -161,7 +168,11 @@ class Game {
 				String[] chestItems = items.trim().split(";");
 				Chest chest = new Chest(name, type);
 				room.getInventory().add(chest);
-				chestMaker(chestItems, chest);
+				if(!chestItems[0].trim().equals("none")){
+					System.out.println("loading");
+
+					chestMaker(chestItems, chest);
+				}
 			} else if (itemType.equals("K")) {
 				int type = Integer.parseInt(line[i].trim().split("-")[2]);
 				room.getInventory().add(new Key(name, type));
