@@ -14,7 +14,7 @@ class CommandWords
 {
     // a constant array that holds all valid command words
     private static final String validCommands[] = {
-        "go", "quit", "help", "check", "grab", "attack", "unlock", "drop", "use", "equip", "unequip"
+        "go", "quit", "help", "check", "grab", "attack", "unlock", "drop", "use", "equip", "unequip", "teleport"
     };
 
     /**

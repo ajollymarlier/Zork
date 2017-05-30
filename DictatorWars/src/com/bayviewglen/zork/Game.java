@@ -25,6 +25,7 @@ import java.util.Scanner;
 
 class Game {
 
+	//TODO all worlds must start in the ship room
 	private Parser parser;
 	private Room currentRoom;
 	String[] enemyDialogue;
@@ -35,20 +36,37 @@ class Game {
 	// In a hashmap keys are case sensitive.
 	// masterRoomMap.get("GREAT_ROOM") will return the Room Object that is the
 	// Great Room (assuming you have one).
-	private HashMap<String, Room> masterRoomMap;
+	private ArrayList<HashMap<String, Room>> worlds = new ArrayList<HashMap<String, Room>>();
+	private String currentWorld;
+	private ArrayList<String> worldNames = new ArrayList<String>();
 	// initalizes the main character TODO change to modifiy for races and stuff,
 	// default stats
 	Player player;
 	boolean inBattle = false;
-
+	//TODO planet names must be all lowercase
 	// construct the game
 	public Game() {
 		// initialize player
 		player = new Player(100, 100, 100);
 		try {
-			initRooms("data/Rooms.dat");
-			initEnemyDialogue("data/Enemy_Dialogue.dat");
-			currentRoom = masterRoomMap.get("SHIP_ROOM");
+			//Loads world 1
+			initRooms("data/WorldOne.dat", 0);
+			worldNames.add("colin");
+			
+			//loads world 2
+			initRooms("data/WorldTwo.dat", 1);
+			worldNames.add("is");
+			
+			//loads world 3
+			initRooms("data/WorldThree.dat", 2);
+			worldNames.add("cunty");
+			
+			//loads enemy dialogue
+			initEnemyDialogue("data/EnemyDialogue.dat");
+			
+			//Starts player in the first room in the first world
+			currentRoom = worlds.get(0).get("SHIP_ROOM");
+			currentWorld = worldNames.get(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -56,8 +74,8 @@ class Game {
 		parser = new Parser();
 	}
 
-	private void initRooms(String fileName) throws Exception {
-		masterRoomMap = new HashMap<String, Room>();
+	private void initRooms(String fileName, int world) throws Exception {
+		worlds.add(new HashMap<String, Room>());
 		Scanner roomScanner;
 		try {
 			HashMap<String, HashMap<String, String>> exits = new HashMap<String, HashMap<String, String>>();
@@ -109,17 +127,17 @@ class Game {
 				exits.put(roomName.substring(10).trim().toUpperCase().replaceAll(" ", "_"), temp);
 				// This puts the room we created (Without the exits in the
 				// masterMap)
-				masterRoomMap.put(roomName.toUpperCase().substring(10).trim().replaceAll(" ", "_"), room);
+				worlds.get(world).put(roomName.toUpperCase().substring(10).trim().replaceAll(" ", "_"), room);
 			}
 
-			for (String key : masterRoomMap.keySet()) {
-				Room roomTemp = masterRoomMap.get(key);
+			for (String key : worlds.get(world).keySet()) {
+				Room roomTemp = worlds.get(world).get(key);
 				HashMap<String, String> tempExits = exits.get(key);
 				for (String s : tempExits.keySet()) {
 					// s = direction
 					// value is the room.
 					String roomName2 = tempExits.get(s.trim());
-					Room exitRoom = masterRoomMap.get(roomName2.toUpperCase().replaceAll(" ", "_"));
+					Room exitRoom = worlds.get(world).get(roomName2.toUpperCase().replaceAll(" ", "_"));
 					roomTemp.setExit(s.trim().charAt(0), exitRoom);
 				}
 			}
@@ -230,8 +248,9 @@ class Game {
 
 	/**
 	 * Main play routine. Loops until end of play.
+	 * @throws InterruptedException 
 	 */
-	public void play() {
+	public void play() throws InterruptedException {
 		printWelcome();
 		// Enter the main command loop. Here we repeatedly read commands and
 		// execute them until the game is over.
@@ -241,6 +260,7 @@ class Game {
 			finished = processCommand(command);
 		}
 		System.out.println("Thank you for playing.  Good bye.");
+		Thread.sleep(2000);
 	}
 
 	/**
@@ -455,10 +475,38 @@ class Game {
 				System.out.println("You have unequipped " + command.getSecondWord());
 			}
 		}
+		
+		else if(commandWord.equals("teleport")){
+			if(!command.hasThirdWord()){
+				System.out.println("Where do you want to teleport to?");
+				System.out.print("Worlds: ");
+				
+				for(int i = 0; i < worlds.size(); i++){
+					if(!worldNames.get(i).equals(currentWorld))
+						System.out.print(worldNames.get(i) + ", ");
+				}
+				System.out.println("");
+			}
+			else if(command.getThirdWord().equals(currentWorld)){
+				System.out.println("You are already in that world");
+			}else{
+				teleport(command.getThirdWord());
+			}
+		}
 
 		return false;
 	}
 	
+	private void teleport(String world) {
+		currentWorld = world;
+		currentRoom = worlds.get(worldNames.indexOf(currentWorld)).get("SHIP_ROOM");
+		System.out.println("You teleported to " + currentWorld.toUpperCase());
+		System.out.println(currentRoom.longDescription());
+		//TODO parser converts everything to lowercase
+		//TODO travel to world 2 works
+		//TODO still need to make teleport unlockable
+	}
+
 	//allow
 	private void processUnlock(Command command) {
 		// testing code that displays all exits in hashmap
