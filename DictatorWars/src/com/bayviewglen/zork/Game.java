@@ -93,8 +93,6 @@ class Game {
 				String[] roomItemsString = roomScanner.nextLine().trim().split(":")[1].split(",");
 				// finds out the type of item and adds it in
 				if(!roomItemsString[0].trim().equals("none")){
-					System.out.println("loading");
-
 					itemMaker(roomItemsString, room);
 				}
 				// Read enemies
@@ -169,8 +167,6 @@ class Game {
 				Chest chest = new Chest(name, type);
 				room.getInventory().add(chest);
 				if(!chestItems[0].trim().equals("none")){
-					System.out.println("loading");
-
 					chestMaker(chestItems, chest);
 				}
 			} else if (itemType.equals("K")) {
@@ -585,8 +581,19 @@ class Game {
 			System.out.println("Go where?");
 			return;
 		}
-
+		String dirWanted = command.getSecondWord();
 		String direction = command.getSecondWord();
+		
+		//allows player to write a letter instead of direction
+		if(command.getSecondWord().equals("n")){
+			direction = "north";
+		}else if(command.getSecondWord().equals("s")){
+			direction = "south";
+		}else if(command.getSecondWord().equals("w")){
+			direction = "west";
+		}else if(command.getSecondWord().equals("e")){
+			direction = "east";
+		}
 
 		// Try to leave current room.
 		Room nextRoom = currentRoom.nextRoom(direction);
