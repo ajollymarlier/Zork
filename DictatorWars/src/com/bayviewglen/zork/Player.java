@@ -168,14 +168,24 @@ public class Player extends Character {
 	}
 
 	public void displayInventory() {
-		System.out.print("Equipped Items are: ");
+		System.out.print("Equipped Items: ");
 		String line = "";
 		for (int i  = 0; i < equippedItems.length; i++){
+			
 			if (equippedItems[i] != null){
+				if(!line.equals("")){
 					line += equippedItems[i].getName() + ", ";
+				}else{
+					line += equippedItems[i].getName();
+				}
 			}
+			
+			
 		}
-		System.out.println(line.substring(0, line.lastIndexOf(",")) + ".");
+		if(line.equals("")){
+			line = "none";
+		}
+		System.out.println(line);
 		
 	}
 	

@@ -328,33 +328,26 @@ class Game {
 			} else {
 				// gives a brief description of items in a room
 				if (command.getSecondWord().equals("room")) {
-					System.out.print("The items in the room are: ");
+					System.out.print("Items in room: ");
 					currentRoom.getInventory().displayAll();
 				} 
 				// checks the items in a chest
-				else if (command.getSecondWord().equals("items")) {
-					if (!command.hasThirdWord()) {
-						System.out.println("What Chest like to check the items in?");
-					} else if (currentRoom.getInventory().isInInventory(command.getThirdWord())) {
-						Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getThirdWord()));
-						if (chest == null) {
-							System.out.println("The chest is not in the room!");
-						} else if (!(chest instanceof Chest)) {
-							System.out.println("That is not a chest!");
-						} else if (((Chest) currentRoom.getInventory().getItem(command.getThirdWord())).isLocked()) {
-							System.out.println("The chest is locked. You cannot see inside it.");
-						} else {
-							System.out.println("That chest has ");
-							chest.getInventory().displayAll();
-						}
-					} 
-					else {
-						System.out.println("That is not in the room.");
-					}
-
+				else if (command.getSecondWord().equals("chest")) {
+					Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getSecondWord()));
+					if (chest == null) {
+						System.out.println("The chest is not in the room!");
+					} else if (!(chest instanceof Chest)) {
+						System.out.println("That is not a chest!");
+					} else if (chest.isLocked()) {
+						System.out.println("The chest is locked. You cannot see inside it.");
+					} else {
+						System.out.print("Items in chest: ");
+						chest.getInventory().displayAll();
+					}					
 				}
 				// displays player inventory
 				else if (command.getSecondWord().equals("inventory")) {
+					System.out.print("Items in your inventory:");
 					player.getInventory().displayAll();
 				}
 				// displays player stats
@@ -363,6 +356,7 @@ class Game {
 				} 
 				//displays player's clothing
 				else if (command.getSecondWord().equals("body")) {
+					//System.out.print("Items in your inventory:");
 					player.displayInventory();
 				} 
 				//displays amount of ammo of a ranged weapon
@@ -503,7 +497,7 @@ class Game {
 
 		return false;
 	}
-	
+
 	private void teleport(String world) {
 		currentWorld = world;
 		currentRoom = worlds.get(worldNames.indexOf(currentWorld)).get("SHIP_ROOM");
@@ -551,6 +545,8 @@ class Game {
 					System.out.println("You do not have that key!");
 				} else if (((Chest) (currentRoom.getInventory().getItem("chest"))).unlock(chosenKey)) {
 					System.out.println("The chest is unlocked!");
+					System.out.print("Items in chest: ");
+					((Chest)currentRoom.getInventory().getItem("chest")).getInventory().displayAll();
 				} else {
 					System.out.println("That is not the right type of key.");
 				}

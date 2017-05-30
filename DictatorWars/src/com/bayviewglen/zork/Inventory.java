@@ -118,37 +118,48 @@ public class Inventory {
 	}
 
 	public void displayAll() {
+		boolean empty = true;
 		if (meleeInventory.size() != 0) {
-			System.out.print("Melee Weapons: ");
+			empty = false;
+			System.out.print("\n\tMelee Weapons: ");
 			displaySpecific(meleeInventory);
 		}
 		if (rangedInventory.size() != 0) {
-			System.out.print("Ranged Weapons: ");
+			empty = false;
+			System.out.print("\n\tRanged Weapons: ");
 			displaySpecific(rangedInventory);
 		}
 		if (keyInventory.size() != 0) {
-			System.out.print("Key Items: ");
+			empty = false;
+			System.out.print("\n\tKey Items: ");
 			displaySpecific(keyInventory);
 		}
 		if (equippableInventory.size() != 0) {
-			System.out.print("Equippable Items: ");
+			empty = false;
+			System.out.print("\n\tEquippable Items: ");
 			displaySpecific(equippableInventory);
 		}
 		if (effectInventory.size() != 0) {
-			System.out.print("Effect Items: ");
+			empty = false;
+			System.out.print("\n\tEffect Items: ");
 			displaySpecific(effectInventory);
 		}
 		if (chestInventory.size() != 0) {
-			System.out.print("Miscellaneous Items: ");
+			empty = false;
+			System.out.print("\n\tMiscellaneous Items: ");
 			displaySpecific(chestInventory);
 		}
+		if(empty){
+			System.out.print("none");
+		}
+		System.out.println();
 
 	}
 
 	public void displaySpecific(ArrayList<? extends Item> current) {
 		for (int i = 0; i < current.size(); i++) {
 			if (i == current.size() - 1) {
-				System.out.println(current.get(i).getName() + ".");
+				System.out.print(current.get(i).getName() + ".");
 			} else {
 				System.out.print(current.get(i).getName() + ", ");
 			}
