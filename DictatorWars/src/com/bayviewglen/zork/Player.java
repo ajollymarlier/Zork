@@ -31,7 +31,6 @@ public class Player extends Character {
 		inventory.addItem(new EquippableItem(10, "chestplate", 50,10,10,10, "chest"));
 		inventory.addItem(new EquippableItem(10, "gloves", 5,5,5,5, "gloves"));
 		
-		inventory.displayAll();
 
 	}
 
@@ -42,16 +41,7 @@ public class Player extends Character {
 			return true;
 
 		} else if (weightCarried + item.getWeight() <= MAX_WEIGHT) {
-			if (Arrays.asList(Game.keyWeapons).contains(item.getName())){
-				int keyType = -1;
-				for (int i  = 0; i < Game.keyWeapons.length; i++)
-					if (Game.keyWeapons[i].equals(item.getName())){
-						keyType = i + 5;
-						break;
-					}
-				inventory.addItem(new Key(item.getName(), keyType));
-				
-			}
+			
 			inventory.addItem(item);
 			weightCarried += item.getWeight();
 			//TODO need to remove item from room

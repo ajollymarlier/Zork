@@ -24,8 +24,7 @@ import java.util.Scanner;
  */
 
 class Game {
-	public static String[] keyWeapons = { "machete" };
-	// names of items that make them into weapons
+
 	private Parser parser;
 	private Room currentRoom;
 	String[] enemyDialogue;
@@ -39,8 +38,23 @@ class Game {
 	private HashMap<String, Room> masterRoomMap;
 	// initalizes the main character TODO change to modifiy for races and stuff,
 	// default stats
-	Player player = new Player(100, 100, 100);
+	Player player;
 	boolean inBattle = false;
+
+	// construct the game
+	public Game() {
+		// initialize player
+		player = new Player(100, 100, 100);
+		try {
+			initRooms("data/Rooms.dat");
+			initEnemyDialogue("data/Enemy_Dialogue.dat");
+			currentRoom = masterRoomMap.get("SHIP_ROOM");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		parser = new Parser();
+	}
 
 	private void initRooms(String fileName) throws Exception {
 		masterRoomMap = new HashMap<String, Room>();
@@ -55,36 +69,32 @@ class Game {
 				room.setRoomName(roomName.split(":")[1].trim().split("-")[0]);
 				room.setUnlockType(Integer.parseInt(roomScanner.nextLine().split(":")[1].trim()));
 				// Read the Description
-				// TODO MAKE IT READ IN ROOM LOCKY TYPE, format of data file is
-				// problem
 				String roomDescription = roomScanner.nextLine();
 				room.setDescription(roomDescription.split(":")[1].replaceAll("<br>", "\n"));
 				// Stores in string array of each than parses after
-				String s1 = roomScanner.nextLine();
-				String[] roomItemsString = s1.trim().split(":")[1].split(",");
+				String[] roomItemsString = roomScanner.nextLine().trim().split(":")[1].split(",");
 				// finds out the type of item and adds it in
-
 				itemMaker(roomItemsString, room);
-
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
 				for (String s : enemies) {
-					// TODO this doesnt work right now because of the added
-					// boolean parameter in the enemy constructor
 					String currentEnemyType = enemies[counter].trim().split("-")[0];
 					String inRange = enemies[counter].trim().split("-")[1];
 					int healthPoints = Integer.parseInt(enemies[counter].trim().split("-")[2]);
 					int speed = Integer.parseInt(enemies[counter].trim().split("-")[3]);
 					int strength = Integer.parseInt(enemies[counter].trim().split("-")[4]);
 					int dialogueNum = Integer.parseInt(enemies[counter].trim().split("-")[5]);
-					System.out.println(dialogueNum);
-					if (currentEnemyType.equals("grunt"))
-						room.addRoomEnemy(new Grunt(healthPoints, speed, strength, dialogueNum, "grunt", inRange.equals("C")));
-					else if (currentEnemyType.equals("miniboss"))
-						room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, "miniboss", inRange.equals("C")));
-					else if (currentEnemyType.equals("boss"))
-						room.addRoomEnemy(new Boss(healthPoints, speed, strength, dialogueNum, "boss", inRange.equals("C")));
+					if (currentEnemyType.equals("grunt")) {
+						room.addRoomEnemy(
+								new Grunt(healthPoints, speed, strength, dialogueNum, "grunt", inRange.equals("C")));
+					} else if (currentEnemyType.equals("miniboss")) {
+						room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, "miniboss",
+								inRange.equals("C")));
+					} else if (currentEnemyType.equals("boss")) {
+						room.addRoomEnemy(
+								new Boss(healthPoints, speed, strength, dialogueNum, "boss", inRange.equals("C")));
+					}
 					counter++;
 				}
 
@@ -96,14 +106,10 @@ class Game {
 				for (String s : rooms) {
 					temp.put(s.split("-")[0].trim(), s.split("-")[1]);
 				}
-
 				exits.put(roomName.substring(10).trim().toUpperCase().replaceAll(" ", "_"), temp);
-
 				// This puts the room we created (Without the exits in the
 				// masterMap)
 				masterRoomMap.put(roomName.toUpperCase().substring(10).trim().replaceAll(" ", "_"), room);
-
-				// Now we better set the exits.
 			}
 
 			for (String key : masterRoomMap.keySet()) {
@@ -112,21 +118,18 @@ class Game {
 				for (String s : tempExits.keySet()) {
 					// s = direction
 					// value is the room.
-
 					String roomName2 = tempExits.get(s.trim());
 					Room exitRoom = masterRoomMap.get(roomName2.toUpperCase().replaceAll(" ", "_"));
 					roomTemp.setExit(s.trim().charAt(0), exitRoom);
-
 				}
-
 			}
-
 			roomScanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 	}
 
+	// Creates items and puts it into the correct room inventory
 	public void itemMaker(String[] line, Room room) {
 		for (int i = 0; i < line.length; i++) {
 			String itemType = line[i].trim().split("-")[0];
@@ -134,20 +137,14 @@ class Game {
 			if (itemType.equals("C")) {
 				int type = Integer.parseInt(line[i].trim().split("-")[2]);
 
-				System.out.println(line[i]);
 				// Test array
 				String[] test = line[i].trim().split("\\|");
 				String items = test[1];
-				System.out.println(items);
 				String[] chestItems = items.trim().split(";");
-				System.out.println(chestItems[0]);
-				System.out.println(chestItems[1]);
-
 				Chest chest = new Chest(name, type);
 				room.getInventory().add(chest);
 				chestMaker(chestItems, chest);
 			} else if (itemType.equals("K")) {
-
 				int type = Integer.parseInt(line[i].trim().split("-")[2]);
 				room.getInventory().add(new Key(name, type));
 			} else {
@@ -172,22 +169,18 @@ class Game {
 						String type = line[i].trim().split("-")[7];
 						room.getInventory().add(new EquippableItem(weight, name, healthBoost, defenseBoost, speedBoost,
 								strengthBoost, type));
-
 					}
 				}
 			}
 		}
 	}
 
-	// TODO you currently can pick up chests...
+	// Creates items and puts it into the correct chest inventory
 	public void chestMaker(String[] line, Chest chest) {
-
 		for (int i = 0; i < line.length; i++) {
-			System.out.println(line[i]);
 			String itemType = line[i].trim().split("-")[0];
 			String name = line[i].trim().split("-")[1];
 			if (itemType.equals("K")) {
-
 				int type = Integer.parseInt(line[i].trim().split("-")[2]);
 				chest.getInventory().add(new Key(name, type));
 			} else {
@@ -219,35 +212,20 @@ class Game {
 		}
 	}
 
-	/**
-	 * Create the game and initialise its internal map.
-	 */
-
-	public Game() {
-		try {
-			initRooms("data/Rooms.dat");
-			initEnemyDialogue("data/Enemy_Dialogue.dat");
-			currentRoom = masterRoomMap.get("SHIP_ROOM");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		parser = new Parser();
-	}
-
+	// loads up the enemy dialogue into an array
 	private void initEnemyDialogue(String fileName) {
 		Scanner dialogueScanner;
 		try {
 			dialogueScanner = new Scanner(new File(fileName));
 			int numLines = Integer.parseInt(dialogueScanner.nextLine());
 			enemyDialogue = new String[numLines];
-			for(int i = 0; i < numLines; i++) {
+			for (int i = 0; i < numLines; i++) {
 				enemyDialogue[i] = dialogueScanner.nextLine();
 			}
 			dialogueScanner.close();
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-		}		
+		}
 	}
 
 	/**
@@ -255,10 +233,8 @@ class Game {
 	 */
 	public void play() {
 		printWelcome();
-
 		// Enter the main command loop. Here we repeatedly read commands and
 		// execute them until the game is over.
-
 		boolean finished = false;
 		while (!finished) {
 			Command command = parser.getCommand();
@@ -288,11 +264,12 @@ class Game {
 			System.out.println("I don't know what you mean...");
 			return false;
 		}
-
 		String commandWord = command.getCommandWord();
 		if (commandWord.equals("help")) {
 			printHelp();
-		} else if (commandWord.equals("attack")) {
+		} 
+		// if attack is used with an enemy present, load the attack processor
+		else if (commandWord.equals("attack")) {
 			if (inBattle) {
 				if (attack(command)) {
 					return true;
@@ -300,30 +277,35 @@ class Game {
 			} else {
 				System.out.println("There is no enemy, I can't believe you've done this!");
 			}
-		} else if (inBattle) {
+		} 
+		// if in battle do not allow any other commands
+		else if (inBattle) {
 			System.out.println("You must attack or you will DIE! What are you doing with your life?");
-		} else if (commandWord.equals("go")) {
+		} 
+		// allows you to change rooms
+		else if (commandWord.equals("go")) {
 			goRoom(command);
-		} else if (commandWord.equals("quit")) {
-			if (command.hasSecondWord())
+		} 
+		// Exits the game
+		else if (commandWord.equals("quit")) {
+			if (command.hasSecondWord()){
 				System.out.println("Quit what?");
-			else
+			}else{
 				return true; // signal that we want to quit
-		} else if (commandWord.equals("eat")) {
-			System.out.println("Do you really think you should be eating at a time like this?");
-		} else if (commandWord.equals("break")) {
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to break");
-			else
-				System.out.println("The break command don't work yet");
-		} else if (commandWord.equals("check")) {
+			}
+		}
+		// allows you to check for info
+		else if (commandWord.equals("check")) {
 			if (!command.hasSecondWord()) {
 				System.out.println("What do you want to check?");
 			} else {
+				// gives a brief description of items in a room
 				if (command.getSecondWord().equals("room")) {
 					System.out.print("The items in the room are: ");
 					currentRoom.getInventory().displayAll();
-				} else if (command.getSecondWord().equals("items")) {
+				} 
+				// checks the items in a chest
+				else if (command.getSecondWord().equals("items")) {
 					if (!command.hasThirdWord()) {
 						System.out.println("What Chest like to check the items in?");
 					} else if (currentRoom.getInventory().isInInventory(command.getThirdWord())) {
@@ -338,17 +320,26 @@ class Game {
 							System.out.println("That chest has ");
 							chest.getInventory().displayAll();
 						}
-					} else {
+					} 
+					else {
 						System.out.println("That is not in the room.");
 					}
 
-				} else if (command.getSecondWord().equals("inventory")) {
+				}
+				// displays player inventory
+				else if (command.getSecondWord().equals("inventory")) {
 					player.getInventory().displayAll();
-				} else if (command.getSecondWord().equals("stats")) {
+				}
+				// displays player stats
+				else if (command.getSecondWord().equals("stats")) {
 					player.displayStats();
-				} else if (command.getSecondWord().equals("body")) {
+				} 
+				//displays player's clothing
+				else if (command.getSecondWord().equals("body")) {
 					player.displayInventory();
-				} else if (command.getSecondWord().equals("ammo")) {
+				} 
+				//displays amount of ammo of a ranged weapon
+				else if (command.getSecondWord().equals("ammo")) {
 					if (!command.hasThirdWord()) {
 						System.out.println("What Ranged weapon would you like to check the ammo on?");
 					} else if ((player.getInventory().getItem(command.getThirdWord())) == null) {
@@ -360,14 +351,11 @@ class Game {
 								+ ((Ranged) (player.getInventory().getItem(command.getThirdWord()))).getAmmo()
 								+ " ammo");
 					}
-
 				} else {
 					System.out.println("I do not understand what you are saying.");
 				}
 			}
-
-			// TODO also minor changes once an inventory is created to allow the
-			// item to be removed from the room and added to the inventory
+		//allows you to grab items from a chest or room
 		} else if (commandWord.equals("grab")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to grab?");
@@ -401,7 +389,9 @@ class Game {
 				else
 					System.out.println("You are already carrying too much");
 			}
-		} else if (commandWord.equals("drop")) {
+		} 
+		//allows you to drop items
+		else if (commandWord.equals("drop")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to drop");
 			else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
@@ -416,9 +406,13 @@ class Game {
 				}
 
 			}
-		} else if (commandWord.equals("unlock")) {
+		}
+		// allows you to unlock things (rooms, chests)
+		else if (commandWord.equals("unlock")) {
 			processUnlock(command);
-		} else if (commandWord.equals("use")) {
+		} 
+		//allows you to use items to increase your stats
+		else if (commandWord.equals("use")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to use");
 			else if (!player.getInventory().isInInventory(command.getSecondWord()))
@@ -431,7 +425,7 @@ class Game {
 					player.use(chosenItem);
 				}
 			}
-			// for equiping things from the inventory
+		// To equip things from the inventory
 		} else if (commandWord.equals("equip")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to equip?");
@@ -439,21 +433,21 @@ class Game {
 				System.out.println("That item is not in your inventory.");
 			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
 				System.out.println("That is not something you can equip.");
-			// TODO ali is making a way to directly check E.I inventory
 			else if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
 				System.out.println("That item is already equipped.");
 			} else {
 				player.equip(((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))));
 				System.out.println("You have equipped " + command.getSecondWord());
 			}
-		} else if (commandWord.equals("unequip")) {
+		} 
+		// To unequip things from your body
+		else if (commandWord.equals("unequip")) {
 			if (!command.hasSecondWord())
 				System.out.println("What do you want to equip?");
 			else if (!player.getInventory().isInInventory(command.getSecondWord()))
 				System.out.println("That item is not in your inventory.");
 			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
 				System.out.println("That is not something you can unequip.");
-			// TODO ali is making a way to directly check E.I inventory
 			else if (!((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
 				System.out.println("That item is already unequipped.");
 			} else {
@@ -464,9 +458,8 @@ class Game {
 
 		return false;
 	}
-	// TODO
-	// processes unlock to see if door is unlockable and if the key works
-
+	
+	//allow
 	private void processUnlock(Command command) {
 		// testing code that displays all exits in hashmap
 		/*
@@ -482,15 +475,10 @@ class Game {
 				System.out.println("What do you want to use to unlock it?");
 			else if (!player.getInventory().isInInventory(command.getThirdWord())) {
 				System.out.println("That key is not in your inventory.");
-			}
-			// ok this looks bad, but just trys to unlock door with key and if
-			// it
-			// does gets rid of key and unlocks door
-			else if (!currentRoom.getExits().get(command.getSecondWord().trim())
+			}else if (!currentRoom.getExits().get(command.getSecondWord().trim())
 					.unlock(player.getInventory().getKey(command.getThirdWord().trim()))) {
 				System.out.println("That is not the right type of key");
 			} else {
-				// TODO this doesnt check key type properly
 				currentRoom.getExits().get(command.getSecondWord().trim())
 						.unlock(player.getInventory().getKey(command.getThirdWord().trim()));
 				(player.getInventory().getKey(command.getThirdWord())).setUsed(true);
@@ -515,8 +503,6 @@ class Game {
 		}
 
 	}
-
-	// implementations of user commands:
 
 	/**
 	 * Print out some help information. Here we print some stupid, cryptic
@@ -573,7 +559,7 @@ class Game {
 		} else {
 			System.out.println("A Grunt is at the other side of the room!");
 		}
-		System.out.println("The grunt screams, \""+ enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
+		System.out.println("The grunt screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
 		System.out.println("You are now engaged in battle!");
 		inBattle = true;
 
@@ -662,7 +648,7 @@ class Game {
 	private boolean processEnemyAttack() {
 		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
 		boolean playerDead = currEnemy.attack(player);
-		
+
 		System.out.println("the enemy Attacks!!!");
 		return playerDead;
 	}
