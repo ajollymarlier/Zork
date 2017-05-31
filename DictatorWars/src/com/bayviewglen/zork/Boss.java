@@ -19,7 +19,7 @@ public class Boss extends Enemy {
 			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) - player.getDefense()) ;
 		}else if(choice == 1 || choice == 2){
 			printSpecialAttack();
-			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) + player.getDefense());
+			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1));
 			
 		}else{
 			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1));

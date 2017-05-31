@@ -52,7 +52,8 @@ class Game {
 	// construct the game
 	public Game() {
 		// initialize player
-		player = new Player(100, 100, 100);
+		player = new Player(100, 20, 20);
+		player.getInventory().add(new Key ("drop_key" , 5 ));
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
@@ -280,7 +281,23 @@ class Game {
 		System.out.println("Welcome to Andromeda");
 		System.out.println("Type 'help' if you need help.");
 		System.out.println();
+		for(int i = 0; i < 4 ; i++){
+			System.out.println("."+"\n");
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		printIntro();
 		System.out.println(currentRoom.longDescription());
+	}
+
+	private void printIntro() {
+		System.out.println("As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
+		System.out.println();
+		System.out.println();
 	}
 
 	/**
@@ -451,17 +468,17 @@ class Game {
 	private void grab(Command command) {
 		if (!command.hasSecondWord())
 			System.out.println("What do you want to grab?");
-		else if (command.hasThirdWord() && command.getThirdWord().equals("chest")) {
+		else if (command.hasThirdWord()	&& Arrays.asList(Chest.chestNames).indexOf(command.getThirdWord()) != -1 ) {
 			if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
-				System.out.println("There is not chest in the room.");
-			else if (((Chest) (currentRoom.getInventory().getItem("chest"))).isLocked())
-				System.out.println("The chest is locked closed.");
+				System.out.println("There is not a "+command.getThirdWord()+" in the room.");
+			else if (((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).isLocked())
+				System.out.println("The "+command.getThirdWord()+" is locked closed.");
 			else {
-				if (!((Chest) (currentRoom.getInventory().getItem("chest"))).getInventory()
+				if (!((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).getInventory()
 						.isInInventory(command.getSecondWord()))
-					System.out.println("That item is not in the chest.");
+					System.out.println("That item is not in the " +command.getThirdWord());
 				else {
-					boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem("chest"))).getInventory()
+					boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).getInventory()
 							.removeItem(command.getSecondWord()));
 					if (works)
 						System.out.println("You obtained: " + command.getSecondWord());
@@ -471,8 +488,8 @@ class Game {
 			}
 		} else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("That item is not in the room");
-		else if (command.getSecondWord().equals("chest")) {
-			System.out.println("You can't pick up chests. They are too heavy for your noodle arms.");
+		else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
+			System.out.println("You can't pick up " + command.getSecondWord()+"s. They are too heavy for your noodle arms.");
 
 		} else {
 			boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
@@ -493,16 +510,16 @@ class Game {
 				currentRoom.getInventory().displayAll();
 			}
 			// checks the items in a chest
-			else if (command.getSecondWord().equals("chest")) {
+			else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
 				Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getSecondWord()));
 				if (chest == null) {
-					System.out.println("The chest is not in the room!");
+					System.out.println("The " +command.getSecondWord()+" is not in the room!");
 				} else if (!(chest instanceof Chest)) {
-					System.out.println("That is not a chest!");
+					System.out.println("That is not a "+ command.getSecondWord());
 				} else if (chest.isLocked()) {
-					System.out.println("The chest is locked. You cannot see inside it.");
+					System.out.println("The "+command.getSecondWord()+" is locked. You cannot see inside it.");
 				} else {
-					System.out.print("Items in chest: ");
+					System.out.print("Items in +" +command.getSecondWord()+": ");
 					chest.getInventory().displayAll();
 				}
 			}
@@ -558,7 +575,7 @@ class Game {
 		 */
 		if (!command.hasSecondWord())
 			System.out.println("What do you want to unlock?");
-		else if (!command.getSecondWord().equals("chest")) {
+		else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) == -1) {
 			if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
 				System.out.println("There is no door in that direction");
 			else if (!command.hasThirdWord())
@@ -575,19 +592,19 @@ class Game {
 				player.getInventory().checkKeyInventoryUsed();
 				System.out.println("The door is unlocked!");
 			}
-		} else if (command.getSecondWord().equals("chest")) {
-			if (!currentRoom.getInventory().isInInventory("chest"))
-				System.out.println("There is no chest in the room");
+		} else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
+			if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
+				System.out.println("There is no "+command.getSecondWord()+" in the room");
 			else if (!command.hasThirdWord())
 				System.out.println("What do you want to use to unlock it?");
 			else {
 				Key chosenKey = player.getInventory().getKey(command.getThirdWord());
 				if (chosenKey == null) {
 					System.out.println("You do not have that key!");
-				} else if (((Chest) (currentRoom.getInventory().getItem("chest"))).unlock(chosenKey)) {
-					System.out.println("The chest is unlocked!");
+				} else if (((Chest) (currentRoom.getInventory().getItem(command.getSecondWord()))).unlock(chosenKey)) {
+					System.out.println("The " +command.getSecondWord()+" is unlocked!");
 					System.out.print("Items in chest: ");
-					((Chest) currentRoom.getInventory().getItem("chest")).getInventory().displayAll();
+					((Chest) currentRoom.getInventory().getItem(command.getSecondWord())).getInventory().displayAll();
 				} else {
 					System.out.println("That is not the right type of key.");
 				}

@@ -10,7 +10,7 @@ public class Grunt extends Enemy {
 	
 	//Regular Attack: Does damage from 1-5 + strength
 	public boolean attack(Player player){
-		return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + 1 - player.getDefense())); 
+		return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + 1) - player.getDefense()); 
 	}
 	
 	

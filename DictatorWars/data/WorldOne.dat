@@ -1,7 +1,7 @@
 Room Name: Ship Room
 Lock Type: 0
-Room Description: As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a<br>long time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies<br>but none of that matters now. This is your last hunt, but also your biggest. You have landed in what appears to be a wheat<br>field, the force from your landing has caused a large circle of flattened wheat which surrounds your ship. You appear to be in<br>a large clearing, to the far north there seems to be a large mountain range. As you turn around to look south you notice that<br>you are surrounded by a very dense forest, you will not be able to get through the foliage to the west but to the east there is<br>a path leading into the forest. You finally look to the south. It appears that there is a sudden drop off, it must be a cliff. 
-Room Items: none
+Room Description:You have landed in what appears to be a wheat field, the force from your landing has caused a large circle of flattened wheat<br>which surrounds your ship. You appear to be in a large clearing, to the far north there seems to be a large mountain range.<br>As you turn around to look south you notice that you are surrounded by a very dense forest, you will not be able to get<br>through the foliage to the west but to the east there is a path leading into the forest. You finally look to the south.<br>It appears that there is a sudden drop off, it must be a cliff.<br>A supply_drop falls from the sky in front of you filled<br>with some gear. Go unlock it and start your final bounty. 
+Room Items: C-supply_drop-5-|Q-reinforced_shirt-10-0-2-0-2-chest; Q-light_gloves-2-0-0-0-2-hands;Q-combat_boots-7-0-2-1-2-feet;M-knife-15-10|
 Room Enemies: none
 Exit Rooms: N-Top of Mountain, E-Lake, W-Forest Entrance
 Room Name: Top of Mountain
