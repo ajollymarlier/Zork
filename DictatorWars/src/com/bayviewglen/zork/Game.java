@@ -28,6 +28,10 @@ class Game {
 	// TODO all worlds must start in the ship room
 	private Parser parser;
 	private Room currentRoom;
+	private boolean worldTwo = false;
+	private boolean worldThree = false;
+	private String WORLDTWOUNLOCK = "End Room One";
+	final private String WORLDTHREEUNLOCK = "End Room One";
 	String[] enemyDialogue;
 	// This is a MASTER object that contains all of the rooms and is easily
 	// accessible.
@@ -52,15 +56,15 @@ class Game {
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
-			worldNames.add("colin");
+			worldNames.add("earth");
 
 			// loads world 2
 			initRooms("data/WorldTwo.dat", 1);
-			worldNames.add("is");
+			worldNames.add("mars");
 
 			// loads world 3
 			initRooms("data/WorldThree.dat", 2);
-			worldNames.add("cunty");
+			worldNames.add("jupiter");
 
 			// loads enemy dialogue
 			initEnemyDialogue("data/EnemyDialogue.dat");
@@ -272,8 +276,7 @@ class Game {
 	 */
 	private void printWelcome() {
 		System.out.println();
-		System.out.println("Welcome to ANDROMEDA");
-		System.out.println("Zork is a new, incredibly boring adventure game.");
+		System.out.println("Welcome to Andromeda");
 		System.out.println("Type 'help' if you need help.");
 		System.out.println();
 		System.out.println(currentRoom.longDescription());
@@ -290,14 +293,13 @@ class Game {
 		}
 		String commandWord = command.getCommandWord();
 		switch (commandWord) {
-		
+
 		case "help":
-			if(inBattle){
-			printHelp(true);
-			break;
-			}
-			else 
-			printHelp();
+			if (inBattle) {
+				printHelp(true);
+				break;
+			} else
+				printHelp();
 			break;
 		case "check":
 			check(command);
@@ -346,6 +348,7 @@ class Game {
 	}
 
 	private void teleport(Command command) {
+		boolean possible = true;
 		if (!command.hasThirdWord()) {
 			System.out.println("Where do you want to teleport to?");
 			System.out.print("Worlds: ");
@@ -358,13 +361,24 @@ class Game {
 		} else if (command.getThirdWord().equals(currentWorld)) {
 			System.out.println("You are already in that world");
 		} else {
-			currentWorld = command.getThirdWord();
-			currentRoom = worlds.get(worldNames.indexOf(currentWorld)).get("SHIP_ROOM");
-			System.out.println("You teleported to " + currentWorld.toUpperCase());
-			System.out.println(currentRoom.longDescription());
-			// TODO parser converts everything to lowercase
-			// TODO travel to world 2 works
-			// TODO still need to make teleport unlockable
+			if (!worldTwo && command.getThirdWord().equals("mars")
+					|| !worldThree && command.getThirdWord().equals("jupiter")) {
+				System.out.println("How did you know about those places...");
+				System.out.println("Either way you can't go there yet");
+				possible = false;
+			}
+
+			try {
+				if (possible) {
+					currentWorld = command.getThirdWord();
+					currentRoom = worlds.get(worldNames.indexOf(currentWorld)).get("SHIP_ROOM");
+					System.out.println("You teleported to " + currentWorld.toUpperCase());
+					System.out.println(currentRoom.longDescription());
+				}
+			} catch (Exception e) {
+				System.out.println("That place does not exist... fool...");
+			}
+
 		}
 	}
 
@@ -492,24 +506,25 @@ class Game {
 				}
 			}
 			// displays player stats or weapon stats
-			else if (command.getSecondWord().equals("stats")){
+			else if (command.getSecondWord().equals("stats")) {
 				if (!command.hasThirdWord())
 					player.displayStats();
-			else if (!player.getInventory().isInInventory(command.getThirdWord()))
-				System.out.println("That is not in your inventory");
-			else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Weapon))
-				System.out.println("That is not a weapon you can check.");
-			else
-					System.out.println("The " +command.getThirdWord() + " has: " + ((Weapon)(player.getInventory().getItem(command.getThirdWord()))).getDamage() + " attack");
-			
+				else if (!player.getInventory().isInInventory(command.getThirdWord()))
+					System.out.println("That is not in your inventory");
+				else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Weapon))
+					System.out.println("That is not a weapon you can check.");
+				else
+					System.out.println("The " + command.getThirdWord() + " has: "
+							+ ((Weapon) (player.getInventory().getItem(command.getThirdWord()))).getDamage()
+							+ " attack");
+
 			}
 			// displays player inventory
 			else if (command.getSecondWord().equals("inventory")) {
 				System.out.print("Items in your inventory:");
 				player.getInventory().displayAll();
 			}
-			
-			
+
 			// displays player's clothing
 			else if (command.getSecondWord().equals("body")) {
 				// System.out.print("Items in your inventory:");
@@ -591,7 +606,7 @@ class Game {
 		System.out.println("You look at yourself and think of what you are able to do. You can: ");
 		parser.showCommands();
 	}
-	
+
 	private void printHelp(boolean comabt) {
 		System.out.println("You are in combat! You must fight to survive. You quickly look around the room:");
 		System.out.println(currentRoom.longDescription());
@@ -635,8 +650,19 @@ class Game {
 			currentRoom = nextRoom;
 			System.out.println(currentRoom.longDescription());
 			// after walking into a new room enemies show up
+			checkTeleport();
 			showEnemies();
 		}
+	}
+
+	private void checkTeleport() {
+		String test = currentRoom.getRoomName();
+		if (currentRoom.getRoomName().equals(WORLDTWOUNLOCK))
+			worldTwo = true;
+
+		if (currentRoom.getRoomName().equals(WORLDTHREEUNLOCK))
+			worldThree = true;
+
 	}
 
 	// show enemies in the room, starting with the first enemy
