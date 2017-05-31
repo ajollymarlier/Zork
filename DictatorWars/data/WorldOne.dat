@@ -1,30 +1,108 @@
 Room Name: Ship Room
 Lock Type: 0
-Room Description:  This is the Ship Room
-Room Items: C-chest-2-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|,Q-helmet-10-10-10-10-10-head, K-key-2
+Room Description: Ship Room
+Room Items: none
 Room Enemies: none
-Exit Rooms: N-Upper Cliff
-Room Name: Upper Cliff
+Exit Rooms: N-Top of Mountain, E-Lake, W-Forest Entrance
+Room Name: Top of Mountain
 Lock Type: 0
-Room Description:  This is the Upper Cliff
-Room Items: C-chest-10-|none|
-Room Enemies: miniboss-C-100-10-10-3, grunt-C-10-10-10-4
-Exit Rooms: W-Village, E-River Basin, S-Ship Room
-Room Name: Village
+Exit Rooms: Top of Mountain
+Room Items: none
+Room Enemies: none
+Exit Rooms: S-Ship Room, E-River Basin, W-Village
+Room Name: Lake
+Lock Type: 1
+Room Description: Lake
+Room Items: R-pistol-10-12-100, E-mini_potion-3-25-0-0-0
+Room Enemies: none
+Exit Rooms: W-Ship Room, S-Outside Cave
+Room Name: Outside Cave
 Lock Type: 0
-Room Description:  You are in the village
-Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
-Room Enemies: grunt-C-10-10-10-5
-Exit Rooms: E-Upper Cliff
+Room Description:  Outside Cave
+Room Items: none
+Room Enemies: none
+Exit Rooms: N-Lake, W-Cave
 Room Name: River Basin
-Lock Type: 3
-Room Description:  You are in the River Basin
-Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
-Room Enemies: grunt-C-10-10-10-6
-Exit Rooms: E-Cliff Plateau, W-Upper Cliff
-Room Name: Cliff Plateau
 Lock Type: 0
-Room Description:  You are in the plateau
-Room Items: C-chest-10-|M-space_axe-10-10-10;Q-helmet-10-10-10-10-10-head|
-Room Enemies: grunt-C-10-10-10-7
+Room Description: River Basin
+Room Items: M-axe-25-12, Q-Slaver_Armour-50-25-0-0-2-chest
+Room Enemies: grunt-C-40-10-10-1
+Exit Rooms: E-Cliff Drop, W-Top of Mountain
+Room Name: Cliff Drop
+Lock Type: 0
+Room Description: Cliff Drop
+Room Items: none
+Room Enemies: none
 Exit Rooms: W-River Basin
+Room Name: Forest Entrance
+Lock Type: 0
+Room Description: Forest Entrance
+Room Items: none
+Room Enemies: none
+Exit Rooms: E-Ship Room, W-Shed, S-Camp Entrance
+Room Name: Village
+Lock Type: 0 
+Room Description:  Village
+Room Items: K-Vaporizer-1
+Room Enemies: none 
+Exit Rooms: E-Top of Mountain
+Room Name: Cave
+Lock Type: 0 
+Room Description: Cave
+Room Items: none
+Room Enemies: grunt-C-80-15-10-0
+Exit Rooms: E-Outside Cave, S-Shelter
+Room Name: Shelter
+Lock Type: 0
+Room Description:  Shelter
+Room Items: Q-Slaver_Armour-50-25-0-2-10-chest, M-knife-10-10-10
+Room Enemies: none
+Exit Rooms: N-Cave, W-Out Crop
+Room Name: Out Crop
+Lock Type: 0
+Room Description:  Out Crop
+Room Items: Q-Intergalactic_Fedora-5-125-20-20-25-head
+Room Enemies: none
+Exit Rooms: E-Shelter
+Room Name: Shed
+Lock Type: 0 
+Room Description:  Shed
+Room Items: R-bow-10-30-20
+Room Enemies: grunt-C-50-15-10-2
+Exit Rooms: E-Forest Entrance
+Room Name: Camp Entrance
+Lock Type: 0 
+Room Description:  Camp Entrance
+Room Items: none
+Room Enemies: grunt-C-50-15-10-3
+Exit Rooms: N-Forest Entrance, S-Main Area, W-Jail House
+Room Name: Jail House
+Lock Type: 2 
+Room Description:  Jail House
+Room Items: none
+Room Enemies: grunt-C-10-15-10-0
+Exit Rooms: E-Camp Entrance
+Room Name: Main Area
+Lock Type: 0 
+Room Description:  Main Area
+Room Items: none
+Room Enemies: none
+Exit Rooms: N-Camp Entrance, E-Barracks, S-Chief House
+Room Name: Barracks
+Lock Type: 0 
+Room Description:  Barracks
+Room Items: E-regular_potion-5-50-0-0-0
+Room Enemies: none
+Exit Rooms: W-Main Area
+Room Name: Chief House
+Lock Type: 0 
+Room Description: Chief House
+Room Items: K-jewel-3
+Room Enemies: Boss-C-150-20-30-0
+Exit Rooms: N-Main Area, S-End Room One
+Room Name: End Room One
+Lock Type: 0 
+Room Description: end room one
+Room Items: none
+Room Enemies: none
+Exit Rooms: N-Chief House
