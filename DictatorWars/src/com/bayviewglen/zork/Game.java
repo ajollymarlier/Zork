@@ -293,6 +293,18 @@ class Game {
 		case "help":
 			printHelp();
 			break;
+		case "check":
+			check(command);
+			break;
+		case "use":
+			use(command);
+			break;
+		case "equip":
+			equip(command);
+			break;
+		case "unequip":
+			unequip(command);
+			break;
 		case "attack":
 			return attack(command);
 		default:
@@ -301,11 +313,11 @@ class Game {
 				case "go":
 					goRoom(command);
 					break;
+				case "walk":
+					goRoom(command);
+					break;
 				case "quit":
 					return true;
-				case "check":
-					check(command);
-					break;
 				case "grab":
 					grab(command);
 					break;
@@ -314,15 +326,6 @@ class Game {
 					break;
 				case "unlock":
 					unlock(command);
-					break;
-				case "use":
-					use(command);
-					break;
-				case "equip":
-					equip(command);
-					break;
-				case "unequip":
-					unequip(command);
 					break;
 				case "teleport":
 					teleport(command);
@@ -482,9 +485,10 @@ class Game {
 					chest.getInventory().displayAll();
 				}
 			}
+			// displays player stats or weapon stats
 			else if (command.getSecondWord().equals("stats")){
 				if (!command.hasThirdWord())
-					System.out.println("Check what stats?");
+					player.displayStats();
 			else if (!player.getInventory().isInInventory(command.getThirdWord()))
 				System.out.println("That is not in your inventory");
 			else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Weapon))
@@ -498,10 +502,8 @@ class Game {
 				System.out.print("Items in your inventory:");
 				player.getInventory().displayAll();
 			}
-			// displays player stats
-			else if (command.getSecondWord().equals("stats")) {
-				player.displayStats();
-			}
+			
+			
 			// displays player's clothing
 			else if (command.getSecondWord().equals("body")) {
 				// System.out.print("Items in your inventory:");
