@@ -4,11 +4,13 @@ public abstract class Character {
 	private int healthPoints;
 	private int speed;
 	private int strength;
+	private int defense;
 
 	public Character(int healthPoints, int speed, int strength){
 		this.healthPoints = healthPoints;
 		this.speed = speed;
 		this.strength = strength;
+		this.defense = 0;
 	}
 
 	
@@ -44,6 +46,21 @@ public abstract class Character {
 	public void changeStrength(int amount) {
 		strength += amount;
 	}
+
+
+	public int getDefense() {
+		return defense;
+	}
+
+
+	public void setDefense(int defense) {
+		this.defense = defense;
+	}
+	
+	public void changeDefense(int amount){
+		defense += amount;
+	}
+	
 	
 	
 

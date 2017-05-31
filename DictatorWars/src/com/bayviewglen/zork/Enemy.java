@@ -33,7 +33,9 @@ public abstract class Enemy extends Character{
 	
 	public abstract boolean attack(Player player);
 	
-	
+	public void printSpecialAttack(){
+		System.out.println("The enemy has used a speical attack! EXTRA DAMAGE!");
+	}
 	
 
 }

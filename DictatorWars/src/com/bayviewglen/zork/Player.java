@@ -88,9 +88,6 @@ public class Player extends Character {
 	}
 
 	
-	public int getDefense(){
-		return 0;
-	}
 
 
 
@@ -138,6 +135,7 @@ public class Player extends Character {
 		System.out.println("Your Health is: " + getHealthPoints());
 		System.out.println("Your Strength is: " + getStrength());
 		System.out.println("Your Speed is: " + getSpeed());
+		System.out.println("Your Defense is: " + getDefense());
 	}
 	
 	public void use(EffectItem item){
@@ -150,6 +148,7 @@ public class Player extends Character {
 		changeHealthPoints(healthBoost);
 		changeSpeed(speedBoost);
 		changeStrength(strengthBoost);
+		changeDefense(defenseBoost);
 		//defense boost
 		
 	}

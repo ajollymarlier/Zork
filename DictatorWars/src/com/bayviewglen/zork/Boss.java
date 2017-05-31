@@ -16,8 +16,9 @@ public class Boss extends Enemy {
 		if(choice == 10){
 			changeStrength((int) (Math.random() * 3) + 1);
 			System.out.println(getName() + "'s strength increased!");
-			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) + player.getDefense()) ;
+			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) - player.getDefense()) ;
 		}else if(choice == 1 || choice == 2){
+			printSpecialAttack();
 			return player.setDamage(getStrength() + ((int)(Math.random() * attackRange) + specialMaxAttack + 1) + player.getDefense());
 			
 		}else{
