@@ -25,7 +25,7 @@ import java.util.Scanner;
 
 class Game {
 
-	//TODO all worlds must start in the ship room
+	// TODO all worlds must start in the ship room
 	private Parser parser;
 	private Room currentRoom;
 	String[] enemyDialogue;
@@ -43,28 +43,29 @@ class Game {
 	// default stats
 	Player player;
 	boolean inBattle = false;
-	//TODO planet names must be all lowercase
+
+	// TODO planet names must be all lowercase
 	// construct the game
 	public Game() {
 		// initialize player
 		player = new Player(100, 100, 100);
 		try {
-			//Loads world 1
+			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
 			worldNames.add("colin");
-			
-			//loads world 2
+
+			// loads world 2
 			initRooms("data/WorldTwo.dat", 1);
 			worldNames.add("is");
-			
-			//loads world 3
+
+			// loads world 3
 			initRooms("data/WorldThree.dat", 2);
 			worldNames.add("cunty");
-			
-			//loads enemy dialogue
+
+			// loads enemy dialogue
 			initEnemyDialogue("data/EnemyDialogue.dat");
-			
-			//Starts player in the first room in the first world
+
+			// Starts player in the first room in the first world
 			currentRoom = worlds.get(0).get("SHIP_ROOM");
 			currentWorld = worldNames.get(0);
 		} catch (Exception e) {
@@ -92,34 +93,33 @@ class Game {
 				// Stores in string array of each than parses after
 				String[] roomItemsString = roomScanner.nextLine().trim().split(":")[1].split(",");
 				// finds out the type of item and adds it in
-				if(!roomItemsString[0].trim().equals("none")){
+				if (!roomItemsString[0].trim().equals("none")) {
 					itemMaker(roomItemsString, room);
 				}
 				// Read enemies
 				String[] enemies = roomScanner.nextLine().trim().split(":")[1].split(",");
 				int counter = 0;
-				if(!enemies[0].trim().equals("none")){
-				for (String s : enemies) {
-					String currentEnemyType = enemies[counter].trim().split("-")[0];
-					String inRange = enemies[counter].trim().split("-")[1];
-					int healthPoints = Integer.parseInt(enemies[counter].trim().split("-")[2]);
-					int speed = Integer.parseInt(enemies[counter].trim().split("-")[3]);
-					int strength = Integer.parseInt(enemies[counter].trim().split("-")[4]);
-					int dialogueNum = Integer.parseInt(enemies[counter].trim().split("-")[5]);
-					if (currentEnemyType.equals("grunt")) {
-						room.addRoomEnemy(
-								new Grunt(healthPoints, speed, strength, dialogueNum, "grunt", inRange.equals("C")));
-					} else if (currentEnemyType.equals("miniboss")) {
-						room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, "miniboss",
-								inRange.equals("C")));
-					} else if (currentEnemyType.equals("boss")) {
-						room.addRoomEnemy(
-								new Boss(healthPoints, speed, strength, dialogueNum, "boss", inRange.equals("C")));
+				if (!enemies[0].trim().equals("none")) {
+					for (String s : enemies) {
+						String currentEnemyType = enemies[counter].trim().split("-")[0];
+						String inRange = enemies[counter].trim().split("-")[1];
+						int healthPoints = Integer.parseInt(enemies[counter].trim().split("-")[2]);
+						int speed = Integer.parseInt(enemies[counter].trim().split("-")[3]);
+						int strength = Integer.parseInt(enemies[counter].trim().split("-")[4]);
+						int dialogueNum = Integer.parseInt(enemies[counter].trim().split("-")[5]);
+						if (currentEnemyType.equals("grunt")) {
+							room.addRoomEnemy(new Grunt(healthPoints, speed, strength, dialogueNum, "grunt",
+									inRange.equals("C")));
+						} else if (currentEnemyType.equals("miniboss")) {
+							room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, "miniboss",
+									inRange.equals("C")));
+						} else if (currentEnemyType.equals("boss")) {
+							room.addRoomEnemy(
+									new Boss(healthPoints, speed, strength, dialogueNum, "boss", inRange.equals("C")));
+						}
+						counter++;
 					}
-					counter++;
 				}
-				}
-				
 
 				// Read the Exits
 				String roomExits = roomScanner.nextLine();
@@ -158,15 +158,11 @@ class Game {
 			String itemType = line[i].trim().split("-")[0];
 			String name = line[i].trim().split("-")[1];
 			if (itemType.equals("C")) {
-				int type = Integer.parseInt(line[i].trim().split("-")[2]);
-
-				// Test array
-				String[] test = line[i].trim().split("\\|");
-				String items = test[1];
-				String[] chestItems = items.trim().split(";");
-				Chest chest = new Chest(name, type);
+				int lockType = Integer.parseInt(line[i].trim().split("-")[2]);
+				String[] chestItems = line[i].trim().split("\\|")[1].trim().split(";");
+				Chest chest = new Chest(name, lockType);
 				room.getInventory().add(chest);
-				if(!chestItems[0].trim().equals("none")){
+				if (!chestItems[0].trim().equals("none")) {
 					chestMaker(chestItems, chest);
 				}
 			} else if (itemType.equals("K")) {
@@ -255,7 +251,8 @@ class Game {
 
 	/**
 	 * Main play routine. Loops until end of play.
-	 * @throws InterruptedException 
+	 * 
+	 * @throws InterruptedException
 	 */
 	public void play() throws InterruptedException {
 		printWelcome();
@@ -292,227 +289,233 @@ class Game {
 			return false;
 		}
 		String commandWord = command.getCommandWord();
-		if (commandWord.equals("help")) {
+		switch (commandWord) {
+		case "help":
 			printHelp();
-		} 
-		// if attack is used with an enemy present, load the attack processor
-		else if (commandWord.equals("attack")) {
-			if (inBattle) {
-				if (attack(command)) {
+			break;
+		case "attack":
+			return attack(command);
+		default:
+			if (!inBattle) {
+				switch (commandWord) {
+				case "go":
+					goRoom(command);
+					break;
+				case "quit":
 					return true;
+				case "check":
+					check(command);
+					break;
+				case "grab":
+					grab(command);
+					break;
+				case "drop":
+					drop(command);
+					break;
+				case "unlock":
+					unlock(command);
+					break;
+				case "use":
+					use(command);
+					break;
+				case "equip":
+					equip(command);
+					break;
+				case "unequip":
+					unequip(command);
+					break;
+				case "teleport":
+					teleport(command);
+					break;
 				}
 			} else {
-				System.out.println("There is no enemy, I can't believe you've done this!");
+				System.out.println("You must attack or you will DIE! What are you doing with your life?");
 			}
-		} 
-		// if in battle do not allow any other commands
-		else if (inBattle) {
-			System.out.println("You must attack or you will DIE! What are you doing with your life?");
-		} 
-		// allows you to change rooms
-		else if (commandWord.equals("go")) {
-			goRoom(command);
-		} 
-		// Exits the game
-		else if (commandWord.equals("quit")) {
-			if (command.hasSecondWord()){
-				System.out.println("Quit what?");
-			}else{
-				return true; // signal that we want to quit
-			}
+			break;
 		}
-		// allows you to check for info
-		else if (commandWord.equals("check")) {
-			if (!command.hasSecondWord()) {
-				System.out.println("What do you want to check?");
-			} else {
-				// gives a brief description of items in a room
-				if (command.getSecondWord().equals("room")) {
-					System.out.print("Items in room: ");
-					currentRoom.getInventory().displayAll();
-				} 
-				// checks the items in a chest
-				else if (command.getSecondWord().equals("chest")) {
-					Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getSecondWord()));
-					if (chest == null) {
-						System.out.println("The chest is not in the room!");
-					} else if (!(chest instanceof Chest)) {
-						System.out.println("That is not a chest!");
-					} else if (chest.isLocked()) {
-						System.out.println("The chest is locked. You cannot see inside it.");
-					} else {
-						System.out.print("Items in chest: ");
-						chest.getInventory().displayAll();
-					}					
-				}
-				// displays player inventory
-				else if (command.getSecondWord().equals("inventory")) {
-					System.out.print("Items in your inventory:");
-					player.getInventory().displayAll();
-				}
-				// displays player stats
-				else if (command.getSecondWord().equals("stats")) {
-					player.displayStats();
-				} 
-				//displays player's clothing
-				else if (command.getSecondWord().equals("body")) {
-					//System.out.print("Items in your inventory:");
-					player.displayInventory();
-				} 
-				//displays amount of ammo of a ranged weapon
-				else if (command.getSecondWord().equals("ammo")) {
-					if (!command.hasThirdWord()) {
-						System.out.println("What Ranged weapon would you like to check the ammo on?");
-					} else if ((player.getInventory().getItem(command.getThirdWord())) == null) {
-						System.out.println("You do not have that weapon!");
-					} else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Ranged)) {
-						System.out.println("That weapon does not have ammo!");
-					} else {
-						System.out.println("That weapon has "
-								+ ((Ranged) (player.getInventory().getItem(command.getThirdWord()))).getAmmo()
-								+ " ammo");
-					}
-				} else {
-					System.out.println("I do not understand what you are saying.");
-				}
-			}
-		//allows you to grab items from a chest or room
-		} else if (commandWord.equals("grab")) {
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to grab?");
-			else if (command.hasThirdWord() && command.getThirdWord().equals("chest")) {
-				if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
-					System.out.println("There is not chest in the room.");
-				else if (((Chest) (currentRoom.getInventory().getItem("chest"))).isLocked())
-					System.out.println("The chest is locked closed.");
-				else {
-					if (!((Chest) (currentRoom.getInventory().getItem("chest"))).getInventory()
-							.isInInventory(command.getSecondWord()))
-						System.out.println("That item is not in the chest.");
-					else {
-						boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem("chest")))
-								.getInventory().removeItem(command.getSecondWord()));
-						if (works)
-							System.out.println("You obtained: " + command.getSecondWord());
-						else
-							System.out.println("You are already carrying too much");
-					}
-				}
-			} else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
-				System.out.println("That item is not in the room");
-			else if (command.getSecondWord().equals("chest")) {
-				System.out.println("You can't pick up chests. They are too heavy for your noodle arms.");
-
-			} else {
-				boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
-				if (works)
-					System.out.println("You obtained: " + command.getSecondWord());
-				else
-					System.out.println("You are already carrying too much");
-			}
-		} 
-		//allows you to drop items
-		else if (commandWord.equals("drop")) {
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to drop");
-			else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
-				System.out.println("You are not carrying that item");
-			else {
-
-				if (command.getSecondWord().equals("fists"))
-					System.out.println("That is not physically possible");
-				else {
-					if (player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem)
-						if (((EquippableItem)(player.getInventory().getItem(command.getSecondWord()))).getEquipped())
-							player.unequip(command.getSecondWord());
-					player.drop(command.getSecondWord(), currentRoom);
-					System.out.println("You dropped: " + command.getSecondWord());
-				}
-
-			}
-		}
-		// allows you to unlock things (rooms, chests)
-		else if (commandWord.equals("unlock")) {
-			processUnlock(command);
-		} 
-		//allows you to use items to increase your stats
-		else if (commandWord.equals("use")) {
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to use");
-			else if (!player.getInventory().isInInventory(command.getSecondWord()))
-				System.out.println("You are not carrying that item");
-			else {
-				EffectItem chosenItem = player.getInventory().getEffectItem(command.getSecondWord());
-				if (chosenItem == null) {
-					System.out.println("You can't use this!");
-				} else {
-					player.use(chosenItem);
-				}
-			}
-		// To equip things from the inventory
-		} else if (commandWord.equals("equip")) {
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to equip?");
-			else if (!player.getInventory().isInInventory(command.getSecondWord()))
-				System.out.println("That item is not in your inventory.");
-			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
-				System.out.println("That is not something you can equip.");
-			else if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
-				System.out.println("That item is already equipped.");
-			} else {
-				player.equip(((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))));
-				System.out.println("You have equipped " + command.getSecondWord());
-			}
-		} 
-		// To unequip things from your body
-		else if (commandWord.equals("unequip")) {
-			if (!command.hasSecondWord())
-				System.out.println("What do you want to equip?");
-			else if (!player.getInventory().isInInventory(command.getSecondWord()))
-				System.out.println("That item is not in your inventory.");
-			else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
-				System.out.println("That is not something you can unequip.");
-			else if (!((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
-				System.out.println("That item is already unequipped.");
-			} else {
-				player.unequip(command.getSecondWord());
-				System.out.println("You have unequipped " + command.getSecondWord());
-			}
-		}
-		
-		else if(commandWord.equals("teleport")){
-			if(!command.hasThirdWord()){
-				System.out.println("Where do you want to teleport to?");
-				System.out.print("Worlds: ");
-				
-				for(int i = 0; i < worlds.size(); i++){
-					if(!worldNames.get(i).equals(currentWorld))
-						System.out.print(worldNames.get(i) + ", ");
-				}
-				System.out.println("");
-			}
-			else if(command.getThirdWord().equals(currentWorld)){
-				System.out.println("You are already in that world");
-			}else{
-				teleport(command.getThirdWord());
-			}
-		}
-
 		return false;
 	}
 
-	private void teleport(String world) {
-		currentWorld = world;
-		currentRoom = worlds.get(worldNames.indexOf(currentWorld)).get("SHIP_ROOM");
-		System.out.println("You teleported to " + currentWorld.toUpperCase());
-		System.out.println(currentRoom.longDescription());
-		//TODO parser converts everything to lowercase
-		//TODO travel to world 2 works
-		//TODO still need to make teleport unlockable
+	private void teleport(Command command) {
+		if (!command.hasThirdWord()) {
+			System.out.println("Where do you want to teleport to?");
+			System.out.print("Worlds: ");
+
+			for (int i = 0; i < worlds.size(); i++) {
+				if (!worldNames.get(i).equals(currentWorld))
+					System.out.print(worldNames.get(i) + ", ");
+			}
+			System.out.println("");
+		} else if (command.getThirdWord().equals(currentWorld)) {
+			System.out.println("You are already in that world");
+		} else {
+			currentWorld = command.getThirdWord();
+			currentRoom = worlds.get(worldNames.indexOf(currentWorld)).get("SHIP_ROOM");
+			System.out.println("You teleported to " + currentWorld.toUpperCase());
+			System.out.println(currentRoom.longDescription());
+			// TODO parser converts everything to lowercase
+			// TODO travel to world 2 works
+			// TODO still need to make teleport unlockable
+		}
 	}
 
-	//allow
-	private void processUnlock(Command command) {
+	private void unequip(Command command) {
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to equip?");
+		else if (!player.getInventory().isInInventory(command.getSecondWord()))
+			System.out.println("That item is not in your inventory.");
+		else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
+			System.out.println("That is not something you can unequip.");
+		else if (!((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
+			System.out.println("That item is already unequipped.");
+		} else {
+			player.unequip(command.getSecondWord());
+			System.out.println("You have unequipped " + command.getSecondWord());
+		}
+	}
+
+	private void equip(Command command) {
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to equip?");
+		else if (!player.getInventory().isInInventory(command.getSecondWord()))
+			System.out.println("That item is not in your inventory.");
+		else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
+			System.out.println("That is not something you can equip.");
+		else if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped()) {
+			System.out.println("That item is already equipped.");
+		} else {
+			player.equip(((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))));
+			System.out.println("You have equipped " + command.getSecondWord());
+		}
+	}
+
+	private void use(Command command) {
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to use");
+		else if (!player.getInventory().isInInventory(command.getSecondWord()))
+			System.out.println("You are not carrying that item");
+		else {
+			EffectItem chosenItem = player.getInventory().getEffectItem(command.getSecondWord());
+			if (chosenItem == null) {
+				System.out.println("You can't use this!");
+			} else {
+				player.use(chosenItem);
+			}
+		}
+	}
+
+	private void drop(Command command) {
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to drop");
+		else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
+			System.out.println("You are not carrying that item");
+		else {
+
+			if (command.getSecondWord().equals("fists"))
+				System.out.println("That is not physically possible");
+			else {
+				if (player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem)
+					if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped())
+						player.unequip(command.getSecondWord());
+				player.drop(command.getSecondWord(), currentRoom);
+				System.out.println("You dropped: " + command.getSecondWord());
+			}
+
+		}
+	}
+
+	private void grab(Command command) {
+		if (!command.hasSecondWord())
+			System.out.println("What do you want to grab?");
+		else if (command.hasThirdWord() && command.getThirdWord().equals("chest")) {
+			if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
+				System.out.println("There is not chest in the room.");
+			else if (((Chest) (currentRoom.getInventory().getItem("chest"))).isLocked())
+				System.out.println("The chest is locked closed.");
+			else {
+				if (!((Chest) (currentRoom.getInventory().getItem("chest"))).getInventory()
+						.isInInventory(command.getSecondWord()))
+					System.out.println("That item is not in the chest.");
+				else {
+					boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem("chest"))).getInventory()
+							.removeItem(command.getSecondWord()));
+					if (works)
+						System.out.println("You obtained: " + command.getSecondWord());
+					else
+						System.out.println("You are already carrying too much");
+				}
+			}
+		} else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
+			System.out.println("That item is not in the room");
+		else if (command.getSecondWord().equals("chest")) {
+			System.out.println("You can't pick up chests. They are too heavy for your noodle arms.");
+
+		} else {
+			boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
+			if (works)
+				System.out.println("You obtained: " + command.getSecondWord());
+			else
+				System.out.println("You are already carrying too much");
+		}
+	}
+
+	private void check(Command command) {
+		if (!command.hasSecondWord()) {
+			System.out.println("What do you want to check?");
+		} else {
+			// gives a brief description of items in a room
+			if (command.getSecondWord().equals("room")) {
+				System.out.print("Items in room: ");
+				currentRoom.getInventory().displayAll();
+			}
+			// checks the items in a chest
+			else if (command.getSecondWord().equals("chest")) {
+				Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getSecondWord()));
+				if (chest == null) {
+					System.out.println("The chest is not in the room!");
+				} else if (!(chest instanceof Chest)) {
+					System.out.println("That is not a chest!");
+				} else if (chest.isLocked()) {
+					System.out.println("The chest is locked. You cannot see inside it.");
+				} else {
+					System.out.print("Items in chest: ");
+					chest.getInventory().displayAll();
+				}
+			}
+			// displays player inventory
+			else if (command.getSecondWord().equals("inventory")) {
+				System.out.print("Items in your inventory:");
+				player.getInventory().displayAll();
+			}
+			// displays player stats
+			else if (command.getSecondWord().equals("stats")) {
+				player.displayStats();
+			}
+			// displays player's clothing
+			else if (command.getSecondWord().equals("body")) {
+				// System.out.print("Items in your inventory:");
+				player.displayInventory();
+			}
+			// displays amount of ammo of a ranged weapon
+			else if (command.getSecondWord().equals("ammo")) {
+				if (!command.hasThirdWord()) {
+					System.out.println("What Ranged weapon would you like to check the ammo on?");
+				} else if ((player.getInventory().getItem(command.getThirdWord())) == null) {
+					System.out.println("You do not have that weapon!");
+				} else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Ranged)) {
+					System.out.println("That weapon does not have ammo!");
+				} else {
+					System.out.println("That weapon has "
+							+ ((Ranged) (player.getInventory().getItem(command.getThirdWord()))).getAmmo() + " ammo");
+				}
+			} else {
+				System.out.println("I do not understand what you are saying.");
+			}
+		}
+	}
+
+	// allow
+	private void unlock(Command command) {
 		// testing code that displays all exits in hashmap
 		/*
 		 * for (String i : currentRoom.getExits().keySet()){
@@ -527,7 +530,7 @@ class Game {
 				System.out.println("What do you want to use to unlock it?");
 			else if (!player.getInventory().isInInventory(command.getThirdWord())) {
 				System.out.println("That key is not in your inventory.");
-			}else if (!currentRoom.getExits().get(command.getSecondWord().trim())
+			} else if (!currentRoom.getExits().get(command.getSecondWord().trim())
 					.unlock(player.getInventory().getKey(command.getThirdWord().trim()))) {
 				System.out.println("That is not the right type of key");
 			} else {
@@ -549,7 +552,7 @@ class Game {
 				} else if (((Chest) (currentRoom.getInventory().getItem("chest"))).unlock(chosenKey)) {
 					System.out.println("The chest is unlocked!");
 					System.out.print("Items in chest: ");
-					((Chest)currentRoom.getInventory().getItem("chest")).getInventory().displayAll();
+					((Chest) currentRoom.getInventory().getItem("chest")).getInventory().displayAll();
 				} else {
 					System.out.println("That is not the right type of key.");
 				}
@@ -582,15 +585,15 @@ class Game {
 		}
 		String dirWanted = command.getSecondWord();
 		String direction = command.getSecondWord();
-		
-		//allows player to write a letter instead of direction
-		if(command.getSecondWord().equals("n")){
+
+		// allows player to write a letter instead of direction
+		if (command.getSecondWord().equals("n")) {
 			direction = "north";
-		}else if(command.getSecondWord().equals("s")){
+		} else if (command.getSecondWord().equals("s")) {
 			direction = "south";
-		}else if(command.getSecondWord().equals("w")){
+		} else if (command.getSecondWord().equals("w")) {
 			direction = "west";
-		}else if(command.getSecondWord().equals("e")){
+		} else if (command.getSecondWord().equals("e")) {
 			direction = "east";
 		}
 
@@ -615,7 +618,6 @@ class Game {
 			System.out.println("You have vanquished all the enemies here!");
 			return;
 		}
-
 		Enemy currentEnemy = currentRoom.getRoomEnemies().get(0);
 		System.out.println();
 		boolean inRange = currentEnemy.getInRange();
@@ -630,28 +632,32 @@ class Game {
 
 	}
 
+	// controls a round of battle
 	private boolean attack(Command command) {
-		if (processPlayerAttack(command)) {
-			return false;
-		}
-		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
-
-		System.out.println("\nYour health points are " + player.getHealthPoints());
-		System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
-		if (currEnemy.getInRange()) {
-			boolean isDead = processEnemyAttack();
-			if (isDead) {
-				System.out.println("You have died");
-				return true;
-			}
+		if (!inBattle) {
+			System.out.println("There is no enemy, I can't believe you've done this!");
 		} else {
-			System.out.println("The enemy is running towards you! Quick, Attack!");
-			currEnemy.setInRange(true);
-		}
-		System.out.println("\nYour health points are " + player.getHealthPoints());
-		System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
-		return false;
+			if (processPlayerAttack(command)) {
+				return false;
+			}
+			Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
 
+			System.out.println("\nYour health points are " + player.getHealthPoints());
+			System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
+			if (currEnemy.getInRange()) {
+				boolean isDead = processEnemyAttack();
+				if (isDead) {
+					System.out.println("You have died");
+					return true;
+				}
+			} else {
+				System.out.println("The enemy is running towards you! Quick, Attack!");
+				currEnemy.setInRange(true);
+			}
+			System.out.println("\nYour health points are " + player.getHealthPoints());
+			System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
+		}
+		return false;
 	}
 
 	private boolean processPlayerAttack(Command command) {
@@ -699,7 +705,6 @@ class Game {
 				else {
 					System.out.println("You can not attack with that");
 				}
-
 			}
 			// if it is a bad command get a new command
 			if (badCommand) {
