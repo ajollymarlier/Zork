@@ -363,7 +363,7 @@ class Game {
 		} else {
 			if (!worldTwo && command.getThirdWord().equals("mars")
 					|| !worldThree && command.getThirdWord().equals("jupiter")) {
-				System.out.println("How did you know about that placetelepo...");
+				System.out.println("How did you know about that place...");
 				System.out.println("Either way you can't go there yet");
 				possible = false;
 			}
