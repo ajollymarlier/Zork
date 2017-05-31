@@ -106,20 +106,21 @@ class Game {
 				if (!enemies[0].trim().equals("none")) {
 					for (String s : enemies) {
 						String currentEnemyType = enemies[counter].trim().split("-")[0];
-						String inRange = enemies[counter].trim().split("-")[1];
-						int healthPoints = Integer.parseInt(enemies[counter].trim().split("-")[2]);
-						int speed = Integer.parseInt(enemies[counter].trim().split("-")[3]);
-						int strength = Integer.parseInt(enemies[counter].trim().split("-")[4]);
-						int dialogueNum = Integer.parseInt(enemies[counter].trim().split("-")[5]);
-						if (currentEnemyType.equals("grunt")) {
-							room.addRoomEnemy(new Grunt(healthPoints, speed, strength, dialogueNum, "grunt",
+						String enemyName = enemies[counter].trim().split("-")[1];
+						String inRange = enemies[counter].trim().split("-")[2];
+						int healthPoints = Integer.parseInt(enemies[counter].trim().split("-")[3]);
+						int speed = Integer.parseInt(enemies[counter].trim().split("-")[4]);
+						int strength = Integer.parseInt(enemies[counter].trim().split("-")[5]);
+						int dialogueNum = Integer.parseInt(enemies[counter].trim().split("-")[6]);
+						if (currentEnemyType.equals("G")) {
+							room.addRoomEnemy(new Grunt(healthPoints, speed, strength, dialogueNum, enemyName,
 									inRange.equals("C")));
-						} else if (currentEnemyType.equals("miniboss")) {
-							room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, "miniboss",
+						} else if (currentEnemyType.equals("M")) {
+							room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, enemyName,
 									inRange.equals("C")));
-						} else if (currentEnemyType.equals("boss")) {
+						} else if (currentEnemyType.equals("B")) {
 							room.addRoomEnemy(
-									new Boss(healthPoints, speed, strength, dialogueNum, "boss", inRange.equals("C")));
+									new Boss(healthPoints, speed, strength, dialogueNum, enemyName, inRange.equals("C")));
 						}
 						counter++;
 					}
