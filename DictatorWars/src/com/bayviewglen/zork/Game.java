@@ -482,6 +482,17 @@ class Game {
 					chest.getInventory().displayAll();
 				}
 			}
+			else if (command.getSecondWord().equals("stats")){
+				if (!command.hasThirdWord())
+					System.out.println("Check what stats?");
+			else if (!player.getInventory().isInInventory(command.getThirdWord()))
+				System.out.println("That is not in your inventory");
+			else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Weapon))
+				System.out.println("That is not a weapon you can check.");
+			else
+					System.out.println("The " +command.getThirdWord() + " has: " + ((Weapon)(player.getInventory().getItem(command.getThirdWord()))).getDamage() + " attack");
+			
+			}
 			// displays player inventory
 			else if (command.getSecondWord().equals("inventory")) {
 				System.out.print("Items in your inventory:");
