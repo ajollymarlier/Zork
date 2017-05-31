@@ -51,4 +51,15 @@ class CommandWords
         }
         System.out.println();
     }
+    
+    public void showCombat(){
+    	System.out.print(validCommands[1] + "  ");
+    	System.out.print(validCommands[2] + "  ");
+    	System.out.print(validCommands[3] + "  ");
+    	System.out.print(validCommands[5] + "  ");
+    	System.out.print(validCommands[8] + "  ");
+    	System.out.print(validCommands[9] + "  ");
+    	System.out.print(validCommands[10] + "  ");
+    	System.out.println();
+    }
 }

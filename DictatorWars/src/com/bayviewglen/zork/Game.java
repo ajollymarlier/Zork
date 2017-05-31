@@ -272,7 +272,7 @@ class Game {
 	 */
 	private void printWelcome() {
 		System.out.println();
-		System.out.println("Welcome to Zork!");
+		System.out.println("Welcome to ANDROMEDA");
 		System.out.println("Zork is a new, incredibly boring adventure game.");
 		System.out.println("Type 'help' if you need help.");
 		System.out.println();
@@ -290,7 +290,13 @@ class Game {
 		}
 		String commandWord = command.getCommandWord();
 		switch (commandWord) {
+		
 		case "help":
+			if(inBattle){
+			printHelp(true);
+			break;
+			}
+			else 
 			printHelp();
 			break;
 		case "check":
@@ -579,11 +585,19 @@ class Game {
 	 * message and a list of the command words.
 	 */
 	private void printHelp() {
-		System.out.println("You are lost. You are alone. You wander");
-		System.out.println("around at Monash Uni, Peninsula Campus.");
+		System.out.println("You look around again,");
+		System.out.println(currentRoom.longDescription());
 		System.out.println();
-		System.out.println("Your command words are:");
+		System.out.println("You look at yourself and think of what you are able to do. You can: ");
 		parser.showCommands();
+	}
+	
+	private void printHelp(boolean comabt) {
+		System.out.println("You are in combat! You must fight to survive. You quickly look around the room:");
+		System.out.println(currentRoom.longDescription());
+		System.out.println();
+		System.out.println("Quickly think of all the things you can do quickly: ");
+		parser.showCombatCommands();
 	}
 
 	/**

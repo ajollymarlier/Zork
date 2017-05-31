@@ -105,7 +105,7 @@ class Room implements Lockable
     public String longDescription()
     {
     	
-        return "Room: " + roomName +"\n\n" + description + "\n" + exitString();
+        return description + "\n" + exitString();
     }
 
     /**
