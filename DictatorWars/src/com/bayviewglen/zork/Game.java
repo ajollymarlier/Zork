@@ -53,6 +53,7 @@ class Game {
 	public Game() {
 		// initialize player
 		player = new Player(100, 20, 20);
+		//starts you with key to get start gear
 		player.getInventory().add(new Key ("drop_key" , 5 ));
 		try {
 			// Loads world 1
