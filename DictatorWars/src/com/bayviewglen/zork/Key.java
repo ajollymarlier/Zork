@@ -4,7 +4,7 @@ public class Key extends ConsumableItem {
 	// have a type of key to see if it is key for chest, door etc.
 	// chest:1, door:2, add more
 	// if type 0 is unlocked
-	static public final String[] KEY = {"a", "b", "c", "key"};
+	static public final String[] KEY = {"a", "b", "c", "key", "jewel", "vaporizer"};
 
 	private int type;
 	//all key weight are initialized with 0
