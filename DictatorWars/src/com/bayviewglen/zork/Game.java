@@ -673,18 +673,17 @@ class Game {
 	// show enemies in the room, starting with the first enemy
 	private void showEnemies() {
 		if (currentRoom.getRoomEnemies().size() == 0) {
-			System.out.println("You have vanquished all the enemies here!");
 			return;
 		}
 		Enemy currentEnemy = currentRoom.getRoomEnemies().get(0);
 		System.out.println();
 		boolean inRange = currentEnemy.getInRange();
 		if (inRange) {
-			System.out.println("A Grunt has appeared!");
+			System.out.println("A vile creature named " + currentEnemy.getName() + " has appeared!");
 		} else {
-			System.out.println("A Grunt is at the other side of the room!");
+			System.out.println("A vile creature named " + currentEnemy.getName() + " has appeared on the other side of the room!");
 		}
-		System.out.println("The grunt screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
+		System.out.println(currentEnemy.getName() + " screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
 		System.out.println("You are now engaged in battle!");
 		inBattle = true;
 
@@ -701,7 +700,7 @@ class Game {
 			Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
 
 			System.out.println("\nYour health points are " + player.getHealthPoints());
-			System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
+			System.out.println(currEnemy.getName() + "'s health points are " + currEnemy.getHealthPoints() + "\n");
 			if (currEnemy.getInRange()) {
 				boolean isDead = processEnemyAttack();
 				if (isDead) {
@@ -713,7 +712,7 @@ class Game {
 				currEnemy.setInRange(true);
 			}
 			System.out.println("\nYour health points are " + player.getHealthPoints());
-			System.out.println("The Grunt's health points are " + currEnemy.getHealthPoints() + "\n");
+			System.out.println(currEnemy.getName() + "'s health points are " + currEnemy.getHealthPoints() + "\n");
 		}
 		return false;
 	}
@@ -725,7 +724,7 @@ class Game {
 
 			if (!command.hasSecondWord()) {
 				System.out.println("What do you want to attack?");
-			} else if (currentRoom.getEnemyIndex(command.getSecondWord()) == -1) {
+			} else if (!currentEnemy.getName().toLowerCase().equals(command.getSecondWord())) {
 				System.out.println("That enemy is not in the room");
 			} else if (!command.hasThirdWord()) {
 				System.out.println("What do you want to hit them with?");
@@ -782,7 +781,9 @@ class Game {
 	}
 
 	private void processDeadEnemy() {
-		System.out.println("You have killed " + currentRoom.removeRoomEnemy(0).getName());
+		if (currentRoom.getRoomEnemies().size() == 0) {
+			System.out.println("You have killed " + currentRoom.removeRoomEnemy(0).getName());
+		}
 		inBattle = false;
 		showEnemies();
 	}
