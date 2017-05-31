@@ -31,7 +31,7 @@ class Game {
 	private boolean worldTwo = false;
 	private boolean worldThree = false;
 	private String WORLDTWOUNLOCK = "End Room One";
-	final private String WORLDTHREEUNLOCK = "End Room One";
+	final private String WORLDTHREEUNLOCK = "End Room Two";
 	String[] enemyDialogue;
 	// This is a MASTER object that contains all of the rooms and is easily
 	// accessible.
@@ -363,7 +363,7 @@ class Game {
 		} else {
 			if (!worldTwo && command.getThirdWord().equals("mars")
 					|| !worldThree && command.getThirdWord().equals("jupiter")) {
-				System.out.println("How did you know about those places...");
+				System.out.println("How did you know about that placetelepo...");
 				System.out.println("Either way you can't go there yet");
 				possible = false;
 			}
@@ -656,12 +656,16 @@ class Game {
 	}
 
 	private void checkTeleport() {
-		String test = currentRoom.getRoomName();
-		if (currentRoom.getRoomName().equals(WORLDTWOUNLOCK))
+		if (currentRoom.getRoomName().equals(WORLDTWOUNLOCK)){
+			System.out.println("You can now teleport to Mars");
 			worldTwo = true;
-
-		if (currentRoom.getRoomName().equals(WORLDTHREEUNLOCK))
+		}
+			
+		if (currentRoom.getRoomName().equals(WORLDTHREEUNLOCK)){
+			System.out.println("You can now teleport to Jupiter");
 			worldThree = true;
+		}
+			
 
 	}
 
