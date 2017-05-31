@@ -681,7 +681,7 @@ class Game {
 		if (inRange) {
 			System.out.println("A vile creature named " + currentEnemy.getName() + " has appeared!");
 		} else {
-			System.out.println("A vile creature named " + currentEnemy.getName() + " has appeared on the other side of the room!");
+			System.out.println("A vile creature named " + currentEnemy.getName() + " is at the other side of the room!");
 		}
 		System.out.println(currentEnemy.getName() + " screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
 		System.out.println("You are now engaged in battle!");
@@ -708,7 +708,7 @@ class Game {
 					return true;
 				}
 			} else {
-				System.out.println("The enemy is running towards you! Quick, Attack!");
+				System.out.println(currEnemy.getName() + " is running towards you! Quick, Attack!");
 				currEnemy.setInRange(true);
 			}
 			System.out.println("\nYour health points are " + player.getHealthPoints());
@@ -724,7 +724,7 @@ class Game {
 
 			if (!command.hasSecondWord()) {
 				System.out.println("What do you want to attack?");
-			} else if (!currentEnemy.getName().toLowerCase().equals(command.getSecondWord())) {
+			} else if(!currentEnemy.getName().toLowerCase().equals((command.getSecondWord()))) {
 				System.out.println("That enemy is not in the room");
 			} else if (!command.hasThirdWord()) {
 				System.out.println("What do you want to hit them with?");
@@ -776,13 +776,14 @@ class Game {
 		Enemy currEnemy = currentRoom.getRoomEnemies().get(0);
 		boolean playerDead = currEnemy.attack(player);
 
-		System.out.println("the enemy Attacks!!!");
+		System.out.println(currEnemy.getName() + " attacks!!!");
 		return playerDead;
 	}
 
 	private void processDeadEnemy() {
+		System.out.println("You have killed " + currentRoom.removeRoomEnemy(0).getName());
 		if (currentRoom.getRoomEnemies().size() == 0) {
-			System.out.println("You have killed " + currentRoom.removeRoomEnemy(0).getName());
+			System.out.println("You have vanquished all enemies here");
 		}
 		inBattle = false;
 		showEnemies();
