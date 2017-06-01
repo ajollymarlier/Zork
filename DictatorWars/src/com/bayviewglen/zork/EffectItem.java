@@ -1,7 +1,7 @@
 package com.bayviewglen.zork;
 
 public class EffectItem extends ConsumableItem {
-	public static final String[] EFFECT_ITEMS = {"potion", "Speedy", "Go_Go_Go", "mini_potion", "regular_potion", "super_potion","health_potion", "weak_stimulant", "magma_stimulant"};
+	public static final String[] EFFECT_ITEMS = {"potion", "Speedy", "Go_Go_Go", "mini_potion", "tiny_potion", "potion", "super_potion","health_potion", "weak_stimulant", "magma_stimulant"};
 	private int healthBoost;
 	private int defenseBoost;
 	private int speedBoost;

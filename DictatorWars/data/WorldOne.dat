@@ -49,7 +49,7 @@ Exit Rooms: E-Top of Mountain
 Room Name: Cave
 Lock Type: 0 
 Room Description: Cave
-Room Items: K-jewel-3, E-mini_potion-3-25-0-0-0
+Room Items: K-jewel-3, E-tiny_potion-3-25-0-0-0
 Room Enemies: G-Cave Troll-C-20-15-4-3
 Exit Rooms: E-Outside Cave, S-Shelter
 Room Name: Shelter
@@ -91,7 +91,7 @@ Exit Rooms: N-Camp Entrance, E-Barracks, S-Chief House
 Room Name: Barracks
 Lock Type: 0 
 Room Description:  Barracks
-Room Items: E-regular_potion-5-50-0-0-0
+Room Items: E-potion-5-50-0-0-0
 Room Enemies: none
 Exit Rooms: W-Main Area
 Room Name: Chief House
