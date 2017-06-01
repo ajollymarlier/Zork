@@ -8,7 +8,7 @@ public class EquippableItem extends Item{
 	private int strengthBoost;
 	private String type;
 	
-	static public final String [] EQUIPPABLE = {"helmet",  "shirt", "chestplate", "gloves", "slaver_armour", "leather_armour", "intergalactic_fedora","reinforced_shirt", "light_gloves", "combat_boots" };
+	static public final String [] EQUIPPABLE = {"helmet",  "shirt", "chestplate", "gloves", "slaver_armour", "leather_armour", "intergalactic_fedora","reinforced_shirt", "light_gloves", "combat_boots","dragonslayer_gauntlets","dragonslayer_visor","dragonslayer_plate", "dragonslayer_pants" };
 	//TODO add defense attribute in player class
 	public EquippableItem(int weight, String name, int healthBoost, int defenseBoost, int speedBoost, int strengthBoost, String type){
 		super(weight, name);

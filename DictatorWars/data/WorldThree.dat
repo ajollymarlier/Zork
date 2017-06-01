@@ -1,108 +1,76 @@
 Room Name: Ship Room
 Lock Type: 0
-Room Description: As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a<br>long time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies<br>but none of that matters now. This is your last hunt, but also your biggest. You have landed in what appears to be a wheat<br>field, the force from your landing has caused a large circle of flattened wheat which surrounds your ship. You appear to be in<br>a large clearing, to the far north there seems to be a large mountain range. As you turn around to look south you notice that<br>you are surrounded by a very dense forest, you will not be able to get through the foliage to the west but to the east there is<br>a path leading into the forest. You finally look to the south. It appears that there is a sudden drop off, it must be a cliff. 
+Room Description: Ship Room
 Room Items: none
 Room Enemies: none
-Exit Rooms: N-Top of Mountain, E-Lake, W-Forest Entrance
-Room Name: Top of Mountain
+Exit Rooms: N-Volcano Entrance, E-Vantage Point, S-Lava Lake
+Room Name: Vantage Point
 Lock Type: 0
-Room Description: Top of Mountain
-Room Items: none
+Room Description: Vantage Point
+Room Items: C-chest-0-|Q-dragonslayer_gauntlets-20-0-30-15-30-hands;Q-dragonslayer_boots-20-0-20-30-20-feet|
 Room Enemies: none
-Exit Rooms: S-Ship Room, E-River Basin, W-Village
-Room Name: Lake
-Lock Type: 1
-Room Description: Lake
-Room Items: R-pistol-10-12-100, E-mini_potion-3-25-0-0-0
-Room Enemies: none
-Exit Rooms: W-Ship Room, S-Outside Cave
-Room Name: Outside Cave
+Exit Rooms: W-Ship Room
+Room Name: Lava Lake
 Lock Type: 0
-Room Description:  Outside Cave
+Room Description: Lava Lake
 Room Items: none
-Room Enemies: none
-Exit Rooms: N-Lake, W-Cave
-Room Name: River Basin
+Room Enemies: G-LavaSlag-C-50-0-30-0, G-MagmaMangerino-F-60-0-35-0
+Exit Rooms: N-Ship Room, E-Outside of Cave, W-Lava Swamp
+Room Description: Lava Swamp
+Room Items: K-dragon_key-7
+Room Enemies: M-magma_titan-C-100-0-40-0
+Exit Rooms: E-Lava Lake
+Room Name: Outside of Cave
 Lock Type: 0
-Room Description: River Basin
-Room Items: M-axe-25-12, Q-Slaver_Armour-50-25-0-0-2-chest
-Room Enemies: G-Jeff-C-40-10-10-1
-Exit Rooms: E-Cliff Drop, W-Top of Mountain
-Room Name: Cliff Drop
+Room Description: Outside of Cave
+Room Items: Q-dragonslayer_visor-20-0-40-20-10-head
+Room Enemies: none
+Exit Rooms: W-Lava Lake, N-Inside of Cave
+Room Name: Inside of Cave
 Lock Type: 0
-Room Description: Cliff Drop
-Room Items: none
+Room Description: Inside of Cave
+Room Items: K-bomb-6,C-chest-0-|Q-dragonslayer_plate-30-0-40-35-25-chest;Q-dragonslayer_pants-15-0-10-20-20-legs|
+Room Enemies: M-BombBoi-C-100-0-40-0
+Exit Rooms: S-Outside of Cave
+Room Name: Volcano Entrance
+Lock Type: 6
+Room Description: Volcano Entrance
+Room Items: E-magma_stimulant-5-75-10-10-10
 Room Enemies: none
-Exit Rooms: W-River Basin
-Room Name: Forest Entrance
+Exit Rooms: S-Ship Room, N-Inner Volcano
+Room Name: Inner Volcano
 Lock Type: 0
-Room Description: Forest Entrance
+Room Description: Inner Volcano
 Room Items: none
 Room Enemies: none
-Exit Rooms: E-Ship Room, W-Shed, S-Camp Entrance
-Room Name: Village
-Lock Type: 0 
-Room Description:  Village
-Room Items: K-Vaporizer-1
-Room Enemies: none 
-Exit Rooms: E-Top of Mountain
-Room Name: Cave
-Lock Type: 0 
-Room Description: Cave
-Room Items: none
-Room Enemies: G-Cave Jeff-C-80-15-10-0
-Exit Rooms: E-Outside Cave, S-Shelter
-Room Name: Shelter
-Lock Type: 0
-Room Description:  Shelter
-Room Items: Q-Slaver_Armour-50-25-0-2-10-chest, M-knife-10-10-10
-Room Enemies: none
-Exit Rooms: N-Cave, W-Out Crop
-Room Name: Out Crop
-Lock Type: 0
-Room Description:  Out Crop
-Room Items: Q-Intergalactic_Fedora-5-125-20-20-25-head
-Room Enemies: none
-Exit Rooms: E-Shelter
-Room Name: Shed
-Lock Type: 0 
-Room Description:  Shed
-Room Items: R-bow-10-30-20
-Room Enemies: G-Shed Grunt-C-50-15-10-2
-Exit Rooms: E-Forest Entrance
-Room Name: Camp Entrance
-Lock Type: 0 
-Room Description:  Camp Entrance
-Room Items: none
-Room Enemies: G-Guard-C-50-15-10-3
-Exit Rooms: N-Forest Entrance, S-Main Area, W-Jail House
-Room Name: Jail House
-Lock Type: 2 
-Room Description:  Jail House
-Room Items: none
-Room Enemies: G-Jailer-C-10-15-10-0
-Exit Rooms: E-Camp Entrance
-Room Name: Main Area
-Lock Type: 0 
-Room Description:  Main Area
-Room Items: none
-Room Enemies: none
-Exit Rooms: N-Camp Entrance, E-Barracks, S-Chief House
+Exit Rooms: S-Volcano Entrance, W-Barracks, N-Outside Boss
 Room Name: Barracks
-Lock Type: 0 
-Room Description:  Barracks
-Room Items: E-regular_potion-5-50-0-0-0
+Lock Type: 0
+Room Description: Barracks
+Room Items: K-huge_key-6
+Room Enemies: G-Androg-C-60-0-40-0, G-Juiceman-C-60-0-40-0
+Exit Rooms: E-Inner Volcano, W-Armory
+Room Name: Armory
+Lock Type: 0
+Room Description: Armory
+Room Items: C-chest-7-|M-dragonslayer_sabre-15-80;R-dragonslayer_sniper-15-200-2|
 Room Enemies: none
-Exit Rooms: W-Main Area
-Room Name: Chief House
-Lock Type: 0 
-Room Description: Chief House
-Room Items: K-jewel-3
-Room Enemies: B-Charles-C-150-20-30-0
-Exit Rooms: N-Main Area, S-End Room One
-Room Name: End Room One
-Lock Type: 0 
-Room Description: end room one
+Exit Rooms: E-Barracks
+Room Name: Outer Chamber
+Lock Type: 0
+Room Description: Outer Chamber
 Room Items: none
 Room Enemies: none
-Exit Rooms: N-Chief House
+Exit Rooms: S-Inner Volcano, N-Inner Chamber
+Room Name: Inner Chamber
+Lock Type: 6
+Room Description: Inner Chamber
+Room Items: none
+Room Enemies: B-DesSmaurires-C-450-0-150-0
+Exit Rooms: N-End Room
+Room Name: End Room
+Lock Type: 0
+Room Description: End Room
+Room Items: none
+Room Enemies: none
+Exit Rooms: S-Inner Chamber
