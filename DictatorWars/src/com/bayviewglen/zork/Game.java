@@ -54,9 +54,6 @@ class Game {
 		player = new Player(100, 20, 20);
 		// starts you with key to get start gear
 		player.getInventory().add(new Key("drop_key", 5));
-		//TODO DELETE TEST SHIT
-		player.getInventory().add(new Melee(5,"axe",1000));
-		player.getInventory().add(new Ranged(5,"bow",1000,10000));
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
