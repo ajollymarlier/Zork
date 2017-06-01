@@ -30,8 +30,9 @@ class Game {
 	private Room currentRoom;
 	private boolean worldTwo = false;
 	private boolean worldThree = false;
-	private String WORLDTWOUNLOCK = "End Room One";
-	final private String WORLDTHREEUNLOCK = "End Room Two";
+	private String WORLD_TWO_UNLOCK = "End Room One";
+	final private String WORLD_THREE_UNLOCK = "End Room Two";
+	final private String END_ROOM = "End Room";
 	String[] enemyDialogue;
 	// This is a MASTER object that contains all of the rooms and is easily
 	// accessible.
@@ -53,8 +54,8 @@ class Game {
 	public Game() {
 		// initialize player
 		player = new Player(100, 20, 20);
-		//starts you with key to get start gear
-		player.getInventory().add(new Key ("drop_key" , 5 ));
+		// starts you with key to get start gear
+		player.getInventory().add(new Key("drop_key", 5));
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
@@ -121,8 +122,8 @@ class Game {
 							room.addRoomEnemy(new MiniBoss(healthPoints, speed, strength, dialogueNum, enemyName,
 									inRange.equals("C")));
 						} else if (currentEnemyType.equals("B")) {
-							room.addRoomEnemy(
-									new Boss(healthPoints, speed, strength, dialogueNum, enemyName, inRange.equals("C")));
+							room.addRoomEnemy(new Boss(healthPoints, speed, strength, dialogueNum, enemyName,
+									inRange.equals("C")));
 						}
 						counter++;
 					}
@@ -269,8 +270,13 @@ class Game {
 		while (!finished) {
 			Command command = parser.getCommand();
 			finished = processCommand(command);
+
+			if (currentRoom.getRoomName().equals(END_ROOM)) {
+				finished = true;
+				System.out.println("You Win!");
+			}
 		}
-		System.out.println("Thank you for playing.  Good bye.");
+		System.out.println("Thank you for playing. Good bye.");
 		Thread.sleep(2000);
 	}
 
@@ -282,8 +288,8 @@ class Game {
 		System.out.println("Welcome to Andromeda");
 		System.out.println("Type 'help' if you need help.");
 		System.out.println();
-		for(int i = 0; i < 4 ; i++){
-			System.out.println("."+"\n");
+		for (int i = 0; i < 4; i++) {
+			System.out.println("." + "\n");
 			try {
 				Thread.sleep(1000);
 			} catch (InterruptedException e) {
@@ -296,7 +302,8 @@ class Game {
 	}
 
 	private void printIntro() {
-		System.out.println("As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
+		System.out.println(
+				"As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
 		System.out.println();
 		System.out.println();
 	}
@@ -469,18 +476,18 @@ class Game {
 	private void grab(Command command) {
 		if (!command.hasSecondWord())
 			System.out.println("What do you want to grab?");
-		else if (command.hasThirdWord()	&& Arrays.asList(Chest.chestNames).indexOf(command.getThirdWord()) != -1 ) {
+		else if (command.hasThirdWord() && Arrays.asList(Chest.chestNames).indexOf(command.getThirdWord()) != -1) {
 			if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
-				System.out.println("There is not a "+command.getThirdWord()+" in the room.");
+				System.out.println("There is not a " + command.getThirdWord() + " in the room.");
 			else if (((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).isLocked())
-				System.out.println("The "+command.getThirdWord()+" is locked closed.");
+				System.out.println("The " + command.getThirdWord() + " is locked closed.");
 			else {
 				if (!((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).getInventory()
 						.isInInventory(command.getSecondWord()))
-					System.out.println("That item is not in the " +command.getThirdWord());
+					System.out.println("That item is not in the " + command.getThirdWord());
 				else {
-					boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).getInventory()
-							.removeItem(command.getSecondWord()));
+					boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem(command.getThirdWord())))
+							.getInventory().removeItem(command.getSecondWord()));
 					if (works)
 						System.out.println("You obtained: " + command.getSecondWord());
 					else
@@ -490,7 +497,8 @@ class Game {
 		} else if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("That item is not in the room");
 		else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
-			System.out.println("You can't pick up " + command.getSecondWord()+"s. They are too heavy for your noodle arms.");
+			System.out.println(
+					"You can't pick up " + command.getSecondWord() + "s. They are too heavy for your noodle arms.");
 
 		} else {
 			boolean works = player.pickUp(currentRoom.getInventory().removeItem(command.getSecondWord()));
@@ -514,13 +522,13 @@ class Game {
 			else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
 				Chest chest = (Chest) (currentRoom.getInventory().getItem(command.getSecondWord()));
 				if (chest == null) {
-					System.out.println("The " +command.getSecondWord()+" is not in the room!");
+					System.out.println("The " + command.getSecondWord() + " is not in the room!");
 				} else if (!(chest instanceof Chest)) {
-					System.out.println("That is not a "+ command.getSecondWord());
+					System.out.println("That is not a " + command.getSecondWord());
 				} else if (chest.isLocked()) {
-					System.out.println("The "+command.getSecondWord()+" is locked. You cannot see inside it.");
+					System.out.println("The " + command.getSecondWord() + " is locked. You cannot see inside it.");
 				} else {
-					System.out.print("Items in " +command.getSecondWord()+": ");
+					System.out.print("Items in " + command.getSecondWord() + ": ");
 					chest.getInventory().displayAll();
 				}
 			}
@@ -595,7 +603,7 @@ class Game {
 			}
 		} else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
 			if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
-				System.out.println("There is no "+command.getSecondWord()+" in the area");
+				System.out.println("There is no " + command.getSecondWord() + " in the area");
 			else if (!command.hasThirdWord())
 				System.out.println("What do you want to use to unlock it?");
 			else {
@@ -603,7 +611,7 @@ class Game {
 				if (chosenKey == null) {
 					System.out.println("You do not have that key!");
 				} else if (((Chest) (currentRoom.getInventory().getItem(command.getSecondWord()))).unlock(chosenKey)) {
-					System.out.println("The " +command.getSecondWord()+" is unlocked!");
+					System.out.println("The " + command.getSecondWord() + " is unlocked!");
 					System.out.print("Items in chest: ");
 					((Chest) currentRoom.getInventory().getItem(command.getSecondWord())).getInventory().displayAll();
 				} else {
@@ -675,16 +683,15 @@ class Game {
 	}
 
 	private void checkTeleport() {
-		if (currentRoom.getRoomName().equals(WORLDTWOUNLOCK)){
+		if (currentRoom.getRoomName().equals(WORLD_TWO_UNLOCK)) {
 			System.out.println("You can now teleport to Mars");
 			worldTwo = true;
 		}
-			
-		if (currentRoom.getRoomName().equals(WORLDTHREEUNLOCK)){
+
+		if (currentRoom.getRoomName().equals(WORLD_THREE_UNLOCK)) {
 			System.out.println("You can now teleport to Jupiter");
 			worldThree = true;
 		}
-			
 
 	}
 
@@ -701,7 +708,8 @@ class Game {
 		} else {
 			System.out.println("A vile creature named " + currentEnemy.getName() + " is a little bit away");
 		}
-		System.out.println(currentEnemy.getName() + " screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
+		System.out
+				.println(currentEnemy.getName() + " screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
 		System.out.println("You are now engaged in battle!");
 		inBattle = true;
 
@@ -742,7 +750,7 @@ class Game {
 
 			if (!command.hasSecondWord()) {
 				System.out.println("What do you want to attack?");
-			} else if(!currentEnemy.getName().toLowerCase().equals((command.getSecondWord()))) {
+			} else if (!currentEnemy.getName().toLowerCase().equals((command.getSecondWord()))) {
 				System.out.println("That enemy is not in the area");
 			} else if (!command.hasThirdWord()) {
 				System.out.println("What do you want to hit them with?");
