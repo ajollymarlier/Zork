@@ -16,6 +16,8 @@ Room Description: Lava Lake
 Room Items: none
 Room Enemies: G-LavaSlag-C-50-0-30-0, G-MagmaMangerino-F-60-0-35-0
 Exit Rooms: N-Ship Room, E-Outside of Cave, W-Lava Swamp
+Room Name: Lava Swamp
+Lock Type: 0
 Room Description: Lava Swamp
 Room Items: K-dragon_key-7
 Room Enemies: M-magma_titan-C-100-0-40-0
