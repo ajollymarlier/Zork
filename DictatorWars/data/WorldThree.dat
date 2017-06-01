@@ -1,78 +1,78 @@
 Room Name: Ship Room
 Lock Type: 0
-Room Description: Ship Room
+Room Description: You are are in the teleportation bay and you see the massive volcano to the north towering so high you can not see the<br>peak from the base. A weak wall to the north appears to be able to be blown up to 'unlock' a way into the volcano. To<br>the east you see a vantage point that might give you a better view of the volcanoe. To the south you see a river of<br>lava in the distance. Maybe bombs are that way? 
 Room Items: none
 Room Enemies: none
 Exit Rooms: N-Volcano Entrance, E-Vantage Point, S-Lava Lake
 Room Name: Vantage Point
 Lock Type: 0
-Room Description: Vantage Point
+Room Description: You are surprised as you see a huge dragon fly over head roaring like he got a 1 on the ap exam. He flies into the mouth of<br>the volcano and down into what you imagine is its chamber. Your bounty. On the vantage point you also see a letter left<br>on top of a old chest that reads, 'I have left armour scattered around here in these unlocked chest. If you are to stand a <br>chance you must collect the armor. The weapons to defeat the dragon are locked up inside the volcano. Good luck adventurer.'
 Room Items: C-chest-0-|Q-dragonslayer_gauntlets-20-0-30-15-30-hands;Q-dragonslayer_boots-20-0-20-30-20-feet|
 Room Enemies: none
 Exit Rooms: W-Ship Room
 Room Name: Lava Lake
 Lock Type: 0
-Room Description: Lava Lake
+Room Description: You see a huge lake full of molten lava. To the east you see the entrance to a cave and hear the sounds of muffled explosions<br>coming from the mouth of that cave. To the west you see little basin where some lava pools into a swamp. 
 Room Items: none
 Room Enemies: G-LavaSlag-C-50-0-30-0, G-MagmaMangerino-F-60-0-35-0
 Exit Rooms: N-Ship Room, E-Outside of Cave, W-Lava Swamp
 Room Name: Lava Swamp
 Lock Type: 0
-Room Description: Lava Swamp
+Room Description: A huge stagnant swamp of lava is before you. Every so often little bubbles of sulfur pop out and make an awful smell. Right by the<br>shore of the lava you see a key resembling the shape of a dragon sticking out from a rock.
 Room Items: K-dragon_key-7
 Room Enemies: M-magma_titan-C-100-0-40-0
 Exit Rooms: E-Lava Lake
 Room Name: Outside of Cave
 Lock Type: 0
-Room Description: Outside of Cave
+Room Description: At the mouth of the cave the smell of gunpowder has become near un-bearable and the explosions keep getting louder. On the ground you<br>see a helmet and visor of dark black and red lying on the ground as if it had been blown out of the cave. Maybe more armour resides within<br>the cave?
 Room Items: Q-dragonslayer_visor-20-0-40-20-10-head
 Room Enemies: none
 Exit Rooms: W-Lava Lake, N-Inside of Cave
 Room Name: Inside of Cave
 Lock Type: 0
-Room Description: Inside of Cave
+Room Description: A huge stockpile of bombs surrounds a chest. The chest seems to have its latch blown off a while ago. 
 Room Items: K-bomb-6,C-chest-0-|Q-dragonslayer_plate-30-0-40-35-25-chest;Q-dragonslayer_pants-15-0-10-20-20-legs|
 Room Enemies: M-BombBoi-C-100-0-40-0
 Exit Rooms: S-Outside of Cave
 Room Name: Volcano Entrance
 Lock Type: 6
-Room Description: Volcano Entrance
+Room Description: A huge cave mouth surrounds you leading to further inside the volcano lies before you. You are surrounded by items of less fortunate<br>bounty hunters who have fallen to your prey
 Room Items: E-magma_stimulant-5-75-10-10-10
 Room Enemies: none
 Exit Rooms: S-Ship Room, N-Inner Volcano
 Room Name: Inner Volcano
 Lock Type: 0
-Room Description: Inner Volcano
+Room Description: It is beginning to get hotter and hotter as you traverse further. To the west you hear the the distant sound of goblins cackling as if<br>they managed to swindle themselves into the 'creative developer' of their Zork team. To north the cavern continues deeper
 Room Items: none
 Room Enemies: none
 Exit Rooms: S-Volcano Entrance, W-Barracks, N-Inner Chamber
 Room Name: Barracks
 Lock Type: 0
-Room Description: Barracks
+Room Description: The mostly empty goblin barracks have a few disgusting, nasty goblins walking around. On the west wall you can see a sign that says<br>armoury. A huge key lies within the middle of the room.
 Room Items: K-huge_key-6
 Room Enemies: G-Androg-C-60-0-40-0, G-Juiceman-C-60-0-40-0
 Exit Rooms: E-Inner Volcano, W-Armory
 Room Name: Armory
 Lock Type: 0
-Room Description: Armory
+Room Description: A single chest with a dragon design on the lid stands in the middle of the armoury.
 Room Items: C-chest-7-|M-dragonslayer_sabre-15-80;R-dragonslayer_sniper-15-200-2|
 Room Enemies: none
 Exit Rooms: E-Barracks
 Room Name: Outer Chamber
 Lock Type: 0
-Room Description: Outer Chamber
+Room Description: The cavern comes up to a huge stone door with a large lock that can only mean this is the lair of the dragon. You know that past this<br>door, live or die is your final fight. 
 Room Items: none
 Room Enemies: none
 Exit Rooms: S-Inner Volcano, N-Inner Chamber
 Room Name: Inner Chamber
 Lock Type: 6
-Room Description: Inner Chamber
+Room Description: The huge dragon sits there on his throne of Return to Zork Adventurer's Guide: Twentieth Anniversary Edition and Com-Sci course drop<br>forms. He sees you enter and gives a large smile. Neither of you say nothing for a while. You both know why you are here. You reach<br>You reach into your pocket and pull out a single piece of paper and display it to the fiend. He looks at it, smiles and utters one spine<br>chilling sentence. The words so cruel to make babes cry and grown men shudder,<br>'THERE IS NO EXTENSIONS OF ISPS, ZORK IS DUE MIDNIGHT THURSDAY'<br>The final battle then commences
 Room Items: none
 Room Enemies: B-DesSmauriers-C-450-0-150-0
 Exit Rooms: N-End Room
 Room Name: End Room
 Lock Type: 0
-Room Description: End Room
+Room Description: You have become one with the gods as you progress on to the next stage of existence. Zork is conquered, you have gotten a year extension<br>on your ISP and probably will never turn it in anyways.
 Room Items: none
 Room Enemies: none
 Exit Rooms: S-Inner Chamber
