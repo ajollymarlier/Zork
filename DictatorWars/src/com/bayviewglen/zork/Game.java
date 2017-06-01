@@ -56,6 +56,7 @@ class Game {
 		player = new Player(100, 20, 20);
 		// starts you with key to get start gear
 		player.getInventory().add(new Key("drop_key", 5));
+		player.getInventory().add(new Melee(5,"axe",1000));
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
@@ -72,9 +73,9 @@ class Game {
 			// loads enemy dialogue
 			initEnemyDialogue("data/EnemyDialogue.dat");
 
-			// Starts player in the first room in the first world
-			currentRoom = worlds.get(0).get("SHIP_ROOM");
-			currentWorld = worldNames.get(0);
+			// Starts player in the first room in the first world TODO
+			currentRoom = worlds.get(2).get("SHIP_ROOM");
+			currentWorld = worldNames.get(2);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -462,6 +463,8 @@ class Game {
 
 			if (command.getSecondWord().equals("fists"))
 				System.out.println("That is not physically possible");
+			if (command.getSecondWord().equals("rock"))
+				System.out.println("There are rocks to throw everywhere, can't drop this item");
 			else {
 				if (player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem)
 					if (((EquippableItem) (player.getInventory().getItem(command.getSecondWord()))).getEquipped())
