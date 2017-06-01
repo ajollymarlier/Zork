@@ -407,7 +407,7 @@ class Game {
 
 		}
 	}
-
+	
 	private void unequip(Command command) {
 		if (!command.hasSecondWord())
 			System.out.println("You must include what you want to unequip");
