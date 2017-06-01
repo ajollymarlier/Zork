@@ -1,7 +1,7 @@
 package com.bayviewglen.zork;
 
 public class Ranged extends Weapon {
-	static public final String[] RANGED = {"gun", "bow", "boomerang", "pistol", "dragonslayer_sniper", "laser-gun", "uzi", "galactic_cannon"};
+	static public final String[] RANGED = {"gun", "bow", "boomerang", "pistol", "dragonslayer_sniper", "laser-gun", "uzi", "galactic_cannon", "rock"};
 
 	private int ammo;
 

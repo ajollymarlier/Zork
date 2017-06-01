@@ -10,6 +10,7 @@ public class Player extends Character {
 	
 	private final int MAX_WEIGHT = 150;
 	private final int FISTS_DAMAGE = 5;
+	private final int ROCK_DAMAGE = 5;
 	private EquippableItem [] equippedItems = new EquippableItem [5];
 
 	// TODO This max weight will be changed to a variable based on character
@@ -21,6 +22,7 @@ public class Player extends Character {
 		//start out with having a fist melee weapon
 		//remember for when we add drop command to check fist if droppable
 		inventory.addItem(new Melee (0,"fists", FISTS_DAMAGE));
+		inventory.addItem(new Ranged (0,"rock", ROCK_DAMAGE, 99999999));
 		
 	}
 
