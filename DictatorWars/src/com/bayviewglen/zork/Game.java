@@ -410,7 +410,7 @@ class Game {
 
 	private void unequip(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to equip?");
+			System.out.println("You must include what you want to unequip");
 		else if (!player.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("That item is not in your inventory.");
 		else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
@@ -425,7 +425,7 @@ class Game {
 
 	private void equip(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to equip?");
+			System.out.println("You must include what you want to equip");
 		else if (!player.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("That item is not in your inventory.");
 		else if (!(player.getInventory().getItem(command.getSecondWord()) instanceof EquippableItem))
@@ -440,7 +440,7 @@ class Game {
 
 	private void use(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to use");
+			System.out.println("You must include what you want to use");
 		else if (!player.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("You are not carrying that item");
 		else {
@@ -455,7 +455,7 @@ class Game {
 
 	private void drop(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to drop");
+			System.out.println("You must include what you want to drop");
 		else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
 			System.out.println("You are not carrying that item");
 		else {
@@ -475,7 +475,7 @@ class Game {
 
 	private void grab(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to grab?");
+			System.out.println("You must include what you want to drop");
 		else if (command.hasThirdWord() && Arrays.asList(Chest.chestNames).indexOf(command.getThirdWord()) != -1) {
 			if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
 				System.out.println("There is not a " + command.getThirdWord() + " in the room.");
@@ -511,7 +511,7 @@ class Game {
 
 	private void check(Command command) {
 		if (!command.hasSecondWord()) {
-			System.out.println("What do you want to check?");
+			System.out.println("You must include what you want to check");
 		} else {
 			// gives a brief description of items in a room
 			if (command.getSecondWord().equals("room")) {
@@ -560,7 +560,7 @@ class Game {
 			// displays amount of ammo of a ranged weapon
 			else if (command.getSecondWord().equals("ammo")) {
 				if (!command.hasThirdWord()) {
-					System.out.println("What Ranged weapon would you like to check the ammo on?");
+					System.out.println("You must include what Ranged weapon you would like to check the ammo on");
 				} else if ((player.getInventory().getItem(command.getThirdWord())) == null) {
 					System.out.println("You do not have that weapon!");
 				} else if (!(player.getInventory().getItem(command.getThirdWord()) instanceof Ranged)) {
@@ -583,12 +583,12 @@ class Game {
 		 * System.out.println(i); }
 		 */
 		if (!command.hasSecondWord())
-			System.out.println("Which way do you want to 'unlock'?");
+			System.out.println("You must include what you want to 'unlock'");
 		else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) == -1) {
 			if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
-				System.out.println("There is no door in that direction");
+				System.out.println(command.getSecondWord() + " does not exist");
 			else if (!command.hasThirdWord())
-				System.out.println("What do you want to use to unlock it?");
+				System.out.println("You must include what you want to unlock " + command.getSecondWord() + " with");
 			else if (!player.getInventory().isInInventory(command.getThirdWord())) {
 				System.out.println("That key is not in your inventory.");
 			} else if (!currentRoom.getExits().get(command.getSecondWord().trim())
@@ -605,7 +605,7 @@ class Game {
 			if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
 				System.out.println("There is no " + command.getSecondWord() + " in the area");
 			else if (!command.hasThirdWord())
-				System.out.println("What do you want to use to unlock it?");
+				System.out.println("You must include what you want to unlock " + command.getSecondWord() + " with");
 			else {
 				Key chosenKey = player.getInventory().getKey(command.getThirdWord());
 				if (chosenKey == null) {
@@ -649,7 +649,7 @@ class Game {
 	private void goRoom(Command command) {
 		if (!command.hasSecondWord()) {
 			// if there is no second word, we don't know where to go...
-			System.out.println("Go where?");
+			System.out.println("You must include a direction");
 			return;
 		}
 		String dirWanted = command.getSecondWord();
@@ -749,11 +749,11 @@ class Game {
 		while (badCommand) {
 
 			if (!command.hasSecondWord()) {
-				System.out.println("What do you want to attack?");
+				System.out.println("You must include what you want to attack");
 			} else if (!currentEnemy.getName().toLowerCase().equals((command.getSecondWord()))) {
 				System.out.println("That enemy is not in the area");
 			} else if (!command.hasThirdWord()) {
-				System.out.println("What do you want to hit them with?");
+				System.out.println("You must include what you want to attack with");
 			} else if (!player.getInventory().isInInventory(command.getThirdWord())) {
 				System.out.println("You do not have that!");
 
