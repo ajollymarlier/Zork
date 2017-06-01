@@ -30,7 +30,7 @@ class Game {
 	private Room currentRoom;
 	private boolean worldTwo = false;
 	private boolean worldThree = false;
-	private String WORLD_TWO_UNLOCK = "End Room One";
+	final private String WORLD_TWO_UNLOCK = "End Room One";
 	final private String WORLD_THREE_UNLOCK = "End Room Two";
 	final private String END_ROOM = "End Room";
 	String[] enemyDialogue;
