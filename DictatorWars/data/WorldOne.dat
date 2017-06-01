@@ -49,8 +49,8 @@ Exit Rooms: E-Top of Mountain
 Room Name: Cave
 Lock Type: 0 
 Room Description: Cave
-Room Items: K-jewel-3, E-tiny_potion-3-25-0-0-0
-Room Enemies: G-Cave Troll-C-20-15-4-3
+Room Items: K-jewel-2, E-tiny_potion-3-25-0-0-0
+Room Enemies: G-CaveTroll-C-20-15-4-3
 Exit Rooms: E-Outside Cave, S-Shelter
 Room Name: Shelter
 Lock Type: 0
@@ -79,7 +79,7 @@ Exit Rooms: N-Forest Entrance, S-Main Area, W-Jail House
 Room Name: Jail House
 Lock Type: 2 
 Room Description:  Jail House
-Room Items: none
+Room Items: E-power_stimulant-3-0-0-0-10
 Room Enemies: G-Jailer-C-30-20-10-6
 Exit Rooms: E-Camp Entrance
 Room Name: Main Area

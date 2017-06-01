@@ -56,7 +56,9 @@ class Game {
 		player = new Player(100, 20, 20);
 		// starts you with key to get start gear
 		player.getInventory().add(new Key("drop_key", 5));
+		//TODO DELETE TEST SHIT
 		player.getInventory().add(new Melee(5,"axe",1000));
+		player.getInventory().add(new Ranged(5,"bow",1000,10000));
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
@@ -74,8 +76,8 @@ class Game {
 			initEnemyDialogue("data/EnemyDialogue.dat");
 
 			// Starts player in the first room in the first world TODO
-			currentRoom = worlds.get(2).get("SHIP_ROOM");
-			currentWorld = worldNames.get(2);
+			currentRoom = worlds.get(0).get("SHIP_ROOM");
+			currentWorld = worldNames.get(0);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

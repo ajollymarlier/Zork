@@ -6,7 +6,7 @@ import java.util.Arrays;
 public class Player extends Character {
 	private Inventory inventory;
 	private int weightCarried = 0;
-	private int ATTACK_MODIFIER = 20;
+	private int ATTACK_MODIFIER = 10;
 	
 	private final int MAX_WEIGHT = 150;
 	private final int FISTS_DAMAGE = 5;
