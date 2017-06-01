@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Chest extends Item implements Lockable {
 	private  int unlockType;
 	private Inventory inventory = new Inventory();
-	public static String [] chestNames = {"chest", "container", "supply_drop"};
+	public static String [] chestNames = {"chest", "container", "suply_drop"};
 	//TODO MAKE THE KEYS WORK TO UNLOCK CHEST
 	public Chest (String name, int unlockType){
 		super(name);

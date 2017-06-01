@@ -6,10 +6,10 @@ import java.util.Arrays;
 public class Player extends Character {
 	private Inventory inventory;
 	private int weightCarried = 0;
-	private int ATTACK_MODIFIER = 10;
+	private int ATTACK_MODIFIER = 20;
 	
 	private final int MAX_WEIGHT = 150;
-	private final int FISTS_DAMAGE = 10;
+	private final int FISTS_DAMAGE = 5;
 	private EquippableItem [] equippedItems = new EquippableItem [5];
 
 	// TODO This max weight will be changed to a variable based on character

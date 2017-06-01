@@ -520,7 +520,7 @@ class Game {
 				} else if (chest.isLocked()) {
 					System.out.println("The "+command.getSecondWord()+" is locked. You cannot see inside it.");
 				} else {
-					System.out.print("Items in +" +command.getSecondWord()+": ");
+					System.out.print("Items in " +command.getSecondWord()+": ");
 					chest.getInventory().displayAll();
 				}
 			}
@@ -575,7 +575,7 @@ class Game {
 		 * System.out.println(i); }
 		 */
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to unlock?");
+			System.out.println("Which way do you want to 'unlock'?");
 		else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) == -1) {
 			if (!currentRoom.getExits().keySet().contains(command.getSecondWord().trim()))
 				System.out.println("There is no door in that direction");
@@ -591,11 +591,11 @@ class Game {
 						.unlock(player.getInventory().getKey(command.getThirdWord().trim()));
 				(player.getInventory().getKey(command.getThirdWord())).setUsed(true);
 				player.getInventory().checkKeyInventoryUsed();
-				System.out.println("The door is unlocked!");
+				System.out.println("The way is clear!");
 			}
 		} else if (Arrays.asList(Chest.chestNames).indexOf(command.getSecondWord()) != -1) {
 			if (!currentRoom.getInventory().isInInventory(command.getSecondWord()))
-				System.out.println("There is no "+command.getSecondWord()+" in the room");
+				System.out.println("There is no "+command.getSecondWord()+" in the area");
 			else if (!command.hasThirdWord())
 				System.out.println("What do you want to use to unlock it?");
 			else {
@@ -627,7 +627,7 @@ class Game {
 	}
 
 	private void printHelp(boolean comabt) {
-		System.out.println("You are in combat! You must fight to survive. You quickly look around the room:");
+		System.out.println("You are in combat! You must fight to survive. You quickly look around the area:");
 		System.out.println(currentRoom.longDescription());
 		System.out.println();
 		System.out.println("Quickly think of all the things you can do quickly: ");
@@ -664,7 +664,7 @@ class Game {
 		if (nextRoom == null)
 			System.out.println("There is no door!");
 		else if (nextRoom.isLocked())
-			System.out.println("The door is locked");
+			System.out.println("The way is obstructed");
 		else {
 			currentRoom = nextRoom;
 			System.out.println(currentRoom.longDescription());
@@ -699,7 +699,7 @@ class Game {
 		if (inRange) {
 			System.out.println("A vile creature named " + currentEnemy.getName() + " has appeared!");
 		} else {
-			System.out.println("A vile creature named " + currentEnemy.getName() + " is at the other side of the room!");
+			System.out.println("A vile creature named " + currentEnemy.getName() + " is a little bit away");
 		}
 		System.out.println(currentEnemy.getName() + " screams, \"" + enemyDialogue[currentEnemy.getDialogueNum()] + "\"");
 		System.out.println("You are now engaged in battle!");
@@ -743,7 +743,7 @@ class Game {
 			if (!command.hasSecondWord()) {
 				System.out.println("What do you want to attack?");
 			} else if(!currentEnemy.getName().toLowerCase().equals((command.getSecondWord()))) {
-				System.out.println("That enemy is not in the room");
+				System.out.println("That enemy is not in the area");
 			} else if (!command.hasThirdWord()) {
 				System.out.println("What do you want to hit them with?");
 			} else if (!player.getInventory().isInInventory(command.getThirdWord())) {
