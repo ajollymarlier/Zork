@@ -50,12 +50,12 @@ Room Name: Barracks
 Lock Type: 0
 Room Description: The mostly empty goblin barracks have a few disgusting, nasty goblins walking around. On the west wall you can see a sign that says<br>armoury. A huge key lies within the middle of the room.
 Room Items: K-huge_key-6
-Room Enemies: G-Androg-C-60-0-40-0, G-Juiceman-C-60-0-40-0
+Room Enemies: G-Androg-C-60-0-40-9, G-Juiceman-C-60-0-40-10
 Exit Rooms: E-Inner Volcano, W-Armory
 Room Name: Armory
 Lock Type: 0
 Room Description: A single chest with a dragon design on the lid stands in the middle of the armoury.
-Room Items: C-chest-7-|M-dragonslayer_sabre-15-80;R-dragonslayer_sniper-15-200-2|
+Room Items: C-dragon_chest-7-|M-dragonslayer_sabre-15-80;R-dragonslayer_sniper-15-200-2|
 Room Enemies: none
 Exit Rooms: E-Barracks
 Room Name: Outer Chamber
