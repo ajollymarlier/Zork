@@ -6,55 +6,55 @@ Room Enemies: none
 Exit Rooms: N-Top of Mountain, E-Lake, W-Forest Entrance
 Room Name: Top of Mountain
 Lock Type: 0
-Room Description: Top of Mountain
+Room Description:It seems that almost no time has passed at all despite you walking for countless hours to make it to the top of this mountain,<br>the day/night cycle must be far longer than expected. However the walk was worth it, you can see out for hundreds of kilometers.<br>You are now able to see over the huge forest, it seems as if there is smoke bellowing up from somewhere to the south west inside<br>the forest. But what surprised you more than the smoke was what was to the west. Almost a half a dozen heads have been mounted<br>on spears, a very old practice but none less effective, this is potentially your first sign of the slaver group you’ve been hired<br>to get rid of.
 Room Items: none
 Room Enemies: none
 Exit Rooms: S-Ship Room, E-River Basin, W-Village
 Room Name: Lake
 Lock Type: 1
-Room Description: Lake
+Room Description:As you walk along the path you begin to hear the sound of rushing water. Its gets louder and louder until you can barely hear<br>anything else. You finally arrive at the lake after many hours of walking. You can now see what is causing the immense noise,<br>to the north there is a huge water fall, it seems that you have been slowly descending down the mountain. To the south it<br>appears that there is whole in the side of a rock wall.
 Room Items: R-pistol-10-12-100, E-mini_potion-3-25-0-0-0
 Room Enemies: none
 Exit Rooms: W-Ship Room, S-Outside Cave
 Room Name: Outside Cave
 Lock Type: 0
-Room Description:  Outside Cave
+Room Description:As you near the mouth of the cave you are able to see a faint light peeking out. There appears to be fresh tracks leading out<br>of the cave. Do you dare go in?
 Room Items: none
 Room Enemies: none
 Exit Rooms: N-Lake, W-Cave
 Room Name: River Basin
 Lock Type: 0
-Room Description: River Basin
+Room Description:Down the hill there seems to be a river basin. As you near the water you notice a single person who is covered in blood, he must<br>be one of the slavers you have been sent to kill, he is washing his bloody hands in the river with his back turned to you. He has<br>dropped his axe and his chest plate on the ground next to you, they might prove of some use to you.
 Room Items: M-axe-25-12, Q-slaver_armour-50-0-5-0-2-chest
 Room Enemies: G-Jeff-C-20-3-3-1
 Exit Rooms: E-Cliff Drop, W-Top of Mountain
 Room Name: Cliff Drop
 Lock Type: 0
-Room Description: Cliff Drop
+Room Description:Nothing much over here except for a cliff that drops off into nothing, you cannot see anything below you, there is too much mist<br>blocking your view.
 Room Items: K-sparkly_key-3
 Room Enemies: none
 Exit Rooms: W-River Basin
 Room Name: Forest Entrance
 Lock Type: 0
-Room Description: Forest Entrance
+Room Description:Remembering that you saw smoke to the south west from the mountain you figure you must be right outside of the slaver’s camp.<br>It might be wise to find a way to disguise yourself as a slaver if possible. There seems to be a shed to the west.
 Room Items: E-weak_stimulant-3-0-0-1-1
 Room Enemies: G-Slag-C-30-10-2-2
 Exit Rooms: E-Ship Room, W-Shed, S-Camp Entrance
 Room Name: Village
 Lock Type: 0 
-Room Description:  Village
+Room Description:As you venture west you begin to see what appears to have formerly been a large makeshift village, now burnt to the ground.<br>The only house left semi standing is what seems to be a chieftain’s hut of sorts. There are three men on the front steps, two<br>appear to be dead but the one in the middle is very much alive. He opens his eyes as you approach, you can feel the pain this<br>man has gone through by just looking into his eyes. At first you can see the panic in his eyes, he must think you are another<br>slaver here to kill any and all survivors, but he relaxes when he sees you carry no weapon. He motions you over.<br><br>“You… you mustn’t be from, who are you? You must help the people they took. We crashed here not too long ago. It was peaceful<br>until those fucking slavers have arrived maybe 6 cycles ago. It didn’t take them long to find us, we tried to fight them off<br>for as long as we could but ultimately they… bested us. They have not killed everyone, some they took to their camp in the forest,<br>but you will not be able to get there without some way to cut through the vines. All of our weapons have either been taken or<br>buried under the rubble but please take this, *gives you a mysterious sketchy looking gun*. When we crash landed on this planet<br>we had dropped a couple of cargo crates, one landed in a lake not too far from here however the lake is infested with deadly<br>fish which will undoubtable kill you without the proper equipment, you can use this gun to vaporize the fish and allow you<br>to retrieve that crate, I hope there is something of use in there. Now go and save my friends and family, I will try and… and.”<br>He seemed like a good man, even to his last breaths he was worried more about his people than about himself.
 Room Items: K-vaporizer-1
 Room Enemies: none 
 Exit Rooms: E-Top of Mountain
 Room Name: Cave
 Lock Type: 0 
-Room Description: Cave
+Room Description:The cave is very dimly lit, the only source of light is coming from behind an old wooden door. As you approach the door a<br>horrible smell hits your nose, the smell of rotting flesh and decayed bodies. As you near the door a figure emerges out of<br>the shadows and draws his sword.
 Room Items: K-jewel-2, E-tiny_potion-3-25-0-0-0
-Room Enemies: G-CaveTroll-C-20-15-4-3
+Room Enemies: G-Cave Troll-C-20-15-4-3
 Exit Rooms: E-Outside Cave, S-Shelter
 Room Name: Shelter
 Lock Type: 0
-Room Description:  Shelter
+Room Description:At first you cannot get the door open, the hinges are far too old and rusted, but as you jiggle the handle a bit more you create<br>enough room for you to fit yourself through. The interior of the room is surprisingly homely, almost like a house you could be<br>proud of considering that it’s in a cave. As you enter the shelter directly in front of you is an armor stand, on the stand there<br>is leather armor in bafflingly good condition. To your right is a poorly kept kitchen, moldy yet edible food is scattered all over<br>the counters and a large rusted knife is stuck upright in a maggot infested leg of an unknown animal. Finally, to your right is<br>what once appeared to be a path leading deeper into the mine, however the path has been blocked by fallen rubble, it seems that<br>if you had some sort of explosive you could clear out the debris.
 Room Items: Q-leather_armour-50-0-5-2-10-chest, M-ultraviolet_shiv-20-25
 Room Enemies: none
 Exit Rooms: N-Cave, W-Out Crop
@@ -66,43 +66,43 @@ Room Enemies: none
 Exit Rooms: E-Shelter
 Room Name: Shed
 Lock Type: 0 
-Room Description:  Shed
+Room Description:The shed is sadly empty but as you leave you spot a bear… and he has spotted you. Your only chance is to fight.
 Room Items: R-bow-10-30-20
 Room Enemies: G-ShedGrunt-C-25-15-6-4
 Exit Rooms: E-Forest Entrance
 Room Name: Camp Entrance
 Lock Type: 0 
-Room Description:  Camp Entrance
+Room Description:There are less slavers than you had thought only two right in front of you, the rest must be out on patrol. To the west is what<br>seems to be the jailors hut, that must be where they are keeping the captured villagers. To the south is a very grand hut, must<br>be where the captain of this planet’s slaver group is located.
 Room Items: none
 Room Enemies: G-Guard-C-40-15-2-5
 Exit Rooms: N-Forest Entrance, S-Main Area, W-Jail House
 Room Name: Jail House
 Lock Type: 2 
-Room Description:  Jail House
+Room Description:You were correct in believing that this is the jail house. Seven villagers are huddled in a corner of their cell, none have<br>noticed you yet. To free them you must defeat the jailer.  
 Room Items: E-power_stimulant-3-0-0-0-10
 Room Enemies: G-Jailer-C-30-20-10-6
 Exit Rooms: E-Camp Entrance
 Room Name: Main Area
 Lock Type: 0 
-Room Description:  Main Area
+Room Description:This part of the camp seems to be deserted, surprising considering you are directly outside the main hut. To your left is a hut<br>which seems to be empty.
 Room Items: none
 Room Enemies: M-Midget-C-60-20-10-7
 Exit Rooms: N-Camp Entrance, E-Barracks, S-Chief House
 Room Name: Barracks
 Lock Type: 0 
-Room Description:  Barracks
+Room Description:Just as suspected the barracks are empty, except for a deceased slaver bloody on the floor.
 Room Items: E-potion-5-50-0-0-0
 Room Enemies: none
 Exit Rooms: W-Main Area
 Room Name: Chief House
 Lock Type: 0 
-Room Description: Chief House
+Room Description:You had wondered where the reminder of the slavers ad been, but not that is very obvious, they were all here in one pile, very much dead. A deep rumbly voice erupts from somewhere in front of you in the pile of bodies, “Ah, another mutineer here to die I presume? As you can tell I’ve already killed your fellow traitors and the one you want in charge. Now be gone I do not have time to deal with you people anymore. Now leave!” As you creep forwards around the largest pile of bodies you spot him, a gigantic troll wearing a fedora and a trench coat, it appears that there is a glowing tablet of sorts in one of his pockets, you should probably search his body after you deal with him. Your eyes meet his, “Ah good to see that some of my former crew have not lost their backbone, I will give you an honorable death, I will have you know when you were out partying I studied the blade, when you were out playing sports, I mastered the blockchain and while you wasted away at the gym in pursuit of vanity, I cultivated inner strength. Shinu tame no junbi!” 
 Room Items: none
 Room Enemies: B-Christian-C-150-20-15-8
 Exit Rooms: N-Main Area, S-End Room One
 Room Name: End Room One
 Lock Type: 0 
-Room Description: end room one
+Room Description:Congratulations, you are one step closer in becoming the master of the universe. Remember not to lose sight of your main goal.
 Room Items: E-super_potion-5-100-0-0-0, R-laser_gun-15-40-10
 Room Enemies: none
 Exit Rooms: N-Chief House
