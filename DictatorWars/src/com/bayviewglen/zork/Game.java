@@ -30,9 +30,8 @@ class Game {
 	private Room currentRoom;
 	private boolean worldTwo = false;
 	private boolean worldThree = false;
-	final private String WORLD_TWO_UNLOCK = "End Room One";
-	final private String WORLD_THREE_UNLOCK = "End Room Two";
-	final private String END_ROOM = "End Room";
+	private String WORLDTWOUNLOCK = "End Room One";
+	final private String WORLDTHREEUNLOCK = "End Room Two";
 	String[] enemyDialogue;
 	// This is a MASTER object that contains all of the rooms and is easily
 	// accessible.
@@ -269,14 +268,8 @@ class Game {
 		boolean finished = false;
 		while (!finished) {
 			Command command = parser.getCommand();
-			finished = processCommand(command);	
-			
-			if(currentRoom.getRoomName().equals(END_ROOM)){
-				finished = true;
-				System.out.println("You Win!");
-			}
+			finished = processCommand(command);
 		}
-		
 		System.out.println("Thank you for playing.  Good bye.");
 		Thread.sleep(2000);
 	}
@@ -440,7 +433,7 @@ class Game {
 
 	private void use(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to use?");
+			System.out.println("What do you want to use");
 		else if (!player.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("You are not carrying that item");
 		else {
@@ -455,7 +448,7 @@ class Game {
 
 	private void drop(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to drop?");
+			System.out.println("What do you want to drop");
 		else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
 			System.out.println("You are not carrying that item");
 		else {
@@ -682,12 +675,12 @@ class Game {
 	}
 
 	private void checkTeleport() {
-		if (currentRoom.getRoomName().equals(WORLD_TWO_UNLOCK)){
+		if (currentRoom.getRoomName().equals(WORLDTWOUNLOCK)){
 			System.out.println("You can now teleport to Mars");
 			worldTwo = true;
 		}
 			
-		if (currentRoom.getRoomName().equals(WORLD_THREE_UNLOCK)){
+		if (currentRoom.getRoomName().equals(WORLDTHREEUNLOCK)){
 			System.out.println("You can now teleport to Jupiter");
 			worldThree = true;
 		}
