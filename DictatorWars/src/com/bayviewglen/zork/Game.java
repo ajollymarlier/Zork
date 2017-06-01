@@ -440,7 +440,7 @@ class Game {
 
 	private void use(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to use");
+			System.out.println("What do you want to use?");
 		else if (!player.getInventory().isInInventory(command.getSecondWord()))
 			System.out.println("You are not carrying that item");
 		else {
@@ -455,7 +455,7 @@ class Game {
 
 	private void drop(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("What do you want to drop");
+			System.out.println("What do you want to drop?");
 		else if (!player.getInventory().isInInventory(command.getSecondWord().trim()))
 			System.out.println("You are not carrying that item");
 		else {
