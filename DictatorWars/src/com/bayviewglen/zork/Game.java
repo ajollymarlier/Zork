@@ -28,10 +28,8 @@ class Game {
 	// TODO all worlds must start in the ship room
 	private Parser parser;
 	private Room currentRoom;
-	private boolean worldTwo = false;
 	private boolean worldThree = false;
-	final private String WORLD_TWO_UNLOCK = "End Room One";
-	final private String WORLD_THREE_UNLOCK = "End Room Two";
+	final private String WORLD_THREE_UNLOCK = "End Room One";
 	final private String END_ROOM = "End Room";
 	String[] enemyDialogue;
 	// This is a MASTER object that contains all of the rooms and is easily
@@ -64,12 +62,9 @@ class Game {
 			initRooms("data/WorldOne.dat", 0);
 			worldNames.add("earth");
 
-			// loads world 2
-			initRooms("data/WorldTwo.dat", 1);
-			worldNames.add("mars");
 
 			// loads world 3
-			initRooms("data/WorldThree.dat", 2);
+			initRooms("data/WorldThree.dat", 1);
 			worldNames.add("jupiter");
 
 			// loads enemy dialogue
@@ -306,7 +301,7 @@ class Game {
 
 	private void printIntro() {
 		System.out.println(
-				"As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
+				"As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you havenÂ’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
 		System.out.println();
 		System.out.println();
 	}
@@ -384,14 +379,13 @@ class Game {
 
 			for (int i = 0; i < worlds.size(); i++) {
 				if (!worldNames.get(i).equals(currentWorld))
-					System.out.print(worldNames.get(i) + ", ");
+					System.out.print(worldNames.get(i));
 			}
 			System.out.println("");
 		} else if (command.getThirdWord().equals(currentWorld)) {
 			System.out.println("You are already in that world");
 		} else {
-			if (!worldTwo && command.getThirdWord().equals("mars")
-					|| !worldThree && command.getThirdWord().equals("jupiter")) {
+			if (!worldThree && command.getThirdWord().equals("jupiter")) {
 				System.out.println("How did you know about that place...");
 				System.out.println("Either way you can't go there yet");
 				possible = false;
@@ -688,11 +682,6 @@ class Game {
 	}
 
 	private void checkTeleport() {
-		if (currentRoom.getRoomName().equals(WORLD_TWO_UNLOCK)) {
-			System.out.println("You can now teleport to Mars");
-			worldTwo = true;
-		}
-
 		if (currentRoom.getRoomName().equals(WORLD_THREE_UNLOCK)) {
 			System.out.println("You can now teleport to Jupiter");
 			worldThree = true;
