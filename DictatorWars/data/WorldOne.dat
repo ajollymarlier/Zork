@@ -1,7 +1,7 @@
 Room Name: Ship Room
 Lock Type: 0
 Room Description:You have landed in what appears to be a wheat field, the force from your landing has caused a large circle of flattened wheat<br>which surrounds your ship. You appear to be in a large clearing, to the far north there seems to be a large mountain range.<br>As you turn around to look south you notice that you are surrounded by a very dense forest, you will not be able to get<br>through the foliage to the east without finding a way to vaporize brush in the way. To the west there is a path leading<br>into the forest. You finally look to the south.It appears that there is a sudden drop off, it must be a cliff.<br>A supply_drop falls from the sky in front of you filled with some gear. Go unlock it and start your final bounty. 
-Room Items: C-suply_drop-5-|Q-reinforced_shirt-10-0-2-0-2-chest; Q-light_gloves-2-0-0-0-2-hands;Q-combat_boots-7-0-2-1-2-feet;M-knife-15-10|
+Room Items: C-supply_drop-5-|Q-reinforced_shirt-10-0-2-0-2-chest; Q-light_gloves-2-0-0-0-2-hands;Q-combat_boots-7-0-2-1-2-feet;M-knife-15-10;R-uzi-4-15-12|
 Room Enemies: none
 Exit Rooms: N-Top of Mountain, E-Lake, W-Forest Entrance
 Room Name: Top of Mountain
@@ -61,7 +61,7 @@ Exit Rooms: N-Cave, W-Out Crop
 Room Name: Out Crop
 Lock Type: 0
 Room Description:  Out Crop
-Room Items: C-sparkly_chest-3-|M-laser_sword-15-30|
+Room Items: C-sparkly_chest-3-|M-laser_sword-15-40;R-galactic_cannon-4-45-2|
 Room Enemies: none
 Exit Rooms: E-Shelter
 Room Name: Shed
