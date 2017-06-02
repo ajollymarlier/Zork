@@ -382,7 +382,7 @@ class Game {
 		} else if (command.getThirdWord().equals(currentWorld)) {
 			System.out.println("You are already in that world");
 		} else {
-			if (!worldThree && command.getThirdWord().equals("jupiter")) {
+			if (!worldThree && command.getThirdWord().equals("yanma")) {
 				System.out.println("How did you know about that place...");
 				System.out.println("Either way you can't go there yet");
 				possible = false;
@@ -680,7 +680,7 @@ class Game {
 
 	private void checkTeleport() {
 		if (currentRoom.getRoomName().equals(WORLD_THREE_UNLOCK)) {
-			System.out.println("You can now teleport to Jupiter");
+			System.out.println("You can now teleport to Yanma");
 			worldThree = true;
 		}
 
