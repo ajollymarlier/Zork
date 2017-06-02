@@ -471,7 +471,7 @@ class Game {
 
 	private void grab(Command command) {
 		if (!command.hasSecondWord())
-			System.out.println("You must include what you want to drop");
+			System.out.println("You must include what you want to grab");
 		else if (command.hasThirdWord() && Arrays.asList(Chest.chestNames).indexOf(command.getThirdWord()) != -1) {
 			if (!currentRoom.getInventory().isInInventory(command.getThirdWord()))
 				System.out.println("There is not a " + command.getThirdWord() + " in the room.");
@@ -481,7 +481,11 @@ class Game {
 				if (!((Chest) (currentRoom.getInventory().getItem(command.getThirdWord()))).getInventory()
 						.isInInventory(command.getSecondWord()))
 					System.out.println("That item is not in the " + command.getThirdWord());
-				else {
+				
+				else if(command.getSecondWord().equals("everything")){
+					//TODO add pickup everything from chest
+					
+				} else {
 					boolean works = player.pickUp(((Chest) (currentRoom.getInventory().getItem(command.getThirdWord())))
 							.getInventory().removeItem(command.getSecondWord()));
 					if (works)
@@ -674,8 +678,17 @@ class Game {
 			System.out.println(currentRoom.longDescription());
 			// after walking into a new room enemies show up
 			checkTeleport();
+			checkItemsAdd();
 			showEnemies();
 		}
+	}
+
+	private void checkItemsAdd() {
+		if (currentRoom.getRoomName().equals("Village")) {
+			System.out.println("\n You obtained the vaporizer");
+			player.getInventory().add(new Key("vaporizer", 1));
+		}
+		
 	}
 
 	private void checkTeleport() {
