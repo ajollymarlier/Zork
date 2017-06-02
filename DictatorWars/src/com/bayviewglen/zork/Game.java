@@ -298,7 +298,7 @@ class Game {
 
 	private void printIntro() {
 		System.out.println(
-				"As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you havenÂ’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
+				"As you exit the ship you are hit with a blast of warm and fresh air, it almost reminds you of a place you haven’t been in a\nlong time, home. Being a bounty hunter, you have been all around the galaxy, you have made friends and you have made enemies\nbut none of that matters now. This is your last hunt, but also your biggest.");
 		System.out.println();
 		System.out.println();
 	}
