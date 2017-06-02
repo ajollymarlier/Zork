@@ -57,12 +57,12 @@ class Game {
 		try {
 			// Loads world 1
 			initRooms("data/WorldOne.dat", 0);
-			worldNames.add("earth");
+			worldNames.add("dunia");
 
 
 			// loads world 3
 			initRooms("data/WorldThree.dat", 1);
-			worldNames.add("jupiter");
+			worldNames.add("yanma");
 
 			// loads enemy dialogue
 			initEnemyDialogue("data/EnemyDialogue.dat");
@@ -280,7 +280,7 @@ class Game {
 	 */
 	private void printWelcome() {
 		System.out.println();
-		System.out.println("Welcome to Andromeda");
+		System.out.println("Welcome to Centaurus A");
 		System.out.println("Type 'help' if you need help.");
 		System.out.println();
 		for (int i = 0; i < 4; i++) {
